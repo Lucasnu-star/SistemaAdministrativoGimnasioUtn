@@ -1,11 +1,13 @@
 package Clases.Gestoras;
 
+
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
 import Clases.Membresia;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
 
 import java.util.ArrayList;
 
@@ -58,6 +60,10 @@ public class GestorJsonMembresias {
         return jsonArray;
     }
 
+    /**
+     * Metodo para leer la lista de membresias
+     * @return
+     */
     public ArrayList<Membresia> leerListaMembresia(){
         JSONTokener jsonTokener = OperacionesLecturaEscritura.leerArchivo(nombreArchivo);
         ArrayList<Membresia> lista = null;

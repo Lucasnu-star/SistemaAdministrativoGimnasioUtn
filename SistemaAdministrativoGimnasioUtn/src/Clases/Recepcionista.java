@@ -102,6 +102,7 @@ public final class Recepcionista extends Empleado {
      */
     public static <T> T consultar(GestionGenericaGimnasio<T> lista, String key) {
         T t = lista.consultar(key);
+
         return t;
     }
 
@@ -110,29 +111,25 @@ public final class Recepcionista extends Empleado {
      * @param gestionEntrenadores
      * @param dni
      */
-    //Ver de que otra forma lo podemos hacer para que sea mas sencillo mostrarlo y no tener que cargar 5 miembros para que le sume el porcentaje
+
 
     public static void calcularSalario(GestionGenericaGimnasio<Entrenador> gestionEntrenadores, String dni) {
 
         Entrenador entrenador= new Entrenador();
         try
         {
+            entrenador = gestionEntrenadores.consultar(dni);
+
+            double salarioBase = entrenador.getSalario();
+
+            int cantidadMiembros = entrenador.getMiembrosAsignados().size();
+
+            int incrementos = cantidadMiembros / 2;
+            double salarioFinal = salarioBase * (1 + (0.10 * incrementos));
+
+            System.out.println("Salario del entrenador después de bonificación: " + salarioFinal);
 
 
-            for (Map.Entry<String, Entrenador> entrenadorr : gestionEntrenadores.getGestionUsuario().entrySet()) {
-                if(Objects.equals(entrenadorr.getValue().getDocumento(), dni))
-                {
-                    double salarioBase = entrenador.getSalario();
-
-                    int cantidadMiembros = entrenador.getMiembrosAsignados().size();
-
-                    int incrementos = cantidadMiembros / 2;
-                    double salarioFinal = salarioBase * (1 + (0.10 * incrementos));
-
-                    System.out.println("Salario del entrenador después de bonificación: " + salarioFinal);
-
-                }
-            }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

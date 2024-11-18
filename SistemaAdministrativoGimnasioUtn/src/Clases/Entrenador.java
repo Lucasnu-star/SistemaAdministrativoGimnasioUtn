@@ -1,5 +1,7 @@
 package Clases;
-import Enums.eEspecialidad
+import Enums.eEspecialidad;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+
 
 /**
  * Clase Entrenador, esta clase representa un entrenador, extiende de Empleado por lo tanto hereda de sus atributos, ademas esta clase tiene dos listas y un atributo ENUM
@@ -26,13 +29,16 @@ public final class Entrenador extends Empleado {
     private ArrayList<Miembro> miembrosAsignados;
 
     //Constuctor
-    public Entrenador(String nombre, String apellido, String documento, LocalDate fechaNacimiento, int salario, String horario, Especialidad especialidad) {
+    //Modificar para que el salario del entrenador sea un salario por defecto
+    public Entrenador(String nombre, String apellido, String documento, LocalDate fechaNacimiento, int salario, String horario, eEspecialidad especialidad) {
         super(nombre, apellido, documento, fechaNacimiento, salario, horario);
         this.certificados = new HashSet<>(); // Ver
-        this.especialidad = especialidad.getEspecialidad();
+        this.especialidad = especialidad;
         this.miembrosAsignados = new ArrayList<>();
     }
     public Entrenador() {
+        this.certificados= new HashSet<>();
+        this.miembrosAsignados= new ArrayList<>();
 
     }
 
@@ -84,12 +90,13 @@ public final class Entrenador extends Empleado {
 
     //ToString
 
+
     @Override
     public String toString() {
-        return  "Entrenador: "+
-                super.toString() +
-                "especialidad=" + especialidad +
-                ", certificados=" + certificados;
+        return  super.toString()+ " Entrenador " +
+                "certificados=" + certificados +
+                ", miembrosAsignados=" + miembrosAsignados +
+                ", especialidad=" + especialidad ;
     }
 
     /**
@@ -155,17 +162,105 @@ public final class Entrenador extends Empleado {
     //calcular la cantidad de miembros por entrenador
     public int cantMiembrosxEntrenador(){return miembrosAsignados.size();}
 
-    /*
-    public JSONObject toJson()
-    {
-        JSONObject JSON = new JSONObject();
-        JSON.put("nombre", getNombre());
-        JSON.put("apellido" , getApellido());
+    /**
+     * Convertir de un Archivo JSON a un objeto Entrenador
+     * @param jsonEntrenador
+     */
 
-        return JSON;
+    public Entrenador(JSONObject jsonEntrenador) {
+        try{
+            setNombre(jsonEntrenador.getString("nombre"));
+            setApellido(jsonEntrenador.getString("apellido"));
+            setDocumento(jsonEntrenador.getString("documento"));
+            String fechaNacimiento = jsonEntrenador.getString("fechaNacimiento");
+            LocalDate fechaNac = LocalDate.parse(fechaNacimiento);
+            setFechaNacimiento(fechaNac);
+            setSalario(jsonEntrenador.getInt("salario"));
+            setHorario(jsonEntrenador.getString("horario"));
+            String especialidad = jsonEntrenador.getString("especialidad");
+            eEspecialidad eEspecialidad = Enums.eEspecialidad.valueOf(especialidad);
+            setEspecialidad(eEspecialidad);
+
+            JSONArray jsonArray = jsonEntrenador.getJSONArray("certificados");
+
+            // convierto el jsonArray a arraylist
+            ArrayList<String> certificados = new ArrayList<>();
+            for (int i = 0 ; i < jsonArray.length() ; i++){
+                certificados.add(jsonArray.getString(i));
+            }
+
+            // convierto la arraylista a hashset
+            HashSet<String> certificaciones = new HashSet<>();
+            for (String certificado : certificados){
+                certificaciones.add(certificado);
+            }
+
+            setCertificados(certificaciones);
+
+            // convierto el jsonArray a Arraylist
+            miembrosAsignados = new ArrayList<>();
+            JSONArray jsonArray1 = jsonEntrenador.getJSONArray("miembrosAsignados");
+
+            if (jsonArray1 != null) {
+                for (int i = 0 ; i < jsonArray1.length() ; i++){
+                    JSONObject jsonObject = jsonArray1.getJSONObject(i);
+                    Miembro miembro = new Miembro(jsonObject);
+                    miembrosAsignados.add(miembro);
+                }
+            }
+
+            setMiembrosAsignados(miembrosAsignados);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
+
+    /**
+     * Metodo para convertir de un objeto a un Archivo JSON
+     * @return
      */
+    public JSONObject toJSON(){
+        JSONObject jsonObject = null;
+        try{
+            jsonObject = new JSONObject();
+
+            jsonObject.put("nombre", getNombre());
+            jsonObject.put("apellido", getApellido());
+            jsonObject.put("documento", getDocumento());
+            jsonObject.put("fechaNacimiento", getFechaNacimiento());
+            jsonObject.put("salario", getSalario());
+            jsonObject.put("horario", getHorario());
+            jsonObject.put("especialidad", getEspecialidad());
+
+
+            // convierto la lista a jsonArray
+            JSONArray jsonArray = new JSONArray();
+            int i = 0;
+            for (String certificado : certificados){
+                jsonArray.put(i, certificado);
+                i++;
+            }
+
+            jsonObject.put("certificados", jsonArray);
+
+            // convierto los miembros a jsonObject
+            List<JSONObject> miembrosJson = new ArrayList<>();
+            for (Miembro miembro : miembrosAsignados) {
+                miembrosJson.add(miembro.toJSON()); // Asumiendo que Miembro también tiene un método toJSON
+            }
+
+            jsonObject.put("miembrosAsignados", miembrosJson);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
 }
 
 

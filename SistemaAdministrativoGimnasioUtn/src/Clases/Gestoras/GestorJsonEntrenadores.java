@@ -33,7 +33,10 @@ public class GestorJsonEntrenadores {
         cargarHorarios();
     }
 
-    //se cargan los horarios
+    /**
+     * Metodo para cargar Horarios
+     */
+    //Ver donde puede ir, poner en data opcion
     public void cargarHorarios(){
         horarios.add("9-17");
         horarios.add("10-18");
@@ -41,12 +44,26 @@ public class GestorJsonEntrenadores {
         horarios.add("7-15");
     }
 
+    /**
+     * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
+     * y una lista, para meter la lista pasada por parametro en el Archivo.
+     * @param entrenadores
+     * @return
+     */
+
+    //Probar hacerlo generico
     public String grabar(GestionGenericaGimnasio<Entrenador> entrenadores){
         OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, entrenadoresToJsonObject(entrenadores));
         return "Se ha escrito el archivo correctamente ";
     }
 
-    // mete el jsonArray dentro de un jsonObject
+    /**
+     * Este metodo mete el JsonArray dentro de un JsonObject
+     * @param entrenadores
+     * @return
+     */
+
+    //Probar hacerlo generico
     public JSONObject entrenadoresToJsonObject(GestionGenericaGimnasio<Entrenador> entrenadores){
         JSONObject jsonObject = null;
         try {
@@ -59,7 +76,12 @@ public class GestorJsonEntrenadores {
         return jsonObject;
     }
 
-    // convierte la lista en un jsonArray
+    /**
+     * Convierte la lista en un JsonArray
+     * @param entrenadores
+     * @return
+     */
+    //Probar hacerlo generico
     public JSONArray TojsonArray(GestionGenericaGimnasio<Entrenador> entrenadores){
         JSONArray jsonArray = null;
         try {
@@ -75,6 +97,11 @@ public class GestorJsonEntrenadores {
         return jsonArray;
     }
 
+    /**
+     * Este metodo sirve para leer la lista de entrenadores
+     * @return
+     */
+    //Probar hacerlo generico
     public GestionGenericaGimnasio<Entrenador> leerListaGenericaEntrenadores(){
         JSONTokener jsonTokener = OperacionesLecturaEscritura.leerArchivo(nombreArchivo);
         GestionGenericaGimnasio<Entrenador> entrenadores = null;
@@ -89,7 +116,12 @@ public class GestorJsonEntrenadores {
         return entrenadores;
     }
 
-    // convierte el jsonObject a lista
+    /**
+     * Este metodo convierte el JsonObject en una lista
+     * @param jsonObject
+     * @return
+     */
+    //Probar hacerlo generico
     public GestionGenericaGimnasio<Entrenador> JsonObjectToEntrenadores(JSONObject jsonObject){
         GestionGenericaGimnasio<Entrenador> entrenadores = new GestionGenericaGimnasio<>();
 
@@ -97,7 +129,7 @@ public class GestorJsonEntrenadores {
             JSONArray jsonArray = jsonObject.getJSONArray("ListaEntrenadores");
 
             for (int i = 0 ; i < jsonArray.length() ; i++){
-                Entrenador entrenador = new Entrenador(jsonArray.getJSONObject(i)));
+                Entrenador entrenador = new Entrenador(jsonArray.getJSONObject(i));
                 entrenadores.agregar(entrenador.getDocumento(), entrenador);
             }
 
@@ -108,30 +140,12 @@ public class GestorJsonEntrenadores {
         return entrenadores;
     }
 
-    // metodo ya no usado, ahora esta en entrenador
-    public Entrenador fromJson (JSONObject jsonEntrenador) {
-        Entrenador entrenador = new Entrenador();
-        try{
-            String nombre = jsonEntrenador.getString("nombre");
-            String apellido = jsonEntrenador.getString("apellido");
-            String documento = jsonEntrenador.getString("documento");
-            String fechaNacimiento = jsonEntrenador.getString("fechaNacimiento");
-            LocalDate fechaNac = LocalDate.parse(fechaNacimiento);
-            int salario = jsonEntrenador.getInt("salario");
-            String horario = jsonEntrenador.getString("horario");
-            String especialidad = jsonEntrenador.getString("especialidad");
-            eEspecialidad eEspecialidad = Enums.eEspecialidad.valueOf(especialidad);
 
-            entrenador = new Entrenador(nombre, apellido, documento, fechaNac, salario, horario, eEspecialidad);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return entrenador;
-    }
-
-    // crea entrenador
+    /**
+     * Este metodo sirve para crear un entrenador
+     * @return un ojecto Entrenador
+     */
+    //Ver para moverlo a recepcionista
     public Entrenador crearEntrenador(){
         Entrenador entrenador = new Entrenador();
         Scanner entrada = new Scanner(System.in);
@@ -161,7 +175,11 @@ public class GestorJsonEntrenadores {
         return entrenador;
     }
 
-    // metodo para mostrar y elegir horario
+    /**
+     * Este metodo sirve para mostrar y elegir un horario
+     * @return la opcion elegida
+     */
+
     public int elegirHorario() {
         Scanner entrada = new Scanner(System.in);
 
@@ -191,7 +209,11 @@ public class GestorJsonEntrenadores {
         return opcion - 1; // Devuelve el índice del horario seleccionado.
     }
 
-    // metodo para mostrar y elegir especialidad (enum)
+    /**
+     * Este metodo sirve para mostrar y elegir una especialidad
+     * @return una especialidad
+     */
+    // Intentar modularizarlo
     public eEspecialidad elegirEspecialidad() {
         Scanner entrada = new Scanner(System.in);
 
@@ -225,7 +247,11 @@ public class GestorJsonEntrenadores {
     }
 
 
-    //modificar entrenador
+    /**
+     * Este metodo sirve para modificar un entrenador.
+     * @param entrenador
+     */
+    //Ver para moverlo a recepcionista
     public void modificarEntrenador(Entrenador entrenador) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -289,7 +315,7 @@ public class GestorJsonEntrenadores {
             }
         }
 
-        return;
+
     }
 
 

@@ -1,5 +1,8 @@
 package Clases;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.util.Objects;
 /**
@@ -79,6 +82,53 @@ public final class Miembro extends Usuario{
                 "membresia=" + membresia +
                 ", estadoMembresia=" + estadoMembresia +
                 ", fechaIncripcion=" + fechaIncripcion  ;
+    }
+
+    /**
+     * Metodo para convertir de un Archivo Json a un objeto Miembro
+     * @param jsonMiembro
+     */
+    public Miembro(JSONObject jsonMiembro) {
+        try{
+            setNombre(jsonMiembro.getString("nombre"));
+            setApellido(jsonMiembro.getString("apellido"));
+            setDocumento(jsonMiembro.getString("documento"));
+            String fechaNacimiento = jsonMiembro.getString("fechaNacimiento");
+            LocalDate fechaNac = LocalDate.parse(fechaNacimiento);
+            setFechaNacimiento(fechaNac);
+            Membresia membresia1 = new Membresia(jsonMiembro.getJSONObject("membresia"));
+            setMembresia(membresia1);
+            setEstadoMembresia(jsonMiembro.getBoolean("estadoMembresia"));
+            String fechaIns = jsonMiembro.getString("fechaInscripcion");
+            setFechaIncripcion(LocalDate.parse(fechaIns));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo para convertir de un Objeto Mimebro a un Archivo Json
+     * @return
+     */
+    public JSONObject toJSON(){
+        JSONObject jsonObject = null;
+        try{
+            jsonObject = new JSONObject();
+
+            jsonObject.put("nombre", getNombre());
+            jsonObject.put("apellido", getApellido());
+            jsonObject.put("documento", getDocumento());
+            jsonObject.put("fechaNacimiento", getFechaNacimiento());
+            jsonObject.put("membresia", membresia.toJSON());
+            jsonObject.put("estadoMembresia", isEstadoMembresia());
+            jsonObject.put("fechaInscripcion", getFechaIncripcion());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 }
 

@@ -20,11 +20,14 @@ public final class Gimnasio {
     private String nombreGimnasio;
     private String direccionGimnasio;
     private int capacidadGimnasio;
+    
     private GestionGenericaGimnasio<Entrenador> gestionEntrenadores;
     private GestionGenericaGimnasio<Miembro> gestionMiembros;
     private GestionGenericaGimnasio<PersonalMantenimiento> gestionPersonalMantenimiento;
     private GestionGenericaGimnasio<Maquina> gestionMaquinas;
     private List<Especialidad> especialidadesGimnasio;
+
+    //Crear un lista de membresias en gimnasio
 
     //Constructores
     public Gimnasio(String nombreGimnasio, int capacidadGimnasio, String direccionGimnasio) {

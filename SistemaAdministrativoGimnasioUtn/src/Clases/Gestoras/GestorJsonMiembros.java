@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Enums.eTipoMembresia;
@@ -26,12 +27,23 @@ public class GestorJsonMiembros {
         nombreArchivo = "miembros.json";
     }
 
+    /**
+     * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
+     * y una lista, para meter la lista pasada por parametro en el Archivo.
+     * @param miembros
+     * @return
+     */
     public String grabar(GestionGenericaGimnasio<Miembro> miembros){
         OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, miembrosToJsonObject(miembros));
         return "Se ha escrito el archivo correctamente ";
     }
 
-    // mete el jsonArray dentro de un jsonObject
+    /**
+     * Este metodo sirve para meter un JsonArray dentro de un JsonObject
+     * @param miembros
+     * @return
+     */
+
     public JSONObject miembrosToJsonObject(GestionGenericaGimnasio<Miembro> miembros){
         JSONObject jsonObject = null;
         try {
@@ -44,7 +56,11 @@ public class GestorJsonMiembros {
         return jsonObject;
     }
 
-    // convierte la lista en un jsonArray
+    /**
+     * Metodo que pasa de un Object a un JsonArray
+     * @param miembros
+     * @return
+     */
     public JSONArray TojsonArray(GestionGenericaGimnasio<Miembro> miembros){
         JSONArray jsonArray = null;
         try {
@@ -60,6 +76,11 @@ public class GestorJsonMiembros {
         return jsonArray;
     }
 
+    /**
+     * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura donde se le pasa por parametro el nombre del archivo
+     * y una lista, para meter la lista pasada por parametro en el Archivo.
+     * @return una lista de miembros
+     */
     public GestionGenericaGimnasio<Miembro> leerListaGenericaMiembros(){
         JSONTokener jsonTokener = OperacionesLecturaEscritura.leerArchivo(nombreArchivo);
         GestionGenericaGimnasio<Miembro> lista = null;
@@ -74,7 +95,12 @@ public class GestorJsonMiembros {
         return lista;
     }
 
-    // convierte el jsonObject a lista
+    /**
+     * Este metodo convierte el JsonObject en una lista
+     * @param jsonObject
+     * @return una lista de miembros
+     */
+
     public GestionGenericaGimnasio<Miembro> JsonObjectToMiembros(JSONObject jsonObject){
         GestionGenericaGimnasio<Miembro> miembros = new GestionGenericaGimnasio<>();
 
@@ -93,23 +119,36 @@ public class GestorJsonMiembros {
         return miembros;
     }
 
-    ///crear miembro
+    /**
+     * Metodo para crear un miembro
+     * @return
+     */
+    //Ver para moverlo a recepcionista
     public Miembro crearMiembro() {
         Miembro miembro = new Miembro();
         Membresia membresia = new Membresia();  // Crear instancia de Membresia
         Scanner entrada = new Scanner(System.in);
+try {
+    // Solicitar datos del miembro
+    System.out.println("Ingrese el nombre del miembro:");
+    miembro.setNombre(entrada.nextLine());
+    System.out.println("Ingrese apellido del miembro:");
+    miembro.setApellido(entrada.nextLine());
+    System.out.println("Ingrese documento del miembro:");
+    miembro.setDocumento(entrada.nextLine());
+    System.out.println("Ingrese fecha de nacimiento (YYYY-MM-DD):");
+    miembro.setFechaNacimiento(LocalDate.parse(entrada.nextLine()));
+    System.out.println("ingrese su fecha de inscripcion (YYYY-MM-DD):");
+    miembro.setFechaIncripcion(LocalDate.parse(entrada.nextLine()));
+}catch (DateTimeParseException e)
+{
+    System.out.println(e.getMessage());
 
-        // Solicitar datos del miembro
-        System.out.println("Ingrese el nombre del miembro:");
-        miembro.setNombre(entrada.nextLine());
-        System.out.println("Ingrese apellido del miembro:");
-        miembro.setApellido(entrada.nextLine());
-        System.out.println("Ingrese documento del miembro:");
-        miembro.setDocumento(entrada.nextLine());
-        System.out.println("Ingrese fecha de nacimiento (YYYY-MM-DD):");
-        miembro.setFechaNacimiento(LocalDate.parse(entrada.nextLine()));
-        System.out.println("ingrese su fecha de inscripcion (YYYY-MM-DD):");
-        miembro.setFechaIncripcion(LocalDate.parse(entrada.nextLine()));
+}catch (Exception e)
+{
+    System.out.println(e.getMessage());
+}
+
 
         // Selección de membresía
         System.out.println("Seleccione su membresía:");
@@ -129,11 +168,11 @@ public class GestorJsonMiembros {
 
         // Asignamos el costo mensual dependiendo del tipo de membresía
         switch (membresias[opcionMembresia - 1]) {
-            case membresiaBasica:
+            case MEMBRESIA_BASICA:
                 membresia.setCostoMensual(300);
                 membresia.setDescripcion("Membresia de 3 dias a la semana con profesor personal");// Costo mensual para membresía anual
                 break;
-            case membresiaPremium:
+            case MEMBRESIA_PREMIUM:
                 membresia.setCostoMensual(700);
                 membresia.setDescripcion("Membresia libre con profesor personal y baños con ducha");// Costo mensual para membresía semestral
                 break;
@@ -150,6 +189,11 @@ public class GestorJsonMiembros {
     }
 
 
+    /**
+     * Este metodo sirve para modificar un miembro
+     * @param miembro
+     */
+    //Ver para moverlo a recepcionista
     public void modificarMiembro(Miembro miembro) {
         Scanner scanner = new Scanner(System.in);
         int opcion;

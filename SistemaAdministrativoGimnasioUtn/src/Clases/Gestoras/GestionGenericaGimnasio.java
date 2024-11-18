@@ -34,7 +34,10 @@ public class GestionGenericaGimnasio<T>  {
         gestionUsuario.put(clave, obj);
     }
 
-    // Metdo para eliminar un elemento
+    /**
+     * Metodo para eliminar un elemento
+     * @param clave
+     */
     public void eliminar(String clave) {
         if (gestionUsuario.remove(clave) != null) {
             System.out.println("Elemento eliminado: " + clave);
@@ -43,7 +46,11 @@ public class GestionGenericaGimnasio<T>  {
         }
     }
 
-    // Metodo para consultar los elementos de un tipo especifico
+    /**
+     * Metodo para consultar los elementos de un tipo especifico
+     * @param clase
+     * @return
+     */
     public List<T> consultarPorClase(Class<T> clase) {
         List<T> result = new ArrayList<>();
         for (T obj : gestionUsuario.values()) {
@@ -54,9 +61,13 @@ public class GestionGenericaGimnasio<T>  {
         return result;
     }
 
-    // Metodo para mostrar elementos de la lista
 
-    // consultar por clave
+    /**
+     * Metodo para mostrar elementos de la lista, por parametro se le pasa una clave(String)
+     * @param clave
+     * @return
+     */
+
     public T consultar (String clave){
         return gestionUsuario.get(clave);
     }
