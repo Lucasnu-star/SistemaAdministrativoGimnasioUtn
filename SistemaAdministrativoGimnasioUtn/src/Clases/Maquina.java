@@ -1,5 +1,7 @@
 package Clases;
 import Enums.eTipoMaquina;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -88,6 +90,31 @@ public final class Maquina {
 
     public void marcarComoDisponible(){
         setEstadoMaquina(true);
+    }
+
+    public Maquina (JSONObject jsonMaquina){
+        try {
+            setId(jsonMaquina.getString("nombre"));
+            String tipo = jsonMaquina.getString("tipoMaquina");
+            setTipoMaquina(eTipoMaquina.valueOf(tipo));
+            setEstadoMaquina(jsonMaquina.getBoolean("estadoMaquina"));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public JSONObject toJSON(){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("nombre", getNombre());
+            jsonObject.put("tipoMaquina", getTipoMaquina());
+            jsonObject.put("estadoMaquina", isEstadoMaquina());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 }
 
