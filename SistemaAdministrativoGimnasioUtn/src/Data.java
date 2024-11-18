@@ -1,5 +1,6 @@
 import Clases.*;
 import Clases.Gestoras.GestorJsonMembresias;
+import Clases.Gestoras.GestorJsonPersonalMantenimiento;
 import Enums.eEspecialidad;
 import Enums.eTipoMembresia;
 
@@ -74,6 +75,13 @@ public class Data {
 
         GestorJsonMembresias gestorJsonMembresia = new GestorJsonMembresias();
         gestorJsonMembresia.grabar(membresias);
+
+        // cargo el personal de mantenimiento
+        gimnasio.getGestionPersonalMantenimiento().agregar(mantenimiento1.getDocumento(), mantenimiento1);
+        gimnasio.getGestionPersonalMantenimiento().agregar(mantenimiento2.getDocumento(), mantenimiento2);
+
+        GestorJsonPersonalMantenimiento gestorJsonPersonalMantenimiento = new GestorJsonPersonalMantenimiento();
+        gestorJsonPersonalMantenimiento.grabar(gimnasio.getGestionPersonalMantenimiento());
 
 
     }

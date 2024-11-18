@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  * Clase para mostrar el menu de entrenadores
- * te muestra las distintas cosas que podes hacer para gestionar un entrenador}
+ * te muestra las distintas cosas que podes hacer para gestionar un entrenador
  *
  *  @version 1
  */
