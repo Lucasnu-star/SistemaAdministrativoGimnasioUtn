@@ -11,6 +11,7 @@ import org.json.JSONTokener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import Enums.eTipoMembresia;
 
@@ -262,6 +263,36 @@ try {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Entrada no válida. Por favor, ingrese un número.");
+            }
+        }
+    }
+
+    /**
+     * Este metodo sirve llamar al metodo que actualiza el estado de membresia de todos los
+     * miembros y graba la lista actualizada
+     */
+    public void actualizarMembresiasMiembros(){
+        GestionGenericaGimnasio<Miembro> listaMiembros = leerListaGenericaMiembros();
+        actualizarMembresias(listaMiembros);
+        grabar(listaMiembros);
+    }
+
+    /**
+     * Este metodo sirve para actualizar el estado de membresia de todos los miembros
+     * los comparara de acuerdo a la fecha del ultimo pago sumandole un mes con la fecha actual
+     * @param miembros
+     */
+    public void actualizarMembresias(GestionGenericaGimnasio<Miembro> miembros){
+        Iterator<Miembro> iterator = miembros.getGestionUsuario().sequencedValues().iterator();
+
+        while (iterator.hasNext()){
+            Miembro miembro = iterator.next();
+            LocalDate fechaParaPagar = miembro.getFechaUltimoPago().plusMonths(1);
+
+            if (fechaParaPagar.compareTo(LocalDate.now()) > 0){
+                miembro.setEstadoMembresia(true);
+            }else{
+                miembro.setEstadoMembresia(false);
             }
         }
     }

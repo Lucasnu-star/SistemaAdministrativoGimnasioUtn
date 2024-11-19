@@ -19,6 +19,7 @@ public final class Miembro extends Usuario{
     private Membresia membresia;
     private boolean estadoMembresia; // True o False
     private LocalDate fechaIncripcion;
+    private LocalDate fechaUltimoPago;
 
     //Constructor
     public Miembro(String nombre, String apellido, String documento, LocalDate fechaNacimiento, Membresia membresia, boolean estadoMembresia, LocalDate fechaIncripcion) {
@@ -26,6 +27,7 @@ public final class Miembro extends Usuario{
         this.membresia = membresia;
         this.estadoMembresia = true;
         this.fechaIncripcion = fechaIncripcion;
+        this.fechaUltimoPago = LocalDate.now(); // cada vez que se agrega un nuevo miembro se carga la fecha actual
     }
     public Miembro(){
     }
@@ -44,6 +46,10 @@ public final class Miembro extends Usuario{
         return fechaIncripcion;
     }
 
+    public LocalDate getFechaUltimoPago() {
+        return fechaUltimoPago;
+    }
+
     //Setters
 
     public void setMembresia(Membresia membresia) {
@@ -59,6 +65,10 @@ public final class Miembro extends Usuario{
         this.fechaIncripcion = fechaIncripcion;
     }
 
+    public void setFechaUltimoPago(LocalDate fechaUltimoPago) {
+        this.fechaUltimoPago = fechaUltimoPago;
+    }
+
     //Equals && HashCode
 
 
@@ -68,20 +78,22 @@ public final class Miembro extends Usuario{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Miembro miembro = (Miembro) o;
-        return estadoMembresia == miembro.estadoMembresia && Objects.equals(membresia, miembro.membresia) && Objects.equals(fechaIncripcion, miembro.fechaIncripcion);
+        return estadoMembresia == miembro.estadoMembresia && Objects.equals(membresia, miembro.membresia) && Objects.equals(fechaIncripcion, miembro.fechaIncripcion) && Objects.equals(fechaUltimoPago, miembro.fechaUltimoPago);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), membresia, estadoMembresia, fechaIncripcion);
+        return Objects.hash(super.hashCode(), membresia, estadoMembresia, fechaIncripcion, fechaUltimoPago);
     }
 
     @Override
     public String toString() {
-        return "Miembro" + super.toString() +
+        return "Miembro{" +super.toString()+
                 "membresia=" + membresia +
                 ", estadoMembresia=" + estadoMembresia +
-                ", fechaIncripcion=" + fechaIncripcion  ;
+                ", fechaIncripcion=" + fechaIncripcion +
+                ", fechaUltimoPago=" + fechaUltimoPago +
+                "} ";
     }
 
     /**
@@ -101,6 +113,8 @@ public final class Miembro extends Usuario{
             setEstadoMembresia(jsonMiembro.getBoolean("estadoMembresia"));
             String fechaIns = jsonMiembro.getString("fechaInscripcion");
             setFechaIncripcion(LocalDate.parse(fechaIns));
+            String fechaPago = jsonMiembro.getString("fechaPago");
+            setFechaUltimoPago(LocalDate.parse(fechaPago));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -123,6 +137,7 @@ public final class Miembro extends Usuario{
             jsonObject.put("membresia", membresia.toJSON());
             jsonObject.put("estadoMembresia", isEstadoMembresia());
             jsonObject.put("fechaInscripcion", getFechaIncripcion());
+            jsonObject.put("fechaPago", getFechaUltimoPago());
 
         } catch (JSONException e) {
             e.printStackTrace();

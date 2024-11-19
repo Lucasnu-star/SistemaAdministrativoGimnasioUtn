@@ -28,6 +28,9 @@ public class MenuMiembros {
         // por si se necesita un entrenador
         Miembro miembro = null;
 
+        // actualiza el estado de las membresias comparando con la fecha actual
+        gestorJson.actualizarMembresiasMiembros();
+
         do {
             // cada vez que termina la funcion, se lee el archivo
             GestionGenericaGimnasio<Miembro> listaMiembros = gestorJson.leerListaGenericaMiembros();
@@ -35,13 +38,13 @@ public class MenuMiembros {
             // cada vez que termina la funcion, se limpia
             miembro = new Miembro();
 
-
             System.out.println("\nMenú miembros:");
             System.out.println("1. Mostrar Miembros");
             System.out.println("2. Consultar Miembro");
             System.out.println("3. Agregar Miembro");
             System.out.println("4. Modificar Miembro");
             System.out.println("5. Eliminar Miembro");
+            System.out.println("6. Pagar couta");
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
@@ -86,6 +89,20 @@ public class MenuMiembros {
                     System.out.println("Ingrese DNI del miembro a eliminar:");
                     entrada = scanner.nextLine();
                     Recepcionista.eliminarDeLista(listaMiembros, entrada);
+
+                    gestorJson.grabar(listaMiembros);
+                    break;
+                case 6:
+                    System.out.println("Pagar couta...");
+                    System.out.println("Ingrese DNI del miembro a buscar...");
+                    entrada = scanner.nextLine();
+                    miembro = Recepcionista.consultar(listaMiembros, entrada);
+                    if (miembro != null) {
+                        System.out.println(miembro);
+                    } else {
+                        System.out.println("Miembro no encontrado.");
+                    }
+                    System.out.println(Recepcionista.pagarCouta(miembro));
 
                     gestorJson.grabar(listaMiembros);
                     break;

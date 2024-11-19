@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.Scanner;
 import Interfaces.iReportarMaquina;
 import Excepciones.MembresiaExpiradaExcepcion;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *Clase Recepcionista, esta clase represnta un Recepcionista, extiende de Empleado por lo tanto hereda sus atributos, no contiene atributos propios
@@ -43,6 +45,50 @@ public final class Recepcionista extends Empleado {
         return sb.toString();
     }
 
+    /**
+     * Convertir de un Archivo JSON a un objeto Recepcionista
+     * @param recepcionista
+     */
+    public Recepcionista(JSONObject recepcionista) {
+        try{
+            setNombre(recepcionista.getString("nombre"));
+            setApellido(recepcionista.getString("apellido"));
+            setDocumento(recepcionista.getString("documento"));
+            String fechaNacimiento = recepcionista.getString("fechaNacimiento");
+            LocalDate fechaNac = LocalDate.parse(fechaNacimiento);
+            setFechaNacimiento(fechaNac);
+            setSalario(recepcionista.getInt("salario"));
+            setHorario(recepcionista.getString("horario"));
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Metodo para convertir de un objeto a un Archivo JSON
+     * @return
+     */
+    public JSONObject toJSON(){
+        JSONObject jsonObject = null;
+        try{
+            jsonObject = new JSONObject();
+
+            jsonObject.put("nombre", getNombre());
+            jsonObject.put("apellido", getApellido());
+            jsonObject.put("documento", getDocumento());
+            jsonObject.put("fechaNacimiento", getFechaNacimiento());
+            jsonObject.put("salario", getSalario());
+            jsonObject.put("horario", getHorario());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
 
     //Metodos
 
@@ -56,8 +102,8 @@ public final class Recepcionista extends Empleado {
      */
 
     //Ver este metodo
-    public void verificarMembresia(Gimnasio gimnasio , String Dni) throws MembresiaExpiradaExcepcion {
-        Miembro miembro = gimnasio.getGestionMiembros().getGestionUsuario().get(Dni);
+    public void verificarMembresia(GestionGenericaGimnasio<Miembro> miembros , String Dni) throws MembresiaExpiradaExcepcion {
+        Miembro miembro = miembros.getGestionUsuario().get(Dni);
         if (miembro == null) {
             throw new IllegalArgumentException("El miembro no puede ser nulo.");
         }
@@ -68,6 +114,14 @@ public final class Recepcionista extends Empleado {
             throw new MembresiaExpiradaExcepcion("La membresia esta expirada");
         }
 
+    }
+
+    public static String pagarCouta (Miembro miembro){
+        if (miembro.isEstadoMembresia() == false){
+            return "La couta ya ha sido pagada "+miembro.getFechaUltimoPago();
+        }
+        miembro.setEstadoMembresia(true);
+        return "Se pago la couta de: "+miembro.getNombre()+" "+miembro.getApellido();
     }
 
     /**
