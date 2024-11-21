@@ -1,11 +1,7 @@
 package Clases.Gestoras;
 
-import Clases.Entrenador;
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
-import Clases.Membresia;
-import Clases.Miembro;
 import Clases.PersonalMantenimiento;
-import Enums.eEspecialidad;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +18,7 @@ import java.util.Scanner;
  *  @version 1
  */
 
-public class GestorJsonPersonalMantenimiento {
+public class GestorJsonPersonalMantenimiento  {
     private static String nombreArchivo;
 
     //tiene los horarios disponibles, habria que ver un mejor lugar para tenerlo y crealo
@@ -44,6 +40,12 @@ public class GestorJsonPersonalMantenimiento {
         horarios.add("Lunes a viernes: 13-19");
     }
 
+
+    public String grabar(GestionGenericaGimnasio<PersonalMantenimiento> personalM) {
+            OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, personalMToJsonObject(personalM));
+            return "Se ha escrito el archivo correctamente ";
+    }
+
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
      * y una lista, para meter la lista pasada por parametro en el Archivo.
@@ -51,10 +53,8 @@ public class GestorJsonPersonalMantenimiento {
      * @param personalM
      * @return
      */
-    public String grabar(GestionGenericaGimnasio<PersonalMantenimiento> personalM) {
-        OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, personalMToJsonObject(personalM));
-        return "Se ha escrito el archivo correctamente ";
-    }
+
+
 
     /**
      * Este metodo sirve para meter un JsonArray dentro de un JsonObject

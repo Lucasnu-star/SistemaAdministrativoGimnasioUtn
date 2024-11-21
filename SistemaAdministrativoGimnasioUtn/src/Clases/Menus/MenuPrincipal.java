@@ -21,8 +21,7 @@ public class MenuPrincipal {
             System.out.println("1. Entrenadores");
             System.out.println("2. Miembros");
             System.out.println("3. Personal de Mantenimiento");
-            System.out.println("4. Mostrar datos del gimnasio ");
-
+            System.out.println("4. Maquinas");
             System.out.println("0. Salir del Programa");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
@@ -39,11 +38,11 @@ public class MenuPrincipal {
                     break;
                 case 3:
                     // Llamar personal de mantenimiento
-                    MenuPersonalMantenimiento.mostrarMenuPersonalM(scanner);
+                    MenuPersonalMantenimiento.mostrarMenuPersonalMantenimiento(scanner);
                     break;
                 case 4:
                     //Carga los datos del gimnasio desde el archivo y los muestra
-                    System.out.println("eeee");
+                    MenuMaquinas.mostrarMenuMaquinas(scanner);
                     break;
                 case 0:
                     System.out.println("¡Nos vemos! cerrando programa...");

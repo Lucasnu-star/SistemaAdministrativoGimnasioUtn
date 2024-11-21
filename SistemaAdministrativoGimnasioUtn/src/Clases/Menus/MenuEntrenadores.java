@@ -21,6 +21,8 @@ public class MenuEntrenadores {
     private static GestorJsonEntrenadores gestorJson = new GestorJsonEntrenadores();
 
     // Submenú de entrenadores
+
+
     public static void mostrarMenuEntrenadores(Scanner scanner) {
 
         int opcion;

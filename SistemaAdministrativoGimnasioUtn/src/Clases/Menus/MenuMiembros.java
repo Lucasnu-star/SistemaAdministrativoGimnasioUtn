@@ -18,6 +18,7 @@ public class MenuMiembros {
     private static GestorJsonMiembros gestorJson = new GestorJsonMiembros();
 
     //Submenú de miembros
+
     public static void mostrarMenuMiembros(Scanner scanner) {
 
         int opcion;

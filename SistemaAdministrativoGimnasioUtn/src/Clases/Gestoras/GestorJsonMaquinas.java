@@ -1,5 +1,6 @@
 package Clases.Gestoras;
 
+import Clases.Entrenador;
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
 import Clases.Maquina;
 import Clases.Miembro;
@@ -19,6 +20,11 @@ public class GestorJsonMaquinas {
 
     public GestorJsonMaquinas() {
         nombreArchivo = "maquinas.json";
+    }
+
+    public Maquina crearMaquina() {
+        Maquina maquina = new Maquina();
+        return maquina;
     }
 
     /**
@@ -110,7 +116,7 @@ public class GestorJsonMaquinas {
         }catch (JSONException e){
             e.printStackTrace();
         }
-
         return maquinas;
     }
+
 }

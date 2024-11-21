@@ -1,13 +1,8 @@
 package Clases.Menus;
 
-import Clases.Entrenador;
+import Clases.*;
 import Clases.Gestoras.GestionGenericaGimnasio;
-import Clases.Gestoras.GestorJsonEntrenadores;
-import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Gestoras.GestorJsonPersonalMantenimiento;
-import Clases.Maquina;
-import Clases.PersonalMantenimiento;
-import Clases.Recepcionista;
 
 import java.util.Scanner;
 
@@ -18,10 +13,10 @@ import java.util.Scanner;
  *  @version 1
  */
 
-public class MenuPersonalMantenimiento {
+public class MenuPersonalMantenimiento{
     private static GestorJsonPersonalMantenimiento gestorJson = new GestorJsonPersonalMantenimiento();
 
-    public static void mostrarMenuPersonalM(Scanner scanner) {
+    public static void mostrarMenuPersonalMantenimiento(Scanner scanner) {
 
         int opcion;
 
@@ -39,10 +34,6 @@ public class MenuPersonalMantenimiento {
             System.out.println("3. Agregar empleado ");
             System.out.println("4. Modificar empleado ");
             System.out.println("5. Eliminar empleado ");
-            System.out.println("6. Mostrar maquinas ");
-            System.out.println("7. Eliminar maquina ");
-            System.out.println("8. Crear reporte maquina ");
-
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
@@ -89,22 +80,6 @@ public class MenuPersonalMantenimiento {
 
                     gestorJson.grabar(personalM);
                     break;
-
-                case 6:
-                    System.out.println("Mostrando Maquinas...");
-                   GestorJsonMaquinas gestorJson2 = new GestorJsonMaquinas();
-                    // Cargar la lista de máquinas
-                    GestionGenericaGimnasio<Maquina> maquinas = gestorJson2.leerListaGenericaMaquina();
-                    // Mostrar las máquinas
-                    Recepcionista.mostrarElementosLista(maquinas);
-                    break;
-                case 7:
-                    System.out.println("b");
-                    break;
-                case 8:
-                    System.out.println("c");
-                    break;
-
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     break;
