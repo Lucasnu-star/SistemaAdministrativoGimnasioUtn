@@ -28,21 +28,48 @@ import org.json.JSONObject;
  */
 public final class Recepcionista extends Empleado {
 
+    private String nombreUsuario;
+
+    private String contrasenia;
 
     //Constructor
 
-    public Recepcionista(String nombre, String apellido, String documento, LocalDate fechaNacimiento, int salario, String horario) {
+
+    public Recepcionista(String nombre, String apellido, String documento, LocalDate fechaNacimiento, int salario, String horario, String nombreUsuario, String contrasenia) {
         super(nombre, apellido, documento, fechaNacimiento, salario, horario);
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
     }
 
     public Recepcionista() {
     }
 
     //ToString
+
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(super.toString());
+        final StringBuilder sb = new StringBuilder("Recepcionista{");
+        sb.append("nombreUsuario='").append(nombreUsuario).append('\'');
+        sb.append(", contrasenia='").append(contrasenia).append('\'');
+        sb.append('}');
         return sb.toString();
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     /**
@@ -59,7 +86,8 @@ public final class Recepcionista extends Empleado {
             setFechaNacimiento(fechaNac);
             setSalario(recepcionista.getInt("salario"));
             setHorario(recepcionista.getString("horario"));
-
+            setNombreUsuario(recepcionista.getString("nombreUsuario"));
+            setContrasenia(recepcionista.getString("contrasenia"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -82,6 +110,8 @@ public final class Recepcionista extends Empleado {
             jsonObject.put("fechaNacimiento", getFechaNacimiento());
             jsonObject.put("salario", getSalario());
             jsonObject.put("horario", getHorario());
+            jsonObject.put("nombreUsuario", getNombreUsuario());
+            jsonObject.put("contrasenia", getContrasenia());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -96,7 +126,7 @@ public final class Recepcionista extends Empleado {
     /**
      * Esta metodo verifica la membresia por miembro, se le pasa por parametro un Miembro
      * Contiene una excepcion personalizada y otra excepcion llamada IllegalArgumentException que verifica que el miembro no puede ser Null.
-     * @param gimnasio
+     * @param miembros
      * @param Dni
      * @throws MembresiaExpiradaExcepcion
      */

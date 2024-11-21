@@ -1,6 +1,7 @@
 package Clases;
 
 import Clases.Gestoras.GestionGenericaGimnasio;
+import Clases.Gestoras.GestorJsonRecepcionistas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public final class Gimnasio {
     private GestionGenericaGimnasio<Entrenador> gestionEntrenadores;
     private GestionGenericaGimnasio<Miembro> gestionMiembros;
     private GestionGenericaGimnasio<PersonalMantenimiento> gestionPersonalMantenimiento;
+    private GestionGenericaGimnasio<Recepcionista> gestionRecepcionistas;
     private GestionGenericaGimnasio<Maquina> gestionMaquinas;
     private List<Especialidad> especialidadesGimnasio;
 
@@ -37,6 +39,7 @@ public final class Gimnasio {
         this.gestionEntrenadores = new GestionGenericaGimnasio<>();
         this.gestionMiembros = new GestionGenericaGimnasio<>();
         this.gestionPersonalMantenimiento = new GestionGenericaGimnasio<>();
+        this.gestionRecepcionistas = new GestionGenericaGimnasio<>();
         this.gestionMaquinas = new GestionGenericaGimnasio<>();
         this.especialidadesGimnasio =  new ArrayList<>(); // Ver
     }
@@ -45,6 +48,7 @@ public final class Gimnasio {
         this.gestionEntrenadores = new GestionGenericaGimnasio<>();
         this.gestionMiembros = new GestionGenericaGimnasio<>();
         this.gestionPersonalMantenimiento = new GestionGenericaGimnasio<>();
+        this.gestionRecepcionistas = new GestionGenericaGimnasio<>();
         this.gestionMaquinas = new GestionGenericaGimnasio<>();
         this.especialidadesGimnasio =  new ArrayList<>();
     }
@@ -74,6 +78,10 @@ public final class Gimnasio {
         return gestionPersonalMantenimiento;
     }
 
+    public GestionGenericaGimnasio<Recepcionista> getGestionRecepcionistas() {
+        return gestionRecepcionistas;
+    }
+
     public GestionGenericaGimnasio<Maquina> getGestionMaquinas() {
         return gestionMaquinas;
     }
@@ -101,6 +109,10 @@ public final class Gimnasio {
 
     public void setGestionMiembros(GestionGenericaGimnasio<Miembro> gestionMiembros) {
         this.gestionMiembros = gestionMiembros;
+    }
+
+    public void setGestionRecepcionistas(GestionGenericaGimnasio<Recepcionista> gestionRecepcionistas) {
+        this.gestionRecepcionistas = gestionRecepcionistas;
     }
 
     public void setGestionMaquinas(GestionGenericaGimnasio<Maquina> gestionMaquinas) {

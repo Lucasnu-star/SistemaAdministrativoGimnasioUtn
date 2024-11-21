@@ -40,7 +40,8 @@ public class MenuPersonalMantenimiento {
             System.out.println("4. Modificar empleado ");
             System.out.println("5. Eliminar empleado ");
             System.out.println("6. Mostrar maquinas ");
-            System.out.println("7. Crear reporte maquina ");
+            System.out.println("7. Eliminar maquina ");
+            System.out.println("8. Crear reporte maquina ");
 
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Ingrese una opción: ");
@@ -88,6 +89,18 @@ public class MenuPersonalMantenimiento {
 
                     gestorJson.grabar(personalM);
                     break;
+
+                case 6:
+                    System.out.println("a");
+                    break;
+
+                case 7:
+                    System.out.println("b");
+                    break;
+                case 8:
+                    System.out.println("c");
+                    break;
+
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     break;

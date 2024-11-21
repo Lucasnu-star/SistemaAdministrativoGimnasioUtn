@@ -1,6 +1,7 @@
 import Clases.*;
 import Clases.Gestoras.GestorJsonMembresias;
 import Clases.Gestoras.GestorJsonPersonalMantenimiento;
+import Clases.Gestoras.GestorJsonRecepcionistas;
 import Enums.eEspecialidad;
 import Enums.eTipoMembresia;
 
@@ -25,9 +26,9 @@ public class Data {
         gimnasio.setDireccionGimnasio("Av. Dorrego 281");
 
         //Creacion instancias Recepcionistas
-        Recepcionista recepcionista1 = new Recepcionista("Carlos", "Pérez", "12345678", LocalDate.of(1990, 5, 15), 5700, "08:00 a 12:00");
-        Recepcionista recepcionista2 = new Recepcionista("Ana", "González", "87654321", LocalDate.of(1985, 12, 5), 4500, "12:00 a 16:00");
-        Recepcionista recepcionista3 = new Recepcionista("Luis", "Martínez", "11223344", LocalDate.of(2000, 7, 22), 3900, "16:00 a 20:00");
+        Recepcionista recepcionista1 = new Recepcionista("Carlos", "Pérez", "12345678", LocalDate.of(1990, 5, 15), 5700, "08:00 a 12:00", "Carlos912", "123456789");
+        Recepcionista recepcionista2 = new Recepcionista("Ana", "González", "87654321", LocalDate.of(1985, 12, 5), 4500, "12:00 a 16:00", "AnaGonzalez9", "1205");
+        Recepcionista recepcionista3 = new Recepcionista("Luis", "Martínez", "11223344", LocalDate.of(2000, 7, 22), 3900, "16:00 a 20:00", "LuisMartinez", "2207");
 
         //Creacion instancias Especialidades
         Especialidad especialidadFuncional = new Especialidad("Entrenamiento funcional", eEspecialidad.FUNCIONAL);
@@ -82,6 +83,11 @@ public class Data {
 
         GestorJsonPersonalMantenimiento gestorJsonPersonalMantenimiento = new GestorJsonPersonalMantenimiento();
         gestorJsonPersonalMantenimiento.grabar(gimnasio.getGestionPersonalMantenimiento());
+
+        // cargo las recepcionistas
+        gimnasio.getGestionRecepcionistas().agregar(recepcionista1.getDocumento(), recepcionista1);
+        GestorJsonRecepcionistas gestorJsonRecepcionistas = new GestorJsonRecepcionistas();
+        gestorJsonRecepcionistas.grabar(gimnasio.getGestionRecepcionistas());
 
 
     }

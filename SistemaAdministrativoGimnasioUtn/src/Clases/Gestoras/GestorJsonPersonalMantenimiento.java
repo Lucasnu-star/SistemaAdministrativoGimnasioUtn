@@ -40,8 +40,8 @@ public class GestorJsonPersonalMantenimiento {
      */
     //Ver donde puede ir, poner en data opcion
     public void cargarHorarios() {
-        horarios.add("8-16");
-        horarios.add("10-18");
+        horarios.add("Lunes a viernes: 7-13");
+        horarios.add("Lunes a viernes: 13-19");
     }
 
     /**

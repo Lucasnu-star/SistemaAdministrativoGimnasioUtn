@@ -3,8 +3,7 @@ import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonEntrenadores;
 import Clases.Gestoras.GestorJsonMiembros;
 import Clases.Menus.MenuPrincipal;
-
-import java.time.LocalDate;
+import Clases.Gestoras.GestorJsonRecepcionistas;
 
 
 public class Main {
@@ -26,9 +25,9 @@ public class Main {
         GestorJsonMiembros gestorJsonMiembros = new GestorJsonMiembros();
         gestorJsonMiembros.grabar(gimnasio.getGestionMiembros());
 
-
-        // Llamo al menu principal
-        MenuPrincipal.mostrarMenuPrincipal();
+        // iniciar sesion solo para recepcionistas
+        IniciarSesion iniciarSesion = new IniciarSesion();
+        iniciarSesion.IniciadoDeSesion();
 
 
 

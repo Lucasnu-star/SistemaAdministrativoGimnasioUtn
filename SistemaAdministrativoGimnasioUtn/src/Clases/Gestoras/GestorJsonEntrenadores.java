@@ -38,10 +38,10 @@ public class GestorJsonEntrenadores {
      */
     //Ver donde puede ir, poner en data opcion
     public void cargarHorarios(){
-        horarios.add("9-17");
-        horarios.add("10-18");
-        horarios.add("8-16");
-        horarios.add("7-15");
+        horarios.add("Lunes a sabado: 9-17");
+        horarios.add("Lunes a sabado: 10-18");
+        horarios.add("Lunes a sabado: 8-16");
+        horarios.add("Lunes a sabado: 7-15");
     }
 
     /**
