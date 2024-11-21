@@ -1,8 +1,10 @@
 import Clases.*;
+import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Gestoras.GestorJsonMembresias;
 import Clases.Gestoras.GestorJsonPersonalMantenimiento;
 import Clases.Gestoras.GestorJsonRecepcionistas;
 import Enums.eEspecialidad;
+import Enums.eTipoMaquina;
 import Enums.eTipoMembresia;
 
 
@@ -56,6 +58,14 @@ public class Data {
         Miembro miembro8 = new Miembro("Elena", "Molina", "88888888", LocalDate.of(1999, 8, 15), membresiaPremium, true, LocalDate.of(2023, 8, 25));
         Miembro miembro9 = new Miembro("Fernando", "Romero", "99999999", LocalDate.of(1995, 9, 20), membresiaBasica, true, LocalDate.of(2023, 9, 30));
         Miembro miembro10 = new Miembro("Patricia", "Herrera", "10101010", LocalDate.of(1991, 10, 25), membresiaPremium, false, LocalDate.of(2023, 10, 15));
+
+
+        // creacion de maquinas
+        Maquina maquina1 = new Maquina("dorsalera", eTipoMaquina.ESPALDA,true);
+        //cargo Maquinas
+        gimnasio.getGestionMaquinas().agregar(maquina1.getNombre(), maquina1);
+        GestorJsonMaquinas gestorJsonMaquina = new GestorJsonMaquinas();
+        gestorJsonMaquina.grabar(gimnasio.getGestionMaquinas());
 
         //Creacion instancias Personal de Mantenimiento
         PersonalMantenimiento mantenimiento1 = new PersonalMantenimiento("Juan", "Gómez", "100112233", LocalDate.of(1980, 3, 14), 2500, "08:00 - 16:00");

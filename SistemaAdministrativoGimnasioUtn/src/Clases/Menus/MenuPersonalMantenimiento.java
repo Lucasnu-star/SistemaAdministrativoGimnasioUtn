@@ -2,7 +2,10 @@ package Clases.Menus;
 
 import Clases.Entrenador;
 import Clases.Gestoras.GestionGenericaGimnasio;
+import Clases.Gestoras.GestorJsonEntrenadores;
+import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Gestoras.GestorJsonPersonalMantenimiento;
+import Clases.Maquina;
 import Clases.PersonalMantenimiento;
 import Clases.Recepcionista;
 
@@ -16,7 +19,6 @@ import java.util.Scanner;
  */
 
 public class MenuPersonalMantenimiento {
-
     private static GestorJsonPersonalMantenimiento gestorJson = new GestorJsonPersonalMantenimiento();
 
     public static void mostrarMenuPersonalM(Scanner scanner) {
@@ -28,9 +30,7 @@ public class MenuPersonalMantenimiento {
 
         // por si se necesita un empleado de mantenimiento
         PersonalMantenimiento empleadoM = null;
-
         do {
-
             GestionGenericaGimnasio<PersonalMantenimiento> personalM = gestorJson.leerListaGenericaPersonalM();
             // Mostrar el menú principal
             System.out.println("\nMenú Personal de mantenimiento:");
@@ -91,9 +91,13 @@ public class MenuPersonalMantenimiento {
                     break;
 
                 case 6:
-                    System.out.println("a");
+                    System.out.println("Mostrando Maquinas...");
+                   GestorJsonMaquinas gestorJson2 = new GestorJsonMaquinas();
+                    // Cargar la lista de máquinas
+                    GestionGenericaGimnasio<Maquina> maquinas = gestorJson2.leerListaGenericaMaquina();
+                    // Mostrar las máquinas
+                    Recepcionista.mostrarElementosLista(maquinas);
                     break;
-
                 case 7:
                     System.out.println("b");
                     break;

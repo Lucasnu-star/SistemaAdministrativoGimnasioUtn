@@ -108,6 +108,9 @@ public class MenuEntrenadores {
 
                     if (entrenador != null) {
                         // Crear y asignar un nuevo miembro al entrenador existente
+                        //MOSTRAR lista de miembors antes de pedir dni
+                        System.out.println("Lista de miembros");
+                        Recepcionista.mostrarElementosLista(listaMiembros);
                         System.out.println("Ingrese el dni del miembro a asignar");
                         entrada = scanner.nextLine();
                         Miembro nuevoMiembro = Recepcionista.consultar(listaMiembros, entrada);
