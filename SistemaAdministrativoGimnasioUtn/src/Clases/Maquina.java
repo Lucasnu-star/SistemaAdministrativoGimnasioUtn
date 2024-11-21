@@ -94,7 +94,7 @@ public final class Maquina {
 
     public Maquina (JSONObject jsonMaquina){
         try {
-            setId(jsonMaquina.getString("nombre"));
+            setNombre(jsonMaquina.getString("nombre"));
             String tipo = jsonMaquina.getString("tipoMaquina");
             setTipoMaquina(eTipoMaquina.valueOf(tipo));
             setEstadoMaquina(jsonMaquina.getBoolean("estadoMaquina"));
