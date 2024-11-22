@@ -72,10 +72,9 @@ public final class Membresia {
     //ToString
     @Override
     public String toString() {
-        return "Membresia " +
-                "descripcion='" + descripcion + '\'' +
-                ", tipomembresia=" + eTipomembresia +
-                ", constoMensual=" + costoMensual;
+        return  "\nDescripcion='" + descripcion +
+                "\nTipomembresia=" + eTipomembresia +
+                "\nConstoMensual=" + costoMensual;
     }
 
     /**

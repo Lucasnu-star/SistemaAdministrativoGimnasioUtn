@@ -90,14 +90,50 @@ public final class Entrenador extends Empleado {
 
     //ToString
 
-
     @Override
     public String toString() {
-        return  super.toString()+ " Entrenador " +
-                "certificados=" + certificados +
-                ", miembrosAsignados=" + miembrosAsignados +
-                ", especialidad=" + especialidad ;
+        StringBuilder sb = new StringBuilder("\nEntrenador = "+super.toString());
+        sb.append("\nEspecialidad=").append(especialidad);
+
+        // Miembros
+        if (miembrosAsignados.isEmpty()) {
+            sb.append("\nMiembros: Sin miembros asignados");
+        } else {
+            sb.append("\nCantidad de miembros: ").append(miembrosAsignados.size());
+
+        }
+
+        // Certificados
+        if (certificados.isEmpty()) {
+            sb.append("\nCertificados: Sin certificados disponibles");
+        } else {
+            sb.append("\nCertificados:");
+            for (String certificado : certificados) {
+                sb.append("\n  - ").append(certificado);
+            }
+        }
+
+        return sb.toString();
     }
+
+
+    /*
+    @Override
+    public String toString() {
+        if (!miembrosAsignados.isEmpty() || !certificados.isEmpty()){
+            return  " Entrenador = "+super.toString()+
+                    "Certificados =" + certificados +
+                    ", Miembros Asignados =" + miembrosAsignados +
+                    ", Especialidad =" + especialidad ;
+        }else{
+            return  " Entrenador = "+super.toString()+
+                    " Certificados = El entrenador no tiene certificados "+
+                    " Miembros Asignados = Sin miembros asignados "+
+                    ", Especialidad=" + especialidad ;
+        }
+
+    }
+     */
 
     /**
      * Este metodo sirve para asignar un miembro a un entrenador en especifico, por paramtro va a recibir un miembrom, para poder añadirlo a la lista
@@ -144,14 +180,15 @@ public final class Entrenador extends Empleado {
      * esta, si esta lo remueve, si no lanza un mensaje diciendo que el miembro no fue encontrado.
      * @param miembro
      */
-    public void eliminarMiembro(Miembro miembro)
+    public String eliminarMiembro(Miembro miembro)
     {
         if (miembrosAsignados.contains(miembro))
         {
             miembrosAsignados.remove(miembro);
+            return "Miembro eliminado correctamente.";
         }else
         {
-            System.out.println("El miembro no fue encontrado en la lista de miembros del entrenador");
+            return "El miembro no fue encontrado en la lista de miembros del entrenador";
         }
     }
 

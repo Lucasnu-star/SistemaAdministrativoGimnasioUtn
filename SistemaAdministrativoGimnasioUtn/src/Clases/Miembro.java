@@ -88,12 +88,12 @@ public final class Miembro extends Usuario{
 
     @Override
     public String toString() {
-        return "Miembro{" +super.toString()+
-                "membresia=" + membresia +
-                ", estadoMembresia=" + estadoMembresia +
-                ", fechaIncripcion=" + fechaIncripcion +
-                ", fechaUltimoPago=" + fechaUltimoPago +
-                "} ";
+        return "\nMiembro = " +super.toString()+
+                "\nMembresia= " + membresia.getTipomembresia() +
+                "\nEstadoMembresia= " + estadoMembresia +
+                "\nFechaIncripcion= " + fechaIncripcion +
+                "\nFechaUltimoPago= " + fechaUltimoPago;
+
     }
 
     /**

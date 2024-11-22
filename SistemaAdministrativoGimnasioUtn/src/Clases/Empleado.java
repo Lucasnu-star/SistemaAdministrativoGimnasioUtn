@@ -62,8 +62,8 @@ public abstract class Empleado  extends Usuario{
     @Override
     public String toString() {
         return super.toString() +
-                "salario=" + salario +
-                ", horario=" + horario ;
+                "\nsalario=" + salario +
+                "\nhorario=" + horario ;
     }
 }
 

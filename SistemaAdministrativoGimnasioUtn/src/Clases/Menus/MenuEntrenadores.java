@@ -8,6 +8,7 @@ import Clases.Miembro;
 import Clases.Recepcionista;
 import Interfaces.iMenu;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -21,13 +22,15 @@ public class MenuEntrenadores implements iMenu {
 
     private static GestorJsonEntrenadores gestorJson = new GestorJsonEntrenadores();
 
+    private static GestorJsonMiembros gestorJsonMiembros = new GestorJsonMiembros();
+
     public MenuEntrenadores() {
     }
 
     // Submenú de entrenadores
 
 
-
+    @Override
     public void mostrarMenu() {
 
         Scanner scanner=new Scanner(System.in);
@@ -43,29 +46,27 @@ public class MenuEntrenadores implements iMenu {
         do {
             // cuando termina la funcion, lee de nuevo el archivo
             GestionGenericaGimnasio<Entrenador> lista = gestorJson.leerListaGenericaEntrenadores();
+            GestionGenericaGimnasio<Miembro> listaMiembros = gestorJsonMiembros.leerListaGenericaMiembros();
 
             // cada vez que termina la funcion, se limpia
             entrenador = new Entrenador();
 
-            System.out.println("\nMenú entrenadores:");
-            System.out.println("1. Mostrar entrenadores");
-            System.out.println("2. Consultar entrenador");
-            System.out.println("3. Agregar entrenador");
-            System.out.println("4. Modificar entrenador");
-            System.out.println("5. Eliminar entrenador");
-            System.out.println("6. Asignar miembro a entrenador");
-            System.out.println("7. Cantidad de miembros x entrenador");
-            System.out.println("8. Agregar certificado a entrenador");
-            System.out.println("9. Calcular salario");
-            System.out.println("0. Volver al Menú Principal");
-            System.out.print("Ingrese una opción: ");
+            limpiarConsola();
+
+            // Muestra las opciones
+            System.out.println(mostrarInterfaz());
+
             opcion = scanner.nextInt();
             scanner.nextLine();
+
+            limpiarConsola();
 
             switch (opcion) {
                 case 1:
                     System.out.println("Mostrar entrenadores...");
                     Recepcionista.mostrarElementosLista(lista);
+
+                    esperarTeclaParaContinuar();
                     break;
                 case 2:
                     System.out.println("Consultar entrenador...");
@@ -73,6 +74,8 @@ public class MenuEntrenadores implements iMenu {
                     entrada = scanner.nextLine();
                     entrenador = Recepcionista.consultar(lista, entrada);
                     System.out.println(entrenador);
+
+                    esperarTeclaParaContinuar();
                     break;
                 case 3:
                     System.out.println("Agregar entrenador...");
@@ -80,15 +83,17 @@ public class MenuEntrenadores implements iMenu {
                     Recepcionista.agregarDeLista(lista, entrenador.getDocumento(), entrenador);
                     gestorJson.grabar(lista);
 
+                    esperarTeclaParaContinuar();
                     break;
                 case 4:
                     System.out.println("Modificar entrenador...");
-                    System.out.println("ingrese el dni del entrenador a cambiar");
+                    System.out.println("Ingrese el dni del entrenador a cambiar");
                     entrada = scanner.nextLine();
                     entrenador = Recepcionista.consultar(lista, entrada);
                     gestorJson.modificarEntrenador(entrenador);
                     gestorJson.grabar(lista);
 
+                    esperarTeclaParaContinuar();
                     break;
                 case 5:
                     System.out.println("Eliminar entrenador...");
@@ -96,12 +101,11 @@ public class MenuEntrenadores implements iMenu {
                     entrada = scanner.nextLine();
                     Recepcionista.eliminarDeLista(lista, entrada);
                     gestorJson.grabar(lista);
+
+                    esperarTeclaParaContinuar();
                     break;
 
                 case 6:
-                    GestorJsonMiembros gestorJsonMiembros = new GestorJsonMiembros();
-                    GestionGenericaGimnasio<Miembro> listaMiembros = gestorJsonMiembros.leerListaGenericaMiembros();
-
                     System.out.println("Asignando miembro...");
 
                     // Mostrar entrenadores existentes
@@ -128,9 +132,44 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println("No se encontró un entrenador con el documento proporcionado.");
                     }
                     gestorJson.grabar(lista);
+
+                    esperarTeclaParaContinuar();
                     break;
 
                 case 7:
+                    System.out.println("Eliminar miembro a entrenador...");
+
+                    // Mostrar entrenadores existentes
+                    Recepcionista.mostrarElementosLista(lista);
+
+                    // Solicitar documento del entrenador
+                    System.out.println("Ingrese el documento del entrenador al que desea eliminar un miembro:");
+                    entrada = scanner.nextLine();
+
+                    // Consultar el entrenador existente en la lista
+                    entrenador = Recepcionista.consultar(lista, entrada);
+
+                    if (entrenador != null) {
+                        // Crear y asignar un nuevo miembro al entrenador existente
+                        //MOSTRAR lista de miembros antes de pedir dni
+                        if (!entrenador.getMiembrosAsignados().isEmpty()){
+                            entrenador.consultarMiembros();
+                            System.out.println("Ingrese el dni del miembro a eliminar");
+                            entrada = scanner.nextLine();
+                            Miembro miembroEliminar = Recepcionista.consultar(listaMiembros, entrada);
+                            System.out.println(entrenador.eliminarMiembro(miembroEliminar));
+                        }else{
+                            System.out.println("El entrenador no tiene miembros asignados ");
+                        }
+                    } else {
+                        System.out.println("No se encontró un entrenador con el documento proporcionado.");
+                    }
+                    gestorJson.grabar(lista);
+
+                    esperarTeclaParaContinuar();
+                    break;
+
+                case 8:
                     System.out.println("Mostrar miembros asignados a un entrenador...");
 
                     // Mostrar entrenadores disponibles
@@ -149,9 +188,11 @@ public class MenuEntrenadores implements iMenu {
                     } else {
                         System.out.println("No se encontró un entrenador con el documento proporcionado.");
                     }
+
+                    esperarTeclaParaContinuar();
                     break;
 
-                case 8:
+                case 9:
                     System.out.println("Agregando certificado..");
                     System.out.println("Ingrese el dni del entrenador ");
                     entrada = scanner.nextLine();
@@ -166,26 +207,79 @@ public class MenuEntrenadores implements iMenu {
 
                     gestorJson.grabar(lista);
 
+                    esperarTeclaParaContinuar();
+
                     break;
 
-                case 9:
+                case 10:
                     System.out.println("Calculando salario..");
                     System.out.println("Ingrese dni ");
                     entrada = scanner.nextLine();
 
                     Recepcionista.calcularSalario(lista, entrada);
 
+                    esperarTeclaParaContinuar();
                     break;
 
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
+                    try {
+                        Thread.sleep(2000);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+
                     break;
                 default:
                     System.out.println("Opción no válida, por favor intente nuevamente.");
             }
         } while (opcion != 0);  // Cuando se ingresa 0 se vuelve al menú principal
     }
+
+
+    @Override
+    public String mostrarInterfaz() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nMenú entrenadores:");
+        sb.append("\n   1. Mostrar entrenadores");
+        sb.append("\n   2. Consultar entrenador");
+        sb.append("\n   3. Agregar entrenador");
+        sb.append("\n   4. Modificar entrenador");
+        sb.append("\n   5. Eliminar entrenador");
+        sb.append("\n   6. Asignar miembro a entrenador");
+        sb.append("\n   7. Eliminar miembro a entrenador");
+        sb.append("\n   8. Mostrar miembros de x entrenador");
+        sb.append("\n   9. Agregar certificado a entrenador");
+        sb.append("\n  10. Calcular salario");
+        sb.append("\n   0. Volver al Menú Principal");
+        sb.append("\nIngrese una opción: ");
+        return sb.toString();
+    }
+
+
+    @Override
+    public void limpiarConsola() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+
+
+    // Método para pausar y esperar que el usuario presione una tecla
+    public void esperarTeclaParaContinuar(){
+        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
+        try {
+            System.in.read(); // Espera una entrada
+            System.in.read(); // Limpia el salto de línea residual
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 }
+
+
+
 
 
 

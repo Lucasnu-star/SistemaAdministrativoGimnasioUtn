@@ -27,9 +27,9 @@ public class GestionGenericaGimnasio<T>  {
     //ToString
     @Override
     public String toString() {
-        return "GestionGimnasio " +
-                "gestionUsuario=" + gestionUsuario;
+        return "\n"+gestionUsuario;
     }
+
     public void agregar(String clave, T obj) {
         gestionUsuario.put(clave, obj);
     }

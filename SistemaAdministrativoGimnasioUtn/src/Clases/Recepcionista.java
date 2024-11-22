@@ -264,11 +264,8 @@ public final class Recepcionista extends Empleado {
      * @param <T>
      */
     public static <T> void mostrarElementosLista(GestionGenericaGimnasio<T> gestion) {
-        System.out.println("Lista de elementos en GestionGym:");
-        for (Map.Entry<String, T> rec : gestion.getGestionUsuario().entrySet()) {
-            String clave = rec.getKey();  // Obtiene la clave del mapa
-            T valor = rec.getValue();     // Obtiene el valor del mapa
-            System.out.println("Clave: " + clave + ", Valor: " + valor);
+        for (T elemento : gestion.getGestionUsuario().values()) {
+            System.out.println(elemento);
         }
     }
 

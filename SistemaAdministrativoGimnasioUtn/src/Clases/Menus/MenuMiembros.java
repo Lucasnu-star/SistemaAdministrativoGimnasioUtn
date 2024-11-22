@@ -6,6 +6,7 @@ import Clases.Miembro;
 import Clases.Recepcionista;
 import Interfaces.iMenu;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -23,6 +24,7 @@ public class MenuMiembros implements iMenu {
 
     //Submenú de miembros
 
+    @Override
     public void mostrarMenu() {
 
         Scanner scanner=new Scanner(System.in);
@@ -38,6 +40,7 @@ public class MenuMiembros implements iMenu {
         // actualiza el estado de las membresias comparando con la fecha actual
         gestorJson.actualizarMembresiasMiembros();
 
+
         do {
             // cada vez que termina la funcion, se lee el archivo
             GestionGenericaGimnasio<Miembro> listaMiembros = gestorJson.leerListaGenericaMiembros();
@@ -45,15 +48,9 @@ public class MenuMiembros implements iMenu {
             // cada vez que termina la funcion, se limpia
             miembro = new Miembro();
 
-            System.out.println("\nMenú miembros:");
-            System.out.println("1. Mostrar Miembros");
-            System.out.println("2. Consultar Miembro");
-            System.out.println("3. Agregar Miembro");
-            System.out.println("4. Modificar Miembro");
-            System.out.println("5. Eliminar Miembro");
-            System.out.println("6. Pagar couta");
-            System.out.println("0. Volver al Menú Principal");
-            System.out.print("Ingrese una opción: ");
+            // Muestra las opciones
+            System.out.println(mostrarInterfaz());
+
             opcion = scanner.nextInt();
             scanner.nextLine();
 
@@ -62,6 +59,8 @@ public class MenuMiembros implements iMenu {
                 case 1:
                     System.out.println("Mostrar miembros...");
                     Recepcionista.mostrarElementosLista(listaMiembros);
+
+                    esperarTeclaParaContinuar();
                     break;
                 case 2:
                     System.out.println("Consultar miembro...");
@@ -73,6 +72,8 @@ public class MenuMiembros implements iMenu {
                     } else {
                         System.out.println("Miembro no encontrado.");
                     }
+
+                    esperarTeclaParaContinuar();
                     break;
                 case 3:
                     System.out.println("Agregar miembro...");
@@ -80,6 +81,8 @@ public class MenuMiembros implements iMenu {
                     Recepcionista.agregarDeLista(listaMiembros, miembro.getDocumento(), miembro);
 
                     gestorJson.grabar(listaMiembros);
+
+                    esperarTeclaParaContinuar();
                     break;
                 case 4:
                     System.out.println("Modificar miembro...");
@@ -90,6 +93,8 @@ public class MenuMiembros implements iMenu {
                     gestorJson.modificarMiembro(miembro);
 
                     gestorJson.grabar(listaMiembros);
+
+                    esperarTeclaParaContinuar();
                     break;
                 case 5:
                     System.out.println("Eliminar miembro...");
@@ -98,6 +103,8 @@ public class MenuMiembros implements iMenu {
                     Recepcionista.eliminarDeLista(listaMiembros, entrada);
 
                     gestorJson.grabar(listaMiembros);
+
+                    esperarTeclaParaContinuar();
                     break;
                 case 6:
                     System.out.println("Pagar couta...");
@@ -112,10 +119,17 @@ public class MenuMiembros implements iMenu {
                     System.out.println(Recepcionista.pagarCouta(miembro));
 
                     gestorJson.grabar(listaMiembros);
+
+                    esperarTeclaParaContinuar();
                     break;
 
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
+                    try {
+                        Thread.sleep(2000);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     System.out.println("Opción no válida, por favor intente nuevamente.");
@@ -123,7 +137,42 @@ public class MenuMiembros implements iMenu {
         } while (opcion != 0);  // Cuando se ingresa 0 se vuelve al menú principal
     }
 
+    @Override
+    public String mostrarInterfaz() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nMenú miembros:");
+        sb.append("\n   2. Consultar Miembro");
+        sb.append("\n   3. Agregar Miembro");
+        sb.append("\n   4. Modificar Miembro");
+        sb.append("\n   5. Eliminar Miembro");
+        sb.append("\n   6. Pagar couta");
+        sb.append("\n   0. Volver al Menú Principal");
+        sb.append("\nIngrese una opción: ");
+        return sb.toString();
+    }
+
+
+    @Override
+    public void limpiarConsola() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+
+    @Override
+    public void esperarTeclaParaContinuar(){
+        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
+        try {
+            System.in.read(); // Espera una entrada
+            System.in.read(); // Limpia el salto de línea residual
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 }
+
+
 
 
 

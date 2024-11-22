@@ -36,12 +36,16 @@ public class IniciarSesion {
             System.out.println("Contraseña: ");
             String contrasenia = scanner.nextLine();
 
+            limpiarConsola();
+
             for (Recepcionista recepcionista : recepcionistas.getGestionUsuario().values()) {
                 if (recepcionista.getNombreUsuario().equals(nombreUsuario) &&
                         recepcionista.getContrasenia().equals(contrasenia)) {
+
                     System.out.println("Iniciaste sesión...");
                     iniciadoExitoso = true;
-                    MenuPrincipal.mostrarMenuPrincipal();
+                    MenuPrincipal menuPrincipal = new MenuPrincipal();
+                    menuPrincipal.mostrarMenu();
                     break;
                 }
             }
@@ -51,6 +55,12 @@ public class IniciarSesion {
             }
 
         } while (!iniciadoExitoso);
+    }
+
+    public void limpiarConsola() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 
 }
