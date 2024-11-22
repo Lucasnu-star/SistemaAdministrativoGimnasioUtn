@@ -4,10 +4,14 @@ import Clases.Entrenador;
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
 import Clases.Maquina;
 import Clases.Miembro;
+import Enums.eEspecialidad;
+import Enums.eTipoMaquina;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
+import java.util.Scanner;
 
 /**
  * Clase para gestionar el json de las maquinas, pero puede convertirse en una clase gestora general
@@ -24,8 +28,67 @@ public class GestorJsonMaquinas {
 
     public Maquina crearMaquina() {
         Maquina maquina = new Maquina();
+        Scanner entrada = new Scanner(System.in);
+        try {
+            System.out.println("Ingrese el nombre de la maquina:");
+            maquina.setNombre(entrada.nextLine());
+            System.out.println("Ingrese id de la maquina:");
+            maquina.setId(entrada.nextLine());
+            System.out.println("Seleccione tipo de maquina:");
+            eTipoMaquina tipo = seleccionarTipo();
+            maquina.setTipoMaquina(tipo);
+            System.out.println("Seleccione estado de maquina");
+            System.out.println("1. Funcional");
+            System.out.println("2. Fuera de servicio");
+
+            boolean opcionValida = false;
+
+            while (!opcionValida) {
+                int opcion =entrada.nextInt();
+                if (opcion == 1) {
+                    maquina.setEstadoMaquina(true);
+                    opcionValida = true;
+                } else if (opcion == 2) {
+                    maquina.setEstadoMaquina(false);
+                    opcionValida = true;
+                } else {
+                    System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y 2");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         return maquina;
+
     }
+    public eTipoMaquina seleccionarTipo(){
+        Scanner entrada = new Scanner(System.in);
+        //Mostrar tipos de maquinas disponibles
+    eTipoMaquina[] tipo = eTipoMaquina.values();
+            for (int i = 0; i < tipo.length; i++) {
+        System.out.println((i + 1) + ". " +tipo[i].name());
+    }
+    int opcion = -1;
+    boolean opcionValida = false;
+
+    // Validar la entrada del usuario
+            while (!opcionValida) {
+        try {
+            System.out.print("Ingrese el número de la opción deseada: ");
+            opcion = Integer.parseInt(entrada.nextLine());
+
+            if (opcion >= 1 && opcion <= tipo.length) {
+                opcionValida = true;
+            } else {
+                System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y " + tipo.length + ".");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+        }
+    }
+            return tipo[opcion - 1];
+}
 
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo

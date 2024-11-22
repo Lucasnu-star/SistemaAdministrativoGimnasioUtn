@@ -107,6 +107,7 @@ public final class Maquina {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
+            jsonObject.put("id", getId());
             jsonObject.put("nombre", getNombre());
             jsonObject.put("tipoMaquina", getTipoMaquina());
             jsonObject.put("estadoMaquina", isEstadoMaquina());

@@ -11,7 +11,7 @@ public class MenuPrincipal {
 
     public static void mostrarMenuPrincipal() {
         // unico scanner
-        Scanner scanner = new Scanner(System.in);
+
         int opcion;
 
         do {
@@ -24,25 +24,32 @@ public class MenuPrincipal {
             System.out.println("4. Maquinas");
             System.out.println("0. Salir del Programa");
             System.out.print("Ingrese una opción: ");
+
+
+            Scanner scanner = new Scanner(System.in);
             opcion = scanner.nextInt();
-            scanner.nextLine();
+
 
             switch (opcion) {
                 case 1:
                     // Llama al menu entrenadores
-                    MenuEntrenadores.mostrarMenuEntrenadores(scanner);
+                    MenuEntrenadores entr=new MenuEntrenadores();
+                    entr.mostrarMenu();
                     break;
                 case 2:
                     // Llamar miembros
-                    MenuMiembros.mostrarMenuMiembros(scanner);
+                    MenuMiembros miem=new MenuMiembros();
+                    miem.mostrarMenu();
                     break;
                 case 3:
                     // Llamar personal de mantenimiento
-                    MenuPersonalMantenimiento.mostrarMenuPersonalMantenimiento(scanner);
+                    MenuPersonalMantenimiento pers=new MenuPersonalMantenimiento();
+                    pers.mostrarMenu();
                     break;
                 case 4:
                     //Carga los datos del gimnasio desde el archivo y los muestra
-                    MenuMaquinas.mostrarMenuMaquinas(scanner);
+                    MenuMaquinas maq=new MenuMaquinas();
+                    maq.mostrarMenu();
                     break;
                 case 0:
                     System.out.println("¡Nos vemos! cerrando programa...");

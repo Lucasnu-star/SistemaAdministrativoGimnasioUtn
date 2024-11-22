@@ -4,13 +4,22 @@ import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Maquina;
 import Clases.Recepcionista;
+import Interfaces.iMenu;
 
 import java.util.Scanner;
 
-public class MenuMaquinas{
+public class MenuMaquinas implements iMenu {
+
     private static GestorJsonMaquinas gestorMaq=new GestorJsonMaquinas();
 
-    public static void mostrarMenuMaquinas(Scanner scanner) {
+    public MenuMaquinas() {
+    }
+
+    //Submenu maquinas
+
+    public void mostrarMenu() {
+
+        Scanner scanner=new Scanner(System.in);
 
         int opcion;
 
@@ -49,7 +58,10 @@ public class MenuMaquinas{
                     Recepcionista.eliminarDeLista(maquinas,entrada);
                     break;
                 case 3:
-                    System.out.println();
+                    System.out.println("Agregando Maquina");
+                    maq= gestorMaq.crearMaquina();
+                    Recepcionista.agregarDeLista(maquinas,maq.getId(),maq);
+                    gestorMaq.grabar(maquinas);
                     break;
                 default:
                     System.out.println("Opción no válida, por favor intente nuevamente.");

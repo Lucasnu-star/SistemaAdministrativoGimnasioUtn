@@ -3,6 +3,7 @@ package Clases.Menus;
 import Clases.*;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonPersonalMantenimiento;
+import Interfaces.iMenu;
 
 import java.util.Scanner;
 
@@ -13,10 +14,15 @@ import java.util.Scanner;
  *  @version 1
  */
 
-public class MenuPersonalMantenimiento{
+public class MenuPersonalMantenimiento implements iMenu {
     private static GestorJsonPersonalMantenimiento gestorJson = new GestorJsonPersonalMantenimiento();
 
-    public static void mostrarMenuPersonalMantenimiento(Scanner scanner) {
+    public MenuPersonalMantenimiento() {
+    }
+
+    public void mostrarMenu() {
+
+        Scanner scanner=new Scanner(System.in);
 
         int opcion;
 

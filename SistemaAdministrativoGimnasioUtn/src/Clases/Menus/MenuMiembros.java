@@ -4,6 +4,7 @@ import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMiembros;
 import Clases.Miembro;
 import Clases.Recepcionista;
+import Interfaces.iMenu;
 
 import java.util.Scanner;
 
@@ -13,13 +14,18 @@ import java.util.Scanner;
  *
  *  @version 1
  */
-public class MenuMiembros {
+public class MenuMiembros implements iMenu {
 
     private static GestorJsonMiembros gestorJson = new GestorJsonMiembros();
 
+    public MenuMiembros() {
+    }
+
     //Submenú de miembros
 
-    public static void mostrarMenuMiembros(Scanner scanner) {
+    public void mostrarMenu() {
+
+        Scanner scanner=new Scanner(System.in);
 
         int opcion;
 
