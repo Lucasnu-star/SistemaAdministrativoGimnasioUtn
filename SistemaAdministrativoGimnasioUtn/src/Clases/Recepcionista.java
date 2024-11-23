@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Scanner;
+
+import Enums.eEspecialidad;
 import Enums.eTipoMaquina;
+import Enums.eTipoMembresia;
 import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iReportarMaquina;
@@ -308,6 +311,21 @@ public final class Recepcionista extends Empleado {
             }
         }
     }
+    public static void miembroFiltroPorEstado(GestionGenericaGimnasio<Miembro> gestion,boolean filtro) {
+        for (Miembro elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.isEstadoMembresia()==filtro) {
+                System.out.println(elemento);
+            }
+        }
+    }
+    public static void miembroFiltroPorTipo(GestionGenericaGimnasio<Miembro> gestion, eTipoMembresia filtro) {
+        for (Miembro elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getMembresia().getTipomembresia()==filtro) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
 
     public static void entrenadorFiltroPorNombre(GestionGenericaGimnasio<Entrenador> gestion, String filtro) {
         for (Entrenador elemento : gestion.getGestionUsuario().values()) {
@@ -320,6 +338,13 @@ public final class Recepcionista extends Empleado {
     public static void entrenadorFiltroPorDocumento(GestionGenericaGimnasio<Entrenador> gestion, String filtro) {
         for (Entrenador elemento : gestion.getGestionUsuario().values()) {
             if (elemento.getDocumento().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+    public static void entrenadorFiltroPorTipo(GestionGenericaGimnasio<Entrenador> gestion, eEspecialidad filtro) {
+        for (Entrenador elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getEspecialidad()==filtro) {
                 System.out.println(elemento);
             }
         }
@@ -356,6 +381,14 @@ public final class Recepcionista extends Empleado {
             }
         }
     }
+    public static void maquinaFiltroPorEstado(GestionGenericaGimnasio<Maquina> gestion,boolean filtro) {
+        for (Maquina elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.isEstadoMaquina()==filtro) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
 }
 
 

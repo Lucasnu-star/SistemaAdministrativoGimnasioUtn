@@ -4,6 +4,8 @@ import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMiembros;
 import Clases.Miembro;
 import Clases.Recepcionista;
+import Enums.eEspecialidad;
+import Enums.eTipoMembresia;
 import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
@@ -160,6 +162,60 @@ public class MenuMiembros implements iMenu {
                     entrada=scanner.nextLine();
                     Recepcionista.miembroFiltroPorDocumento(listaMiembros,entrada);
                     break;
+                case 9:
+                    System.out.println("Filtrando segun estado de membresía...");
+                    System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
+                    System.out.println("1. Activa");
+                    System.out.println("2. Vencida");
+                    boolean opcionValid = false;
+                    boolean valor= true;
+                    // Validar la entrada del usuario
+                    while (!opcionValid) {
+                        try {
+                            opcion = Integer.parseInt(scanner.nextLine());
+                            if (opcion > 0 && opcion <= 2) {
+                                opcionValid=true;
+                            }else {
+                                System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y 2.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                        }
+                    }
+                    if (opcion == 1) {
+                        valor = true;
+                    } else {
+                        valor = false;
+                    }
+                    Recepcionista.miembroFiltroPorEstado(listaMiembros,valor);
+                    break;
+                case 10:
+                    System.out.println("Filtrando segun tipo de membresia...");
+                    System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
+                    eTipoMembresia[] tipo = eTipoMembresia.values();
+                    for (int i = 0; i < tipo.length; i++) {
+                        System.out.println((i + 1) + ". " +tipo[i].name());
+                    }
+                    opcion = -1;
+                    boolean opcionValida = false;
+
+                    // Validar la entrada del usuario
+                    while (!opcionValida) {
+                        try {
+                            System.out.print("Ingrese el número de la opción deseada: ");
+                            opcion = Integer.parseInt(scanner.nextLine());
+
+                            if (opcion >= 1 && opcion <= tipo.length) {
+                                opcionValida = true;
+                            } else {
+                                System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y " + tipo.length + ".");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                        }
+                    }
+                    Recepcionista.miembroFiltroPorTipo(listaMiembros, tipo[opcion - 1]);
+                    break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     try {
@@ -186,6 +242,8 @@ public class MenuMiembros implements iMenu {
         sb.append("\n   6. Pagar couta");
         sb.append("\n   7. Filtrar por nombre");
         sb.append("\n   8. Filtrar por documento");
+        sb.append("\n   9. Filtrar por estado membresia");
+        sb.append("\n   10. Filtrar por tipo de membresia");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();

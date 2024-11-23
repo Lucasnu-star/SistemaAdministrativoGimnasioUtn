@@ -69,6 +69,7 @@ public class MenuMaquinas implements iMenu {
                 case 4:
                     System.out.println("creando reporte maquina");
                     Recepcionista.crearReporte();
+                    gestorMaq.grabar(maquinas);
                     break;
 
                 case 5:
@@ -105,6 +106,33 @@ public class MenuMaquinas implements iMenu {
                     }
                     Recepcionista.maquinaFiltroPorTipo(maquinas, tipo[opcion - 1]);
                     break;
+                case 7:
+                    System.out.println("Filtrando segun su estado...");
+                    System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
+                    System.out.println("1. Perfecto estado");
+                    System.out.println("2. Fuera de servicio");
+                    boolean opcionValid = false;
+                    boolean valor= true;
+                    // Validar la entrada del usuario
+                    while (!opcionValid) {
+                        try {
+                            opcion = Integer.parseInt(scanner.nextLine());
+                            if (opcion > 0 && opcion <= 2) {
+                                opcionValid=true;
+                            }else {
+                                System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y 2.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                        }
+                    }
+                    if (opcion == 1) {
+                        valor = true;
+                    } else {
+                        valor = false;
+                    }
+                    Recepcionista.maquinaFiltroPorEstado(maquinas,valor);
+                    break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     try {
@@ -131,6 +159,7 @@ public class MenuMaquinas implements iMenu {
         sb.append("\n   4. Crear reporte maquina ");
         sb.append("\n   5. Filtrar por nombre");
         sb.append("\n   6. Filtrar por tipo de maquina");
+        sb.append("\n   7. Filtrar por estado de maquina");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();

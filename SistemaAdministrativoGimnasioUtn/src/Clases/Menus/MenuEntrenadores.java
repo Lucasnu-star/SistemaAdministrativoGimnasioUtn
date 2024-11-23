@@ -6,6 +6,8 @@ import Clases.Gestoras.GestorJsonEntrenadores;
 import Clases.Gestoras.GestorJsonMiembros;
 import Clases.Miembro;
 import Clases.Recepcionista;
+import Enums.eEspecialidad;
+import Enums.eTipoMaquina;
 import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
@@ -270,7 +272,33 @@ public class MenuEntrenadores implements iMenu {
                     entrada=scanner.nextLine();
                     Recepcionista.entrenadorFiltroPorDocumento(lista,entrada);
                     break;
+                case 13:
+                    System.out.println("Filtrar por especialidad...");
+                    System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
+                    eEspecialidad[] tipo = eEspecialidad.values();
+                    for (int i = 0; i < tipo.length; i++) {
+                        System.out.println((i + 1) + ". " +tipo[i].name());
+                    }
+                    opcion = -1;
+                    boolean opcionValida = false;
 
+                    // Validar la entrada del usuario
+                    while (!opcionValida) {
+                        try {
+                            System.out.print("Ingrese el número de la opción deseada: ");
+                            opcion = Integer.parseInt(scanner.nextLine());
+
+                            if (opcion >= 1 && opcion <= tipo.length) {
+                                opcionValida = true;
+                            } else {
+                                System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y " + tipo.length + ".");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                        }
+                    }
+                    Recepcionista.entrenadorFiltroPorTipo(lista, tipo[opcion - 1]);
+                    break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     try {
@@ -303,6 +331,7 @@ public class MenuEntrenadores implements iMenu {
         sb.append("\n  10. Calcular salario");
         sb.append("\n  11. Filtrar por nombre");
         sb.append("\n  12. Filtrar por documento");
+        sb.append("\n  13. Filtrar por especialidad");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();
