@@ -1,4 +1,5 @@
 package Clases.Menus;
+import Clases.Recepcionista;
 import Interfaces.iMenu;
 
 import java.io.IOException;
@@ -10,8 +11,10 @@ import java.util.Scanner;
  *  @version 1
  */
 public class MenuPrincipal implements iMenu{
+    private final Recepcionista recepcionista;
 
-    public MenuPrincipal() {
+    public MenuPrincipal(Recepcionista recepcionista) {
+        this.recepcionista = recepcionista;
     }
 
     @Override
@@ -55,6 +58,10 @@ public class MenuPrincipal implements iMenu{
                     maq.mostrarMenu();
                     limpiarConsola();
                     break;
+
+                case 5:
+                    System.out.println("Perfil: \n"+recepcionista);
+                    break;
                 case 0:
                     System.out.println("¡Nos vemos! cerrando programa...");
                     break;
@@ -73,6 +80,7 @@ public class MenuPrincipal implements iMenu{
         sb.append(" \n   2. Miembros ");
         sb.append(" \n   3. Personal de mantenimiento ");
         sb.append(" \n   4. Maquinas");
+        sb.append(" \n   5. Ver perfil ");
         sb.append(" \n   0. Salir del programa ");
         sb.append(" \n ");
         sb.append("\nIngrese una opcion ");

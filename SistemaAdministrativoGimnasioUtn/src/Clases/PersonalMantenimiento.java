@@ -26,7 +26,7 @@ public final class PersonalMantenimiento extends Empleado {
     //ToString
     @Override
     public String toString() {
-        return "PersonalMantenimiento " + super.toString();
+        return "PersonalMantenimiento = " + super.toString();
     }
 
 

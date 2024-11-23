@@ -8,9 +8,11 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Enums.eEspecialidad;
+
 /**
  * Clase Gestora de entrenadores: en esta clase la idea principal era que sea gestora del json, pero
  * le fui agregando metodos de gestios de datos: crear, modificar.
@@ -47,8 +49,8 @@ public class GestorJsonEntrenadores {
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
      * y una lista, para meter la lista pasada por parametro en el Archivo.
-     * @param entrenadores
-     * @return
+     * @param entrenadores;
+     * @return String;
      */
 
     //Probar hacerlo generico
@@ -59,8 +61,8 @@ public class GestorJsonEntrenadores {
 
     /**
      * Este metodo mete el JsonArray dentro de un JsonObject
-     * @param entrenadores
-     * @return
+     * @param entrenadores;
+     * @return jsonObject;
      */
 
     //Probar hacerlo generico
@@ -78,8 +80,8 @@ public class GestorJsonEntrenadores {
 
     /**
      * Convierte la lista en un JsonArray
-     * @param entrenadores
-     * @return
+     * @param entrenadores;
+     * @return JsonArray;
      */
     //Probar hacerlo generico
     public JSONArray TojsonArray(GestionGenericaGimnasio<Entrenador> entrenadores){
@@ -99,7 +101,7 @@ public class GestorJsonEntrenadores {
 
     /**
      * Este metodo sirve para leer la lista de entrenadores
-     * @return
+     * @return GestionGenericaGimnasio<Entrenador>;
      */
     //Probar hacerlo generico
     public GestionGenericaGimnasio<Entrenador> leerListaGenericaEntrenadores(){
@@ -118,8 +120,8 @@ public class GestorJsonEntrenadores {
 
     /**
      * Este metodo convierte el JsonObject en una lista
-     * @param jsonObject
-     * @return
+     * @param jsonObject;
+     * @return GestionGenericaGimnasio<Entrenador>;
      */
     //Probar hacerlo generico
     public GestionGenericaGimnasio<Entrenador> JsonObjectToEntrenadores(JSONObject jsonObject){
@@ -146,42 +148,41 @@ public class GestorJsonEntrenadores {
      * @return un ojecto Entrenador
      */
     //Ver para moverlo a recepcionista
-    public Entrenador crearEntrenador(){
+    public Entrenador crearEntrenador() {
         Entrenador entrenador = new Entrenador();
         Scanner entrada = new Scanner(System.in);
 
-        System.out.println("ingrese el nombre del entrenador");
-        entrenador.setNombre(entrada.nextLine());
-        System.out.println("ingrese apellido del entrenador");
-        entrenador.setApellido(entrada.nextLine());
-        System.out.println("ingrese documento del entrenador");
-        entrenador.setDocumento(entrada.nextLine());
-        System.out.println("ingrese fecha de nacimiento");
-        entrenador.setFechaNacimiento(LocalDate.parse(entrada.nextLine()));
+        String nombre = Validaciones.validarCadena("Ingrese el nombre del entrenador:", entrada);
+        entrenador.setNombre(nombre);
 
-        System.out.println("Ingrese el salario");
-        entrenador.setSalario(entrada.nextInt());
-        entrada.nextLine();
-        System.out.println("ingrese el horario");
-        int opc = elegirHorario();
+        String apellido = Validaciones.validarCadena("Ingrese el apellido del entrenador:", entrada);
+        entrenador.setApellido(apellido);
+
+        String documento = Validaciones.validarDocumento("Ingrese el documento del entrenador (8 dígitos):", entrada);
+        entrenador.setDocumento(documento);
+
+        LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
+        entrenador.setFechaNacimiento(fechaNacimiento);
+
+        int salario = Validaciones.validarSalario("Ingrese el salario:", entrada);
+        entrenador.setSalario(salario);
+
+        int opc = elegirHorario(entrada);
         entrenador.setHorario(horarios.get(opc));
 
-
-        // Mostrar las especialidades disponibles
         System.out.println("Seleccione la especialidad:");
-        eEspecialidad eEspecialidad = elegirEspecialidad();
-        entrenador.setEspecialidad(eEspecialidad);
+        entrenador.setEspecialidad(elegirEspecialidad(entrada));
 
         return entrenador;
     }
+
+
 
     /**
      * Este metodo sirve para mostrar y elegir un horario
      * @return la opcion elegida
      */
-
-    public int elegirHorario() {
-        Scanner entrada = new Scanner(System.in);
+    public int elegirHorario(Scanner entrada) {
 
         System.out.println("Seleccione un horario:");
         for (int i = 0; i < horarios.size(); i++) {
@@ -191,7 +192,7 @@ public class GestorJsonEntrenadores {
         int opcion = -1;
         boolean opcionValida = false;
 
-        while (!opcionValida) {
+        do{
             try {
                 System.out.print("Ingrese el número de la opción deseada: ");
                 opcion = Integer.parseInt(entrada.nextLine());
@@ -204,18 +205,18 @@ public class GestorJsonEntrenadores {
             } catch (NumberFormatException e) {
                 System.out.println("Entrada no válida. Por favor, ingrese un número.");
             }
-        }
+        }while (!opcionValida);
 
         return opcion - 1; // Devuelve el índice del horario seleccionado.
     }
+
 
     /**
      * Este metodo sirve para mostrar y elegir una especialidad
      * @return una especialidad
      */
     // Intentar modularizarlo
-    public eEspecialidad elegirEspecialidad() {
-        Scanner entrada = new Scanner(System.in);
+    public eEspecialidad elegirEspecialidad(Scanner entrada) {
 
         // Mostrar las especialidades disponibles
         System.out.println("Seleccione una especialidad:");
@@ -228,7 +229,7 @@ public class GestorJsonEntrenadores {
         boolean opcionValida = false;
 
         // Validar la entrada del usuario
-        while (!opcionValida) {
+        do{
             try {
                 System.out.print("Ingrese el número de la opción deseada: ");
                 opcion = Integer.parseInt(entrada.nextLine());
@@ -241,15 +242,16 @@ public class GestorJsonEntrenadores {
             } catch (NumberFormatException e) {
                 System.out.println("Entrada no válida. Por favor, ingrese un número.");
             }
-        }
+        }while (!opcionValida);
 
         return especialidades[opcion - 1]; // Devuelve la especialidad seleccionada.
     }
 
 
+
     /**
      * Este metodo sirve para modificar un entrenador.
-     * @param entrenador
+     * @param entrenador;
      */
     //Ver para moverlo a recepcionista
     public void modificarEntrenador(Entrenador entrenador) {
@@ -272,33 +274,32 @@ public class GestorJsonEntrenadores {
             switch (opcion) {
                 case 1:
                     // Modificar nombre
-                    System.out.println("Ingrese el nuevo nombre:");
-                    entrenador.setNombre(scanner.nextLine());
+                    String nombre = Validaciones.validarCadena("Ingrese el nuevo nombre ", scanner);
+                    entrenador.setNombre(nombre);
                     break;
 
                 case 2:
                     // Modificar apellido
-                    System.out.println("Ingrese el nuevo apellido:");
-                    entrenador.setApellido(scanner.nextLine());
+                    String apellido = Validaciones.validarCadena("Ingrese el nuevo apellido ", scanner);
+                    entrenador.setApellido(apellido);
                     break;
 
                 case 3:
                     // Modificar horario
                     System.out.println("Seleccione un horario:");
-                    int horarioSeleccionado = elegirHorario();
+                    int horarioSeleccionado = elegirHorario(scanner);
                     entrenador.setHorario(horarios.get(horarioSeleccionado));
                     break;
 
                 case 4:
                     // Modificar salario
-                    System.out.println("Ingrese el nuevo salario:");
-                    entrenador.setSalario(scanner.nextInt());
-                    scanner.nextLine();
+                    int salario = Validaciones.validarSalario("Ingrese el nuevo salario", scanner);
+                    entrenador.setSalario(salario);
                     break;
 
                 case 5:
                     // Modificar especialidad
-                    eEspecialidad eEspecialidad = elegirEspecialidad();
+                    eEspecialidad eEspecialidad = elegirEspecialidad(scanner);
 
                     // Establecer la especialidad seleccionada
                     entrenador.setEspecialidad(eEspecialidad);

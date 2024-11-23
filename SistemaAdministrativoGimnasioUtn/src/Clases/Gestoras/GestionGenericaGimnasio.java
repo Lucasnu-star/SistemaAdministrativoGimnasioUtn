@@ -1,5 +1,7 @@
 package Clases.Gestoras;
 
+import Clases.Miembro;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -36,20 +38,16 @@ public class GestionGenericaGimnasio<T>  {
 
     /**
      * Metodo para eliminar un elemento
-     * @param clave
+     * @param clave;
      */
-    public void eliminar(String clave) {
-        if (gestionUsuario.remove(clave) != null) {
-            System.out.println("Elemento eliminado: " + clave);
-        } else {
-            System.out.println("El elemento no se encontró en la lista.");
-        }
+    public T eliminar(String clave) {
+        return gestionUsuario.remove(clave);
     }
 
     /**
      * Metodo para consultar los elementos de un tipo especifico
-     * @param clase
-     * @return
+     * @param clase;
+     * @return List<T>
      */
     public List<T> consultarPorClase(Class<T> clase) {
         List<T> result = new ArrayList<>();
@@ -64,13 +62,16 @@ public class GestionGenericaGimnasio<T>  {
 
     /**
      * Metodo para mostrar elementos de la lista, por parametro se le pasa una clave(String)
-     * @param clave
-     * @return
+     * @param clave;
+     * @return T;
      */
 
     public T consultar (String clave){
         return gestionUsuario.get(clave);
     }
+
+
+
 
 
 

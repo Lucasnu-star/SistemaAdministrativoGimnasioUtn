@@ -40,27 +40,24 @@ public class GestorJsonPersonalMantenimiento  {
         horarios.add("Lunes a viernes: 13-19");
     }
 
-
+    /**
+     * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
+     * y una lista, para meter la lista pasada por parametro en el Archivo.
+     *
+     * @param personalM;
+     * @return String;
+     */
     public String grabar(GestionGenericaGimnasio<PersonalMantenimiento> personalM) {
             OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, personalMToJsonObject(personalM));
             return "Se ha escrito el archivo correctamente ";
     }
 
-    /**
-     * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
-     * y una lista, para meter la lista pasada por parametro en el Archivo.
-     *
-     * @param personalM
-     * @return
-     */
-
-
 
     /**
      * Este metodo sirve para meter un JsonArray dentro de un JsonObject
      *
-     * @param personalM
-     * @return
+     * @param personalM;
+     * @return JSONObject;
      */
 
     public JSONObject personalMToJsonObject(GestionGenericaGimnasio<PersonalMantenimiento> personalM) {
@@ -78,8 +75,8 @@ public class GestorJsonPersonalMantenimiento  {
     /**
      * Metodo que pasa de un Object a un JsonArray
      *
-     * @param personalM
-     * @return
+     * @param personalM;
+     * @return JSONArray;
      */
     public JSONArray TojsonArray(GestionGenericaGimnasio<PersonalMantenimiento> personalM) {
         JSONArray jsonArray = null;
@@ -119,7 +116,7 @@ public class GestorJsonPersonalMantenimiento  {
     /**
      * Este metodo convierte el JsonObject en una lista
      *
-     * @param jsonObject
+     * @param jsonObject;
      * @return una lista de Personal de Mantenimiento
      */
 
@@ -144,40 +141,32 @@ public class GestorJsonPersonalMantenimiento  {
 
     //Ver para moverlo a recepcionista
     public PersonalMantenimiento crearEmpleadoMantenimiento() {
-        PersonalMantenimiento empleado = new PersonalMantenimiento();
+        PersonalMantenimiento empleadoM = new PersonalMantenimiento();
 
         Scanner entrada = new Scanner(System.in);
-        try {
-            // Solicitar datos del miembro
-            System.out.println("Ingrese el nombre del miembro:");
-            empleado.setNombre(entrada.nextLine());
-            System.out.println("Ingrese apellido del miembro:");
-            empleado.setApellido(entrada.nextLine());
-            System.out.println("Ingrese documento del miembro:");
-            empleado.setDocumento(entrada.nextLine());
-            System.out.println("Ingrese fecha de nacimiento (YYYY-MM-DD):");
-            empleado.setFechaNacimiento(LocalDate.parse(entrada.nextLine()));
 
-            System.out.println("Ingrese el salario");
-            empleado.setSalario(entrada.nextInt());
-            entrada.nextLine();
-            System.out.println("ingrese el horario");
-            int opc = elegirHorario();
-            empleado.setHorario(horarios.get(opc));
+        String nombre = Validaciones.validarCadena("Ingrese el nombre del empleado de mantenimiento:", entrada);
+        empleadoM.setNombre(nombre);
 
-        } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
+        String apellido = Validaciones.validarCadena("Ingrese el apellido del empleado de mantenimiento:", entrada);
+        empleadoM.setApellido(apellido);
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        String documento = Validaciones.validarDocumento("Ingrese el documento del empleado de mantenimiento (8 dígitos):", entrada);
+        empleadoM.setDocumento(documento);
 
-        return empleado;
+        LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
+        empleadoM.setFechaNacimiento(fechaNacimiento);
+
+        int salario = Validaciones.validarSalario("Ingrese el salario:", entrada);
+        empleadoM.setSalario(salario);
+
+        int opc = elegirHorario(entrada);
+        empleadoM.setHorario(horarios.get(opc));
+
+        return empleadoM;
     }
 
-    public int elegirHorario () {
-        Scanner entrada = new Scanner(System.in);
-
+    public int elegirHorario (Scanner scanner) {
         System.out.println("Seleccione un horario:");
         for (int i = 0; i < horarios.size(); i++) {
             System.out.println((i + 1) + ". " + horarios.get(i));
@@ -189,7 +178,7 @@ public class GestorJsonPersonalMantenimiento  {
         while (!opcionValida) {
             try {
                 System.out.print("Ingrese el número de la opción deseada: ");
-                opcion = Integer.parseInt(entrada.nextLine());
+                opcion = Integer.parseInt(scanner.nextLine());
 
                 if (opcion >= 1 && opcion <= horarios.size()) {
                     opcionValida = true;
@@ -206,7 +195,7 @@ public class GestorJsonPersonalMantenimiento  {
 
     /**
      * Este metodo sirve para modificar un entrenador.
-     * @param empleadoM
+     * @param empleadoM;
      */
     //Ver para moverlo a recepcionista
     public void modificarEmpladoM(PersonalMantenimiento empleadoM) {
@@ -228,28 +217,27 @@ public class GestorJsonPersonalMantenimiento  {
             switch (opcion) {
                 case 1:
                     // Modificar nombre
-                    System.out.println("Ingrese el nuevo nombre:");
-                    empleadoM.setNombre(scanner.nextLine());
+                    String nombre = Validaciones.validarCadena("Ingrese el nuevo nombre del empleado de mantenimiento:", scanner);
+                    empleadoM.setNombre(nombre);
                     break;
 
                 case 2:
                     // Modificar apellido
-                    System.out.println("Ingrese el nuevo apellido:");
-                    empleadoM.setApellido(scanner.nextLine());
+                    String apellido = Validaciones.validarCadena("Ingrese el nuevo apellido del empleado de mantenimiento:", scanner);
+                    empleadoM.setApellido(apellido);
                     break;
 
                 case 3:
                     // Modificar horario
                     System.out.println("Seleccione un horario:");
-                    int horarioSeleccionado = elegirHorario();
+                    int horarioSeleccionado = elegirHorario(scanner);
                     empleadoM.setHorario(horarios.get(horarioSeleccionado));
                     break;
 
                 case 4:
                     // Modificar salario
-                    System.out.println("Ingrese el nuevo salario:");
-                    empleadoM.setSalario(scanner.nextInt());
-                    scanner.nextLine();
+                    int salario = Validaciones.validarSalario("Ingrese el salario:", scanner);
+                    empleadoM.setSalario(salario);
                     break;
 
                 case 5:

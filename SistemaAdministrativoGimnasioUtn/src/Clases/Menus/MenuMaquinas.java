@@ -67,13 +67,10 @@ public class MenuMaquinas implements iMenu {
                     esperarTeclaParaContinuar();
                     break;
                 case 4:
-<<<<<<< Updated upstream
                     System.out.println("creando reporte maquina");
                     Recepcionista.crearReporte();
                     break;
 
-=======
-                    break;
                 case 5:
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
@@ -108,7 +105,6 @@ public class MenuMaquinas implements iMenu {
                     }
                     Recepcionista.maquinaFiltroPorTipo(maquinas, tipo[opcion - 1]);
                     break;
->>>>>>> Stashed changes
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     try {

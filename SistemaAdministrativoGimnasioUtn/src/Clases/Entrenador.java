@@ -1,5 +1,7 @@
 package Clases;
 import Enums.eEspecialidad;
+import Excepciones.ListaVaciaExcepcion;
+import Excepciones.UsuarioNoEncontradoExcepcion;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,27 +119,9 @@ public final class Entrenador extends Empleado {
     }
 
 
-    /*
-    @Override
-    public String toString() {
-        if (!miembrosAsignados.isEmpty() || !certificados.isEmpty()){
-            return  " Entrenador = "+super.toString()+
-                    "Certificados =" + certificados +
-                    ", Miembros Asignados =" + miembrosAsignados +
-                    ", Especialidad =" + especialidad ;
-        }else{
-            return  " Entrenador = "+super.toString()+
-                    " Certificados = El entrenador no tiene certificados "+
-                    " Miembros Asignados = Sin miembros asignados "+
-                    ", Especialidad=" + especialidad ;
-        }
-
-    }
-     */
-
     /**
      * Este metodo sirve para asignar un miembro a un entrenador en especifico, por paramtro va a recibir un miembrom, para poder añadirlo a la lista
-     * @param miembro
+     * @param miembro;
      */
     public void asignarMiembro(Miembro miembro) {
         if (miembrosAsignados != null) {
@@ -150,9 +134,9 @@ public final class Entrenador extends Empleado {
      * Este metodo sirve para consultar los miembros de un entrenador en especifico. Verifica si la lista de miembros del entrenador es null,
      * si es null lanza un mensaje que no hay miembros en ese entrenador, por otro lado si es distinto a null osea que hay miembros, muestra los miembrois mediante un for each.
      */
-    public void consultarMiembros() {
+    public void consultarMiembros() throws ListaVaciaExcepcion{
         if (miembrosAsignados == null || miembrosAsignados.isEmpty()) {
-            System.out.println("No hay miembros asignados a este entrenador.");
+            throw new ListaVaciaExcepcion("El entrenador no tiene miembros asignados ");
         } else {
             System.out.println("Lista de miembros asignados al entrenador " + getNombre() + ":");
             for (Miembro miembro : miembrosAsignados) {
@@ -164,7 +148,7 @@ public final class Entrenador extends Empleado {
 
     /**
      * Este metodo sirve para agregar un certiciado a un entrandor en especifico, por parameotr le pasamos un certificado (Strign).
-     * @param certificado
+     * @param certificado;
      */
     public void agregarCertificado(String certificado) {
         if (certificado != null) {
@@ -178,18 +162,15 @@ public final class Entrenador extends Empleado {
     /**
      * Este metodo sirve para eliminar un miembro de la lista especificada por entrenador, por parametro se le pasa un miembro y verifica por medio del constains si ese miembro
      * esta, si esta lo remueve, si no lanza un mensaje diciendo que el miembro no fue encontrado.
-     * @param miembro
+     * @param miembro;
      */
-    public String eliminarMiembro(Miembro miembro)
+    public String eliminarMiembro(Miembro miembro) throws UsuarioNoEncontradoExcepcion
     {
-        if (miembrosAsignados.contains(miembro))
-        {
-            miembrosAsignados.remove(miembro);
-            return "Miembro eliminado correctamente.";
-        }else
-        {
-            return "El miembro no fue encontrado en la lista de miembros del entrenador";
+        if (!miembrosAsignados.contains(miembro)){
+           throw new UsuarioNoEncontradoExcepcion("El miembro no fue encontrado en la lista ");
         }
+        miembrosAsignados.remove(miembro);
+        return "Miembro eliminado correctamente.";
     }
 
     /**
@@ -201,7 +182,7 @@ public final class Entrenador extends Empleado {
 
     /**
      * Convertir de un Archivo JSON a un objeto Entrenador
-     * @param jsonEntrenador
+     * @param jsonEntrenador;
      */
 
     public Entrenador(JSONObject jsonEntrenador) {
@@ -257,7 +238,7 @@ public final class Entrenador extends Empleado {
 
     /**
      * Metodo para convertir de un objeto a un Archivo JSON
-     * @return
+     * @return jsonObject;
      */
     public JSONObject toJSON(){
         JSONObject jsonObject = null;

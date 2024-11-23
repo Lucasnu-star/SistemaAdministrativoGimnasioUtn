@@ -30,6 +30,7 @@ public class IniciarSesion {
         boolean iniciadoExitoso = false;
 
         do {
+            System.out.println("Iniciar Sesion");
             System.out.println("Nombre de usuario: ");
             String nombreUsuario = scanner.nextLine();
 
@@ -44,7 +45,7 @@ public class IniciarSesion {
 
                     System.out.println("Iniciaste sesión...");
                     iniciadoExitoso = true;
-                    MenuPrincipal menuPrincipal = new MenuPrincipal();
+                    MenuPrincipal menuPrincipal = new MenuPrincipal(recepcionista);
                     menuPrincipal.mostrarMenu();
                     break;
                 }

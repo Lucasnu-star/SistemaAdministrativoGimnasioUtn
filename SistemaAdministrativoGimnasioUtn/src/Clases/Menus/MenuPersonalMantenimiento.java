@@ -3,6 +3,8 @@ package Clases.Menus;
 import Clases.*;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonPersonalMantenimiento;
+import Excepciones.ListaVaciaExcepcion;
+import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
 
 import java.io.IOException;
@@ -36,16 +38,27 @@ public class MenuPersonalMantenimiento implements iMenu {
         do {
             GestionGenericaGimnasio<PersonalMantenimiento> personalM = gestorJson.leerListaGenericaPersonalM();
 
+            limpiarConsola();
+
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
 
             opcion = scanner.nextInt();
             scanner.nextLine();
 
+            limpiarConsola();
+
             switch (opcion) {
                 case 1:
                     System.out.println("Mostrar personal: ");
-                    Recepcionista.mostrarElementosLista(personalM);
+
+                    try {
+                        Recepcionista.mostrarElementosLista(personalM);
+
+                    }catch (ListaVaciaExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
+
 
                     esperarTeclaParaContinuar();
                     break;
@@ -53,11 +66,13 @@ public class MenuPersonalMantenimiento implements iMenu {
                     System.out.println("Consultar empleado...");
                     System.out.println("Ingrese DNI del empleado a buscar...");
                     entrada = scanner.nextLine();
-                    empleadoM = Recepcionista.consultar(personalM, entrada);
-                    if (empleadoM != null) {
+
+                    try {
+                        empleadoM = Recepcionista.consultar(personalM, entrada);
                         System.out.println(empleadoM);
-                    } else {
-                        System.out.println("Empleado no encontrado.");
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
                     }
 
                     esperarTeclaParaContinuar();
@@ -75,11 +90,17 @@ public class MenuPersonalMantenimiento implements iMenu {
                     System.out.println("Modificar empleado...");
                     System.out.println("Ingrese el DNI del empleado a modificar:");
                     entrada = scanner.nextLine();
-                    empleadoM = Recepcionista.consultar(personalM, entrada);
 
-                    gestorJson.modificarEmpladoM(empleadoM);
+                    try {
+                        empleadoM = Recepcionista.consultar(personalM, entrada);
 
-                    gestorJson.grabar(personalM);
+                        gestorJson.modificarEmpladoM(empleadoM);
+
+                        gestorJson.grabar(personalM);
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     esperarTeclaParaContinuar();
                     break;
@@ -87,9 +108,14 @@ public class MenuPersonalMantenimiento implements iMenu {
                     System.out.println("Eliminar empleado...");
                     System.out.println("Ingrese DNI del empleado a eliminar:");
                     entrada = scanner.nextLine();
-                    Recepcionista.eliminarDeLista(personalM, entrada);
 
-                    gestorJson.grabar(personalM);
+                    try {
+                        Recepcionista.eliminarDeLista(personalM, entrada);
+
+                        gestorJson.grabar(personalM);
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     esperarTeclaParaContinuar();
                     break;

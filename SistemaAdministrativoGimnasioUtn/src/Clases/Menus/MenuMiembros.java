@@ -4,6 +4,8 @@ import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMiembros;
 import Clases.Miembro;
 import Clases.Recepcionista;
+import Excepciones.ListaVaciaExcepcion;
+import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
 
 import java.io.IOException;
@@ -48,17 +50,26 @@ public class MenuMiembros implements iMenu {
             // cada vez que termina la funcion, se limpia
             miembro = new Miembro();
 
+            limpiarConsola();
+
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
 
             opcion = scanner.nextInt();
             scanner.nextLine();
 
+            limpiarConsola();
+
 
             switch (opcion) {
                 case 1:
                     System.out.println("Mostrar miembros...");
-                    Recepcionista.mostrarElementosLista(listaMiembros);
+                    try {
+                        Recepcionista.mostrarElementosLista(listaMiembros);
+
+                    }catch (ListaVaciaExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     esperarTeclaParaContinuar();
                     break;
@@ -66,11 +77,13 @@ public class MenuMiembros implements iMenu {
                     System.out.println("Consultar miembro...");
                     System.out.println("Ingrese DNI del miembro a buscar...");
                     entrada = scanner.nextLine();
-                    miembro = Recepcionista.consultar(listaMiembros, entrada);
-                    if (miembro != null) {
+
+                    try {
+                        miembro = Recepcionista.consultar(listaMiembros, entrada);
                         System.out.println(miembro);
-                    } else {
-                        System.out.println("Miembro no encontrado.");
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
                     }
 
                     esperarTeclaParaContinuar();
@@ -88,11 +101,16 @@ public class MenuMiembros implements iMenu {
                     System.out.println("Modificar miembro...");
                     System.out.println("Ingrese el DNI del miembro a modificar:");
                     entrada = scanner.nextLine();
-                    miembro = Recepcionista.consultar(listaMiembros, entrada);
 
-                    gestorJson.modificarMiembro(miembro);
+                    try {
+                        miembro = Recepcionista.consultar(listaMiembros, entrada);
 
-                    gestorJson.grabar(listaMiembros);
+                        gestorJson.modificarMiembro(miembro);
+                        gestorJson.grabar(listaMiembros);
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     esperarTeclaParaContinuar();
                     break;
@@ -100,9 +118,15 @@ public class MenuMiembros implements iMenu {
                     System.out.println("Eliminar miembro...");
                     System.out.println("Ingrese DNI del miembro a eliminar:");
                     entrada = scanner.nextLine();
-                    Recepcionista.eliminarDeLista(listaMiembros, entrada);
 
-                    gestorJson.grabar(listaMiembros);
+                    try {
+                        System.out.println(Recepcionista.eliminarDeLista(listaMiembros, entrada));
+
+                        gestorJson.grabar(listaMiembros);
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     esperarTeclaParaContinuar();
                     break;
@@ -110,15 +134,17 @@ public class MenuMiembros implements iMenu {
                     System.out.println("Pagar couta...");
                     System.out.println("Ingrese DNI del miembro a buscar...");
                     entrada = scanner.nextLine();
-                    miembro = Recepcionista.consultar(listaMiembros, entrada);
-                    if (miembro != null) {
-                        System.out.println(miembro);
-                    } else {
-                        System.out.println("Miembro no encontrado.");
-                    }
-                    System.out.println(Recepcionista.pagarCouta(miembro));
 
-                    gestorJson.grabar(listaMiembros);
+                    try {
+                        miembro = Recepcionista.consultar(listaMiembros, entrada);
+
+                        System.out.println(Recepcionista.pagarCouta(miembro));
+
+                        gestorJson.grabar(listaMiembros);
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     esperarTeclaParaContinuar();
                     break;
@@ -152,11 +178,7 @@ public class MenuMiembros implements iMenu {
     public String mostrarInterfaz() {
         StringBuilder sb = new StringBuilder();
         sb.append("\nMenú miembros:");
-<<<<<<< Updated upstream
-        System.out.println("\n  1. Mostrar Miembros");
-=======
         sb.append("\n   1. Mostrar lista miembros");
->>>>>>> Stashed changes
         sb.append("\n   2. Consultar Miembro");
         sb.append("\n   3. Agregar Miembro");
         sb.append("\n   4. Modificar Miembro");

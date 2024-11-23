@@ -22,13 +22,14 @@ public final class Miembro extends Usuario{
     private LocalDate fechaUltimoPago;
 
     //Constructor
-    public Miembro(String nombre, String apellido, String documento, LocalDate fechaNacimiento, Membresia membresia, boolean estadoMembresia, LocalDate fechaIncripcion) {
+    public Miembro(String nombre, String apellido, String documento, LocalDate fechaNacimiento, Membresia membresia, boolean estadoMembresia, LocalDate fechaIncripcion, LocalDate fechaUltimoPago) {
         super(nombre, apellido, documento, fechaNacimiento);
         this.membresia = membresia;
         this.estadoMembresia = true;
         this.fechaIncripcion = fechaIncripcion;
-        this.fechaUltimoPago = LocalDate.now(); // cada vez que se agrega un nuevo miembro se carga la fecha actual
+        this.fechaUltimoPago = fechaUltimoPago; // cada vez que se agrega un nuevo miembro se carga la fecha actual
     }
+
     public Miembro(){
     }
 

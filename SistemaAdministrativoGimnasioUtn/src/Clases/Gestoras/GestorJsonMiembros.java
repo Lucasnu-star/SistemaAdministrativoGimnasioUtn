@@ -31,8 +31,8 @@ public class GestorJsonMiembros {
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
      * y una lista, para meter la lista pasada por parametro en el Archivo.
-     * @param miembros
-     * @return
+     * @param miembros;
+     * @return String;
      */
     public String grabar(GestionGenericaGimnasio<Miembro> miembros){
         OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, miembrosToJsonObject(miembros));
@@ -41,8 +41,8 @@ public class GestorJsonMiembros {
 
     /**
      * Este metodo sirve para meter un JsonArray dentro de un JsonObject
-     * @param miembros
-     * @return
+     * @param miembros;
+     * @return JSONObject;
      */
 
     public JSONObject miembrosToJsonObject(GestionGenericaGimnasio<Miembro> miembros){
@@ -59,8 +59,8 @@ public class GestorJsonMiembros {
 
     /**
      * Metodo que pasa de un Object a un JsonArray
-     * @param miembros
-     * @return
+     * @param miembros;
+     * @return JSONArray;
      */
     public JSONArray TojsonArray(GestionGenericaGimnasio<Miembro> miembros){
         JSONArray jsonArray = null;
@@ -98,7 +98,7 @@ public class GestorJsonMiembros {
 
     /**
      * Este metodo convierte el JsonObject en una lista
-     * @param jsonObject
+     * @param jsonObject;
      * @return una lista de miembros
      */
 
@@ -122,69 +122,35 @@ public class GestorJsonMiembros {
 
     /**
      * Metodo para crear un miembro
-     * @return
+     * @return Miembro;
      */
     //Ver para moverlo a recepcionista
     public Miembro crearMiembro() {
         Miembro miembro = new Miembro();
         Membresia membresia = new Membresia();  // Crear instancia de Membresia
         Scanner entrada = new Scanner(System.in);
-try {
-    // Solicitar datos del miembro
-    System.out.println("Ingrese el nombre del miembro:");
-    miembro.setNombre(entrada.nextLine());
-    System.out.println("Ingrese apellido del miembro:");
-    miembro.setApellido(entrada.nextLine());
-    System.out.println("Ingrese documento del miembro:");
-    miembro.setDocumento(entrada.nextLine());
-    System.out.println("Ingrese fecha de nacimiento (YYYY-MM-DD):");
-    miembro.setFechaNacimiento(LocalDate.parse(entrada.nextLine()));
-    System.out.println("ingrese su fecha de inscripcion (YYYY-MM-DD):");
-    miembro.setFechaIncripcion(LocalDate.parse(entrada.nextLine()));
-}catch (DateTimeParseException e)
-{
-    System.out.println(e.getMessage());
 
-}catch (Exception e)
-{
-    System.out.println(e.getMessage());
-}
+        String nombre = Validaciones.validarCadena("Ingrese el nombre del miembro:", entrada);
+        miembro.setNombre(nombre);
 
+        String apellido = Validaciones.validarCadena("Ingrese el apellido del miembro:", entrada);
+        miembro.setApellido(apellido);
 
-        // Selección de membresía
-        System.out.println("Seleccione su membresía:");
-        eTipoMembresia[] membresias = eTipoMembresia.values();
-        for (int i = 0; i < membresias.length; i++) {
-            System.out.println((i + 1) + ". " + membresias[i].name());
-        }
+        String documento = Validaciones.validarDocumento("Ingrese el documento del miembro (8 dígitos):", entrada);
+        miembro.setDocumento(documento);
 
-        int opcionMembresia = entrada.nextInt();
-        while (opcionMembresia < 1 || opcionMembresia > membresias.length) {
-            System.out.println("Opción no válida. Por favor seleccione una opción válida.");
-            opcionMembresia = entrada.nextInt();
-        }
+        LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
+        miembro.setFechaNacimiento(fechaNacimiento);
 
-        // Asignar el valor de membresía al objeto Membresia
-        membresia.setTipomembresia(membresias[opcionMembresia - 1]); // Asignamos el tipo de membresía
+        miembro.setFechaIncripcion(LocalDate.now());
 
-        // Asignamos el costo mensual dependiendo del tipo de membresía
-        switch (membresias[opcionMembresia - 1]) {
-            case MEMBRESIA_BASICA:
-                membresia.setCostoMensual(300);
-                membresia.setDescripcion("Membresia de 3 dias a la semana con profesor personal");// Costo mensual para membresía anual
-                break;
-            case MEMBRESIA_PREMIUM:
-                membresia.setCostoMensual(700);
-                membresia.setDescripcion("Membresia libre con profesor personal y baños con ducha");// Costo mensual para membresía semestral
-                break;
-            default:
-                System.out.println("Opción de membresía no válida.");
-                break;
-        }
+        miembro.setFechaUltimoPago(LocalDate.now());
 
-        // Asignamos la membresía al miembro
-        miembro.setMembresia(membresia);
+        GestorJsonMembresias gestorJsonMembresia = new GestorJsonMembresias();
+        ArrayList<Membresia> membresias = gestorJsonMembresia.leerListaMembresia();
 
+        int opc = elegirMembresia(entrada, membresias);
+        miembro.setMembresia(membresias.get(opc));
 
         return miembro;
     }
@@ -192,7 +158,7 @@ try {
 
     /**
      * Este metodo sirve para modificar un miembro
-     * @param miembro
+     * @param miembro;
      */
     //Ver para moverlo a recepcionista
     public void modificarMiembro(Miembro miembro) {
@@ -202,10 +168,10 @@ try {
 
         while (!salir) {
             System.out.println("\nSeleccione el dato que desea modificar:");
-            System.out.println("1. Nombre");
-            System.out.println("2. Apellido");
-            System.out.println("3. Membresía");
-            System.out.println("4. Salir");
+            System.out.println("   1. Nombre");
+            System.out.println("   2. Apellido");
+            System.out.println("   3. Membresía");
+            System.out.println("   4. Salir");
 
             try {
                 System.out.print("Ingrese la opción: ");
@@ -215,40 +181,27 @@ try {
                     case 1:
                         // Modificar nombre
                         System.out.println("Nombre actual: " + miembro.getNombre());
-                        System.out.print("Ingrese el nuevo nombre: ");
-                        miembro.setNombre(scanner.nextLine());
-                        System.out.println("Nombre actualizado.");
+                        String nombre = Validaciones.validarCadena("Ingrese el nuevo nombre", scanner);
+                        miembro.setNombre(nombre);
                         break;
 
                     case 2:
                         // Modificar apellido
                         System.out.println("Apellido actual: " + miembro.getApellido());
-                        System.out.print("Ingrese el nuevo apellido: ");
-                        miembro.setApellido(scanner.nextLine());
-                        System.out.println("Apellido actualizado.");
+                        String apellido = Validaciones.validarCadena("Ingrese el nuevo apellido", scanner);
+                        miembro.setApellido(apellido);
                         break;
 
                     case 3:
                         // Modificar membresía
                         System.out.println("Membresía actual: " + miembro.getMembresia());
-                        System.out.println("Seleccione una nueva membresía:");
 
                         GestorJsonMembresias gestorJsonMembresia = new GestorJsonMembresias();
                         ArrayList<Membresia> membresias = gestorJsonMembresia.leerListaMembresia();
 
-                        for (int i = 0; i < membresias.size(); i++) {
-                            System.out.println((i + 1) + ". " + membresias.get(i));
-                        }
+                        int opc = elegirMembresia(scanner, membresias);
+                        miembro.setMembresia(membresias.get(opc));
 
-                        System.out.print("Ingrese el número de membresía: ");
-                        int seleccion = Integer.parseInt(scanner.nextLine());
-
-                        if (seleccion > 0 && seleccion <= membresias.size()) {
-                            miembro.setMembresia(membresias.get(seleccion - 1));
-                            System.out.println("Membresía actualizada.");
-                        } else {
-                            System.out.println("Opción inválida.");
-                        }
                         break;
 
                     case 4:
@@ -267,6 +220,37 @@ try {
         }
     }
 
+    public int elegirMembresia(Scanner entrada, ArrayList<Membresia> membresias) {
+        System.out.println("Seleccione una membresía:");
+        for (int i = 0; i < membresias.size(); i++) {
+            System.out.println((i + 1) + ". " + membresias.get(i));
+        }
+
+        int opcion = -1;
+        boolean opcionValida = false;
+
+        // Bucle para pedir la opción hasta que sea válida
+        do {
+            try {
+                System.out.print("Ingrese el número de la opción deseada: ");
+                opcion = Integer.parseInt(entrada.nextLine());
+
+                // Validar que la opción esté en el rango correcto
+                if (opcion >= 1 && opcion <= membresias.size()) {
+                    opcionValida = true;
+                } else {
+                    System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y " + membresias.size() + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+            }
+        } while (!opcionValida);
+
+        // Devuelve el índice de la membresía seleccionada (restando 1 para hacer coincidir el índice con la opción elegida)
+        return opcion - 1;
+    }
+
+
     /**
      * Este metodo sirve llamar al metodo que actualiza el estado de membresia de todos los
      * miembros y graba la lista actualizada
@@ -280,7 +264,7 @@ try {
     /**
      * Este metodo sirve para actualizar el estado de membresia de todos los miembros
      * los comparara de acuerdo a la fecha del ultimo pago sumandole un mes con la fecha actual
-     * @param miembros
+     * @param miembros;
      */
     public void actualizarMembresias(GestionGenericaGimnasio<Miembro> miembros){
         Iterator<Miembro> iterator = miembros.getGestionUsuario().sequencedValues().iterator();
