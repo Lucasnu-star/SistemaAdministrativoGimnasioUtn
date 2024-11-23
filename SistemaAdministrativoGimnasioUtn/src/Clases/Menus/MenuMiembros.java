@@ -141,6 +141,7 @@ public class MenuMiembros implements iMenu {
     public String mostrarInterfaz() {
         StringBuilder sb = new StringBuilder();
         sb.append("\nMenú miembros:");
+        System.out.println("\n  1. Mostrar Miembros");
         sb.append("\n   2. Consultar Miembro");
         sb.append("\n   3. Agregar Miembro");
         sb.append("\n   4. Modificar Miembro");
