@@ -15,6 +15,8 @@ public class Reporte {
         this.idMaquina = idMaquina;
         this.DNIusuario = DNIusuario;
     }
+    public Reporte() {
+    }
 
     public String getDescripcion() {
         return descripcion;

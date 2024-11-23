@@ -65,6 +65,11 @@ public class MenuMaquinas implements iMenu {
 
                     esperarTeclaParaContinuar();
                     break;
+                case 4:
+                    System.out.println("creando reporte maquina");
+                    Recepcionista.crearReporte();
+                    break;
+
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     try {

@@ -392,6 +392,18 @@ public final class Recepcionista extends Empleado {
         }
 
     }
+
+    public static Reporte crearReporte() {
+        Reporte reporte = new Reporte();
+        Scanner scaner = new Scanner(System.in);
+        System.out.println("ingrese descripcion del reporte");
+        reporte.setDescripcion(scaner.nextLine());
+        System.out.println("indica el id de la maquina ");
+        reporte.setIdMaquina(scaner.nextLine());
+        System.out.println("ingrese dni del usuario");
+        reporte.setDNIusuario(scaner.nextLine());
+        return reporte;
+    }
 }
 
 
