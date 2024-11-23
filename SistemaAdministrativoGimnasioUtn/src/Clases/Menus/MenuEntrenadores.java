@@ -220,6 +220,18 @@ public class MenuEntrenadores implements iMenu {
 
                     esperarTeclaParaContinuar();
                     break;
+                case 11:
+                    System.out.println("Filtrar por nombre...");
+                    System.out.println("Ingrese el nombre por el que desea filtrar...");
+                    entrada=scanner.nextLine();
+                    Recepcionista.entrenadorFiltroPorNombre(lista,entrada);
+                    break;
+                case 12:
+                    System.out.println("Filtrar por documento...");
+                    System.out.println("Ingrese el documento por el que desea filtrar...");
+                    entrada=scanner.nextLine();
+                    Recepcionista.entrenadorFiltroPorDocumento(lista,entrada);
+                    break;
 
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
@@ -251,6 +263,8 @@ public class MenuEntrenadores implements iMenu {
         sb.append("\n   8. Mostrar miembros de x entrenador");
         sb.append("\n   9. Agregar certificado a entrenador");
         sb.append("\n  10. Calcular salario");
+        sb.append("\n  11. Filtrar por nombre");
+        sb.append("\n  12. Filtrar por documento");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();

@@ -4,6 +4,7 @@ import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Maquina;
 import Clases.Recepcionista;
+import Enums.eTipoMaquina;
 import Interfaces.iMenu;
 
 import java.io.IOException;
@@ -66,10 +67,48 @@ public class MenuMaquinas implements iMenu {
                     esperarTeclaParaContinuar();
                     break;
                 case 4:
+<<<<<<< Updated upstream
                     System.out.println("creando reporte maquina");
                     Recepcionista.crearReporte();
                     break;
 
+=======
+                    break;
+                case 5:
+                    System.out.println("Filtrar por nombre...");
+                    System.out.println("Ingrese el nombre por el que desea filtrar...");
+                    entrada=scanner.nextLine();
+                    Recepcionista.maquinaFiltroPorNombre(maquinas,entrada);
+                    break;
+                case 6:
+                    System.out.println("Filtrar por tipo de maquina...");
+                    System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
+
+                    eTipoMaquina[] tipo = eTipoMaquina.values();
+                    for (int i = 0; i < tipo.length; i++) {
+                        System.out.println((i + 1) + ". " +tipo[i].name());
+                    }
+                    opcion = -1;
+                    boolean opcionValida = false;
+
+                    // Validar la entrada del usuario
+                    while (!opcionValida) {
+                        try {
+                            System.out.print("Ingrese el número de la opción deseada: ");
+                            opcion = Integer.parseInt(scanner.nextLine());
+
+                            if (opcion >= 1 && opcion <= tipo.length) {
+                                opcionValida = true;
+                            } else {
+                                System.out.println("Opción no válida. Por favor, seleccione un número entre 1 y " + tipo.length + ".");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                        }
+                    }
+                    Recepcionista.maquinaFiltroPorTipo(maquinas, tipo[opcion - 1]);
+                    break;
+>>>>>>> Stashed changes
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     try {
@@ -94,6 +133,8 @@ public class MenuMaquinas implements iMenu {
         sb.append("\n   2. Eliminar maquina ");
         sb.append("\n   3. Agregar maquina");
         sb.append("\n   4. Crear reporte maquina ");
+        sb.append("\n   5. Filtrar por nombre");
+        sb.append("\n   6. Filtrar por tipo de maquina");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();

@@ -7,14 +7,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import Enums.eTipoMaquina;
 import Interfaces.iReportarMaquina;
 import Excepciones.MembresiaExpiradaExcepcion;
 import org.json.JSONException;
@@ -74,10 +74,11 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Convertir de un Archivo JSON a un objeto Recepcionista
+     *
      * @param recepcionista
      */
     public Recepcionista(JSONObject recepcionista) {
-        try{
+        try {
             setNombre(recepcionista.getString("nombre"));
             setApellido(recepcionista.getString("apellido"));
             setDocumento(recepcionista.getString("documento"));
@@ -97,11 +98,12 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Metodo para convertir de un objeto a un Archivo JSON
+     *
      * @return
      */
-    public JSONObject toJSON(){
+    public JSONObject toJSON() {
         JSONObject jsonObject = null;
-        try{
+        try {
             jsonObject = new JSONObject();
 
             jsonObject.put("nombre", getNombre());
@@ -126,32 +128,32 @@ public final class Recepcionista extends Empleado {
     /**
      * Esta metodo verifica la membresia por miembro, se le pasa por parametro un Miembro
      * Contiene una excepcion personalizada y otra excepcion llamada IllegalArgumentException que verifica que el miembro no puede ser Null.
+     *
      * @param miembros
      * @param Dni
      * @throws MembresiaExpiradaExcepcion
      */
 
     //Ver este metodo
-    public void verificarMembresia(GestionGenericaGimnasio<Miembro> miembros , String Dni) throws MembresiaExpiradaExcepcion {
+    public void verificarMembresia(GestionGenericaGimnasio<Miembro> miembros, String Dni) throws MembresiaExpiradaExcepcion {
         Miembro miembro = miembros.getGestionUsuario().get(Dni);
         if (miembro == null) {
             throw new IllegalArgumentException("El miembro no puede ser nulo.");
         }
         if (miembro.isEstadoMembresia() == true) {
             System.out.println("La membresia del miembro esta activa");
-        }else
-        {
+        } else {
             throw new MembresiaExpiradaExcepcion("La membresia esta expirada");
         }
 
     }
 
-    public static String pagarCouta (Miembro miembro){
-        if (miembro.isEstadoMembresia() == false){
-            return "La couta ya ha sido pagada "+miembro.getFechaUltimoPago();
+    public static String pagarCouta(Miembro miembro) {
+        if (miembro.isEstadoMembresia() == false) {
+            return "La couta ya ha sido pagada " + miembro.getFechaUltimoPago();
         }
         miembro.setEstadoMembresia(true);
-        return "Se pago la couta de: "+miembro.getNombre()+" "+miembro.getApellido();
+        return "Se pago la couta de: " + miembro.getNombre() + " " + miembro.getApellido();
     }
 
     /**
@@ -169,6 +171,7 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este  metodo sirve para eliminar un obj mediante su clave(Dni) de una lista en este caso una lista generica pasada por parametro
+     *
      * @param lista
      * @param clave
      * @param <T>
@@ -179,10 +182,11 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para consultar, por parametro le vamos a pasar una lista donde querramos consultar y un string clave(Documento)
+     *
      * @param lista
      * @param key
-     * @return retorna el objeto que querramos consultar.
      * @param <T>
+     * @return retorna el objeto que querramos consultar.
      */
     public static <T> T consultar(GestionGenericaGimnasio<T> lista, String key) {
         T t = lista.consultar(key);
@@ -192,6 +196,7 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para calcular el salario por entrenador, cada 5 miembros asignados se le suma un porcentaje
+     *
      * @param gestionEntrenadores
      * @param dni
      */
@@ -199,9 +204,8 @@ public final class Recepcionista extends Empleado {
 
     public static void calcularSalario(GestionGenericaGimnasio<Entrenador> gestionEntrenadores, String dni) {
 
-        Entrenador entrenador= new Entrenador();
-        try
-        {
+        Entrenador entrenador = new Entrenador();
+        try {
             entrenador = gestionEntrenadores.consultar(dni);
 
             double salarioBase = entrenador.getSalario();
@@ -220,9 +224,9 @@ public final class Recepcionista extends Empleado {
     }
 
 
-
     /**
      * Este metodo sirve para que el recepcionisa le puedo asignar un miembro a un entrenador en especifico, mediante el dni del entrenador, la lista y el miembro que se le quiere agregar.
+     *
      * @param listaEntrenadores
      * @param miembro
      * @param dniEntrenador
@@ -240,6 +244,7 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para que el recepcionista reporte una maquina en especifico
+     *
      * @param gestionMaquinas
      * @param desc
      * @param idMaquina
@@ -260,6 +265,7 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para que el recepcionista pueda mostrar los elementos de una lista en especifico pasado por parametro.
+     *
      * @param gestion
      * @param <T>
      */
@@ -272,6 +278,7 @@ public final class Recepcionista extends Empleado {
     /**
      * Este metodo sirve para modificar un entrenador, se le pasa por parametro el dni del entrenador y la lista donde se encuentra, adentro vamos a pregunarle los datos nuevos
      * y realizar el cambio
+     *
      * @param dni
      * @param lista
      */
@@ -300,6 +307,7 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para que el recepcionista modifque el miembro, una vez pasado los parametros se solicita el nombre, la fecha de nacimiento nueva y realiza el cambio.
+     *
      * @param dni
      * @param lista
      */
@@ -342,10 +350,11 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para que el recepcionista modifque el Personal de mantenimiento, una vez pasado los parametros se solicita el nombre y realiza el cambio.
+     *
      * @param dni
      * @param lista
      */
-    public static void modificarPersonaldeMantenimiento (String dni, GestionGenericaGimnasio<PersonalMantenimiento> lista) {
+    public static void modificarPersonaldeMantenimiento(String dni, GestionGenericaGimnasio<PersonalMantenimiento> lista) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingresa el nuevo nombre:");
         String nuevoNombre = scanner.nextLine();
@@ -370,6 +379,7 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para que el recepcionista modifique una maquina, se le pasa por parametro el di y la lista de las maquinas despues se le pide el nuevo nombre y realiza el cambio
+     *
      * @param id
      * @param lista
      */
@@ -393,6 +403,7 @@ public final class Recepcionista extends Empleado {
 
     }
 
+<<<<<<< Updated upstream
     public static Reporte crearReporte() {
         Reporte reporte = new Reporte();
         Scanner scaner = new Scanner(System.in);
@@ -405,5 +416,73 @@ public final class Recepcionista extends Empleado {
         return reporte;
     }
 }
+=======
+    //METODOS PARA FILTRAR LISTAS SEGUN NOMBRE O ID/DOCUMENTO
+
+    public static void miembroFiltroPorNombre(GestionGenericaGimnasio<Miembro> gestion, String filtro) {
+        for (Miembro elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getNombre().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
+    public static void miembroFiltroPorDocumento(GestionGenericaGimnasio<Miembro> gestion, String filtro) {
+        for (Miembro elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getDocumento().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
+    public static void entrenadorFiltroPorNombre(GestionGenericaGimnasio<Entrenador> gestion, String filtro) {
+        for (Entrenador elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getNombre().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
+    public static void entrenadorFiltroPorDocumento(GestionGenericaGimnasio<Entrenador> gestion, String filtro) {
+        for (Entrenador elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getDocumento().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
+    public static void mantenimientoFiltroPorNombre(GestionGenericaGimnasio<PersonalMantenimiento> gestion, String filtro) {
+        for (PersonalMantenimiento elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getNombre().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
+    public static void mantenimientoFiltroPorDocumento(GestionGenericaGimnasio<PersonalMantenimiento> gestion, String filtro) {
+        for (PersonalMantenimiento elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getDocumento().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
+    public static void maquinaFiltroPorNombre(GestionGenericaGimnasio<Maquina> gestion, String filtro) {
+        for (Maquina elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getNombre().contains(filtro)) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
+    public static void maquinaFiltroPorTipo(GestionGenericaGimnasio<Maquina> gestion, eTipoMaquina filtro) {
+        for (Maquina elemento : gestion.getGestionUsuario().values()) {
+            if (elemento.getTipoMaquina()==filtro) {
+                System.out.println(elemento);
+            }
+        }
+    }
+>>>>>>> Stashed changes
 
 
+}

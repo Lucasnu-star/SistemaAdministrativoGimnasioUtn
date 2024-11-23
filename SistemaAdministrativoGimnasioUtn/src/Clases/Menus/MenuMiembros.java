@@ -122,7 +122,18 @@ public class MenuMiembros implements iMenu {
 
                     esperarTeclaParaContinuar();
                     break;
-
+                case 7:
+                    System.out.println("Filtrar por nombre...");
+                    System.out.println("Ingrese el nombre por el que desea filtrar...");
+                    entrada=scanner.nextLine();
+                    Recepcionista.miembroFiltroPorNombre(listaMiembros,entrada);
+                    break;
+                case 8:
+                    System.out.println("Filtrar por documento...");
+                    System.out.println("Ingrese el documento por el que desea filtrar...");
+                    entrada=scanner.nextLine();
+                    Recepcionista.miembroFiltroPorDocumento(listaMiembros,entrada);
+                    break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     try {
@@ -141,12 +152,18 @@ public class MenuMiembros implements iMenu {
     public String mostrarInterfaz() {
         StringBuilder sb = new StringBuilder();
         sb.append("\nMenú miembros:");
+<<<<<<< Updated upstream
         System.out.println("\n  1. Mostrar Miembros");
+=======
+        sb.append("\n   1. Mostrar lista miembros");
+>>>>>>> Stashed changes
         sb.append("\n   2. Consultar Miembro");
         sb.append("\n   3. Agregar Miembro");
         sb.append("\n   4. Modificar Miembro");
         sb.append("\n   5. Eliminar Miembro");
         sb.append("\n   6. Pagar couta");
+        sb.append("\n   7. Filtrar por nombre");
+        sb.append("\n   8. Filtrar por documento");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();
