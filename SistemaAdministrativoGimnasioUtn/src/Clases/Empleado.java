@@ -67,31 +67,5 @@ public abstract class Empleado  extends Usuario{
                 "\nsalario=" + salario +
                 "\nhorario=" + horario ;
     }
-    // Convertir Empleado a JSONObject (incluye atributos de Persona)
-    @Override
-
-    public JSONObject toJson() {
-        JSONObject json = super.toJson(); // Llama a la implementación de Persona
-        json.put("horario", horario);
-        json.put("salario", salario);
-        return json;
-    }
-
-    // Convertir JSONObject a Empleado
-    public static Empleado fromJson(JSONObject json) {
-        // Usa super para manejar los atributos de Persona
-        Usuario persona = Usuario.fromJson(json);
-        String horario = json.getString("horario");
-        int salarioo = json.getInt("salario");
-        Empleado empleado = null;
-        empleado.setNombre(persona.getNombre());
-        empleado.setApellido(persona.getApellido());
-        empleado.setDocumento(persona.getDocumento());
-        empleado.setFechaNacimiento(persona.getFechaNacimiento());
-        empleado.setHorario(horario);
-        empleado.setSalario(salarioo);
-        // Crea y retorna un Empleado con los datos
-        return empleado;
-    }
 }
 

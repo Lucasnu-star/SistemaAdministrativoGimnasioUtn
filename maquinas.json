@@ -1,1 +1,1 @@
-{"ListaMaquinas":[{"tipoMaquina":"ESPALDA","estadoMaquina":true,"nombre":"dorsalera"}]}
+{"ListaMaquinas":[{"tipoMaquina":"PECHO","estadoMaquina":true,"nombre":"banca"},{"tipoMaquina":"ESPALDA","estadoMaquina":true,"nombre":"dorsalera"},{"tipoMaquina":"PIERNA","estadoMaquina":false,"nombre":"eliptica"}]}

@@ -11,19 +11,7 @@ public class Main {
 
         Gimnasio gimnasio = new Gimnasio();
 
-        // Cargar datos al gimnasio
-        Data.cargarDatos(gimnasio);
 
-        // Control del json
-        GestorJsonEntrenadores gestorJsonEntrenadores = new GestorJsonEntrenadores();
-        gestorJsonEntrenadores.grabar(gimnasio.getGestionEntrenadores());
-
-        GestionGenericaGimnasio<Entrenador> entrenadors = new GestionGenericaGimnasio<>();
-        entrenadors = gestorJsonEntrenadores.leerListaGenericaEntrenadores();
-        System.out.println(entrenadors);
-
-        GestorJsonMiembros gestorJsonMiembros = new GestorJsonMiembros();
-        gestorJsonMiembros.grabar(gimnasio.getGestionMiembros());
 
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         menuPrincipal.IniciadoDeSesion();

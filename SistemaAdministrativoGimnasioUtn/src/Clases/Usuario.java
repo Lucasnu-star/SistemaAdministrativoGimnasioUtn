@@ -80,41 +80,7 @@ public abstract class Usuario {
                 "\nfechaNacimiento= " + fechaNacimiento;
     }
 
-    //Metodos
 
-    /**
-     * Este metodo calcula la edad mediante la fecha de nacimiento
-     * @return retorna un int que es la edad del usuario
-     */
-
-    public int calcularEdad() {
-        if (fechaNacimiento != null) {
-            return Period.between(fechaNacimiento, LocalDate.now()).getYears();
-        }
-        return 0;
-    }
-
-    // Convertir Usuario a JSONObject
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("nombre", nombre);
-        json.put("apellido", apellido);
-        json.put("documento", documento);
-        json.put("fechaNacimiento", fechaNacimiento);
-        return json;
-    }
-
-    // Convertir JSONObject a Persona
-    public static Usuario fromJson(JSONObject json) {
-        Usuario usuario=null;
-        usuario.setNombre(json.getString("nombre"));
-        usuario.setApellido(json.getString("apellido"));
-        usuario.setDocumento(json.getString("documento"));
-        LocalDate nac;
-        nac=(LocalDate) json.get("fechaNacimiento");
-        usuario.setFechaNacimiento(nac);
-        return usuario;
-    }
 
 
 }
