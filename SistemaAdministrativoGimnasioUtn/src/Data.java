@@ -49,7 +49,7 @@ public class Data {
 
         // Instancias de Miembro
         Miembro miembro1 = new Miembro("Carlos", "Lopez", "11111111", LocalDate.of(1995, 1, 10), membresiaBasica, true, LocalDate.of(2023, 1, 1), LocalDate.now());
-        Miembro miembro2 = new Miembro("Ana", "Martinez", "22222222", LocalDate.of(1992, 2, 15), membresiaPremium, false, LocalDate.of(2023, 2, 15), LocalDate.now());
+        Miembro miembro2 = new Miembro("Ana", "Martinez", "22222222", LocalDate.of(1992, 2, 15), membresiaPremium, false, LocalDate.of(2023, 2, 15), LocalDate.of(2024, 2, 8));
         Miembro miembro3 = new Miembro("Luis", "Garcia", "33333333", LocalDate.of(1998, 3, 20), membresiaBasica, true, LocalDate.of(2023, 3, 5), LocalDate.now());
         Miembro miembro4 = new Miembro("Lucia", "Fernandez", "44444444", LocalDate.of(1993, 4, 25), membresiaBasica, true, LocalDate.of(2023, 4, 10), LocalDate.now());
         Miembro miembro5 = new Miembro("Miguel", "Diaz", "55555555", LocalDate.of(1997, 5, 30), membresiaBasica, false, LocalDate.of(2023, 5, 20), LocalDate.now());

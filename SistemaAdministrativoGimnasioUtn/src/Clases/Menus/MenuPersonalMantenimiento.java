@@ -18,9 +18,21 @@ import java.util.Scanner;
  */
 
 public class MenuPersonalMantenimiento implements iMenu {
-    private static GestorJsonPersonalMantenimiento gestorJson = new GestorJsonPersonalMantenimiento();
+    private final GestorJsonPersonalMantenimiento gestorJson;
+
+    private GestionGenericaGimnasio<PersonalMantenimiento> personalM;
 
     public MenuPersonalMantenimiento() {
+        gestorJson = new GestorJsonPersonalMantenimiento();
+        personalM = new GestionGenericaGimnasio<>();
+    }
+
+    public GestorJsonPersonalMantenimiento getGestorJson() {
+        return gestorJson;
+    }
+
+    public GestionGenericaGimnasio<PersonalMantenimiento> getPersonalM() {
+        return personalM;
     }
 
     @Override
@@ -36,7 +48,7 @@ public class MenuPersonalMantenimiento implements iMenu {
         // por si se necesita un empleado de mantenimiento
         PersonalMantenimiento empleadoM = null;
         do {
-            GestionGenericaGimnasio<PersonalMantenimiento> personalM = gestorJson.leerListaGenericaPersonalM();
+            personalM = gestorJson.leerListaGenericaPersonalM();
 
             limpiarConsola();
 

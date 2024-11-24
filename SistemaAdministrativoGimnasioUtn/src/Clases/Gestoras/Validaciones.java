@@ -56,4 +56,16 @@ public class Validaciones {
             }
         } while (true);
     }
+
+    public static String noVacio(String mensaje, Scanner entrada){
+        String palabra;
+        do {
+            System.out.println(mensaje);
+            palabra = entrada.nextLine().trim();
+            if (!palabra.isEmpty()){
+                return palabra;
+            }
+            System.out.println("Entrada invalida. Tiene que tener caracteres ");
+        }while (true);
+    }
 }

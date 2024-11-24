@@ -24,11 +24,27 @@ import java.util.Scanner;
 
 public class MenuEntrenadores implements iMenu {
 
-    private static final GestorJsonEntrenadores gestorJson = new GestorJsonEntrenadores();
+    private final GestorJsonEntrenadores gestorJson;
 
-    private static final GestorJsonMiembros gestorJsonMiembros = new GestorJsonMiembros();
+    private final GestorJsonMiembros gestorJsonMiembros;
+
+    private GestionGenericaGimnasio<Entrenador> lista;
+
+    private GestionGenericaGimnasio<Miembro> listaMiembros;
 
     public MenuEntrenadores() {
+        lista = new GestionGenericaGimnasio<>();
+        listaMiembros = new GestionGenericaGimnasio<>();
+        gestorJson = new GestorJsonEntrenadores();
+        gestorJsonMiembros = new GestorJsonMiembros();
+    }
+
+    public GestorJsonEntrenadores getGestorJson() {
+        return gestorJson;
+    }
+
+    public GestorJsonMiembros getGestorJsonMiembros() {
+        return gestorJsonMiembros;
     }
 
     // Submenú de entrenadores
@@ -49,8 +65,8 @@ public class MenuEntrenadores implements iMenu {
 
         do {
             // cuando termina la funcion, lee de nuevo el archivo
-            GestionGenericaGimnasio<Entrenador> lista = gestorJson.leerListaGenericaEntrenadores();
-            GestionGenericaGimnasio<Miembro> listaMiembros = gestorJsonMiembros.leerListaGenericaMiembros();
+            lista = gestorJson.leerListaGenericaEntrenadores();
+            listaMiembros = gestorJsonMiembros.leerListaGenericaMiembros();
 
             // cada vez que termina la funcion, se limpia
             entrenador = new Entrenador();

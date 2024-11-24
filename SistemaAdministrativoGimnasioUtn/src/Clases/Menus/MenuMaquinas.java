@@ -3,6 +3,7 @@ package Clases.Menus;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Maquina;
+import Clases.PersonalMantenimiento;
 import Clases.Recepcionista;
 import Enums.eTipoMaquina;
 import Interfaces.iMenu;
@@ -12,9 +13,21 @@ import java.util.Scanner;
 
 public class MenuMaquinas implements iMenu {
 
-    private static GestorJsonMaquinas gestorMaq=new GestorJsonMaquinas();
+    private final GestorJsonMaquinas gestorMaq;
+
+    private GestionGenericaGimnasio<Maquina> maquinas;
 
     public MenuMaquinas() {
+        gestorMaq = new GestorJsonMaquinas();
+        maquinas = new GestionGenericaGimnasio<>();
+    }
+
+    public GestorJsonMaquinas getGestorMaq() {
+        return gestorMaq;
+    }
+
+    public GestionGenericaGimnasio<Maquina> getMaquinas() {
+        return maquinas;
     }
 
     //Submenu maquinas
@@ -34,7 +47,7 @@ public class MenuMaquinas implements iMenu {
 
         do {
 
-            GestionGenericaGimnasio<Maquina> maquinas = gestorMaq.leerListaGenericaMaquina();
+            maquinas = gestorMaq.leerListaGenericaMaquina();
 
             // Muestra las opciones
             System.out.println(mostrarInterfaz());

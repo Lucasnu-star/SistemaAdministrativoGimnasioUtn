@@ -25,9 +25,8 @@ public class Main {
         GestorJsonMiembros gestorJsonMiembros = new GestorJsonMiembros();
         gestorJsonMiembros.grabar(gimnasio.getGestionMiembros());
 
-        // iniciar sesion solo para recepcionistas
-        IniciarSesion iniciarSesion = new IniciarSesion();
-        iniciarSesion.IniciadoDeSesion();
+        MenuPrincipal menuPrincipal = new MenuPrincipal();
+        menuPrincipal.IniciadoDeSesion();
 
 
     }
