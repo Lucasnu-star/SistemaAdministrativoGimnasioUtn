@@ -1,7 +1,8 @@
 package Clases;
 
 import Clases.Gestoras.GestionGenericaGimnasio;
-import Clases.Gestoras.GestorJsonRecepcionistas;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +151,31 @@ public final class Gimnasio {
                 ", capacidadGimnasio=" + capacidadGimnasio +
                 ", especialidadesGimnasio=" + especialidadesGimnasio;
     }
+
+    public Gimnasio (JSONObject jsonObjectGimnasio){
+        try {
+            setNombreGimnasio(jsonObjectGimnasio.getString("nombre"));
+            setDireccionGimnasio(jsonObjectGimnasio.getString("direccion"));
+            setCapacidadGimnasio(jsonObjectGimnasio.getInt("capacidad"));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public JSONObject toJSON(){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("nombre", getNombreGimnasio());
+            jsonObject.put("direccion", getDireccionGimnasio());
+            jsonObject.put("capacidad", getCapacidadGimnasio());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
 
 
 }

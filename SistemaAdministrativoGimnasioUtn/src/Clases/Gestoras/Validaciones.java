@@ -41,16 +41,16 @@ public class Validaciones {
         } while (true);
     }
 
-    public static int validarSalario(String mensaje, Scanner entrada) {
-        int salario;
+    public static int validarEntero(String mensaje, Scanner entrada) {
+        int numero;
         do {
             try {
                 System.out.println(mensaje);
-                salario = Integer.parseInt(entrada.nextLine().trim());
-                if (salario > 0) {
-                    return salario;
+                numero = Integer.parseInt(entrada.nextLine().trim());
+                if (numero > 0) {
+                    return numero;
                 }
-                System.out.println("El salario tiene que ser un número positivo ");
+                System.out.println("Ingrese un número positivo ");
             } catch (NumberFormatException e) {
                 System.out.println("Entrada inválida. Tiene que ser un número entero ");
             }
@@ -68,4 +68,5 @@ public class Validaciones {
             System.out.println("Entrada invalida. Tiene que tener caracteres ");
         }while (true);
     }
+
 }

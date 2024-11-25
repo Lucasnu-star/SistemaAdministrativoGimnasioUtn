@@ -1,7 +1,6 @@
 package Clases.Gestoras;
 
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
-import Clases.PersonalMantenimiento;
 import Clases.Recepcionista;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -155,7 +154,7 @@ public class GestorJsonRecepcionistas {
         LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
         recepcionista.setFechaNacimiento(fechaNacimiento);
 
-        int salario = Validaciones.validarSalario("Ingrese el salario:", entrada);
+        int salario = Validaciones.validarEntero("Ingrese el salario:", entrada);
         recepcionista.setSalario(salario);
 
         int opc = elegirHorario(entrada);
