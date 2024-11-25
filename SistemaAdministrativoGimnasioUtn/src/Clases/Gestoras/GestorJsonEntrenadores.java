@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Enums.eEspecialidad;
@@ -164,7 +163,7 @@ public class GestorJsonEntrenadores {
         LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
         entrenador.setFechaNacimiento(fechaNacimiento);
 
-        int salario = Validaciones.validarSalario("Ingrese el salario:", entrada);
+        int salario = Validaciones.validarEntero("Ingrese el salario:", entrada);
         entrenador.setSalario(salario);
 
         int opc = elegirHorario(entrada);
@@ -293,7 +292,7 @@ public class GestorJsonEntrenadores {
 
                 case 4:
                     // Modificar salario
-                    int salario = Validaciones.validarSalario("Ingrese el nuevo salario", scanner);
+                    int salario = Validaciones.validarEntero("Ingrese el nuevo salario", scanner);
                     entrenador.setSalario(salario);
                     break;
 

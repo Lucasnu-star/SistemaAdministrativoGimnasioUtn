@@ -1,11 +1,15 @@
 package Clases.Menus;
 import Clases.Gestoras.GestionGenericaGimnasio;
+import Clases.Gestoras.GestorJsonGimnasio;
 import Clases.Gestoras.GestorJsonRecepcionistas;
+import Clases.Gimnasio;
 import Clases.Recepcionista;
 import Interfaces.iMenu;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+
 /**
  * Clase para acceder al menu principal
  * te presenta las distintas secciones
@@ -19,11 +23,17 @@ public class MenuPrincipal implements iMenu{
 
     private GestionGenericaGimnasio<Recepcionista> lista;
 
+    private final GestorJsonGimnasio gestorGimnasio;
+
+    private Gimnasio gimnasio;
+
+
     public MenuPrincipal() {
         this.recepcionista = new Recepcionista();
         this.gestorJson = new GestorJsonRecepcionistas();
         this.lista = new GestionGenericaGimnasio<>();
-
+        this.gestorGimnasio = new GestorJsonGimnasio();
+        this.gimnasio = new Gimnasio();
     }
 
     public Recepcionista getRecepcionista() {
@@ -32,6 +42,14 @@ public class MenuPrincipal implements iMenu{
 
     public void setRecepcionista(Recepcionista recepcionista) {
         this.recepcionista = recepcionista;
+    }
+
+    public Gimnasio getGimnasio() {
+        return gimnasio;
+    }
+
+    public void setGimnasio(Gimnasio gimnasio) {
+        this.gimnasio = gimnasio;
     }
 
     /**
@@ -45,7 +63,7 @@ public class MenuPrincipal implements iMenu{
         boolean iniciadoExitoso = false;
 
         do {
-            System.out.println("Iniciar Sesion");
+            System.out.println("===== Iniciar Sesion =====");
             System.out.println("Nombre de usuario: ");
             String nombreUsuario = scanner.nextLine();
 
@@ -81,6 +99,7 @@ public class MenuPrincipal implements iMenu{
 
         do {
             lista = gestorJson.leerListaGenericaRecepcionistas();
+            gimnasio = gestorGimnasio.leer();
 
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
@@ -126,15 +145,20 @@ public class MenuPrincipal implements iMenu{
                     break;
                 case 7:
                     System.out.println("Datos del gimnasio ");
+                    System.out.println(gimnasio);
                     break;
                 case 8:
                     System.out.println("Modificar datos del gimnasio ");
+                    gestorGimnasio.modificarDatos(gimnasio);
+
+                    gestorGimnasio.grabar(gimnasio);
                     break;
                 case 9:
                     System.out.println("Agregar recepcionista ");
                     Recepcionista recepcionistaNuevo = gestorJson.crearRecepcionista();
                     Recepcionista.agregarDeLista(lista, recepcionistaNuevo.getDocumento(), recepcionistaNuevo);
 
+                    gestorJson.grabar(lista);
                     break;
                 case 0:
                     System.out.println("¡Nos vemos! cerrando programa...");

@@ -9,11 +9,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
-import Enums.eTipoMembresia;
 
 /**
  * Clase para gestionar el json de los miembros, pero puede convertirse en una clase gestora general

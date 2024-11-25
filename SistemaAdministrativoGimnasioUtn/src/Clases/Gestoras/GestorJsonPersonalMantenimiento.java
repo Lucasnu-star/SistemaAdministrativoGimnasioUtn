@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -157,7 +156,7 @@ public class GestorJsonPersonalMantenimiento  {
         LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
         empleadoM.setFechaNacimiento(fechaNacimiento);
 
-        int salario = Validaciones.validarSalario("Ingrese el salario:", entrada);
+        int salario = Validaciones.validarEntero("Ingrese el salario:", entrada);
         empleadoM.setSalario(salario);
 
         int opc = elegirHorario(entrada);
@@ -236,7 +235,7 @@ public class GestorJsonPersonalMantenimiento  {
 
                 case 4:
                     // Modificar salario
-                    int salario = Validaciones.validarSalario("Ingrese el salario:", scanner);
+                    int salario = Validaciones.validarEntero("Ingrese el salario:", scanner);
                     empleadoM.setSalario(salario);
                     break;
 

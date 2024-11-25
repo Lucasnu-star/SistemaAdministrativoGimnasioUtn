@@ -4,7 +4,6 @@ import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMiembros;
 import Clases.Miembro;
 import Clases.Recepcionista;
-import Enums.eEspecialidad;
 import Enums.eTipoMembresia;
 import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
