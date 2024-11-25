@@ -1,5 +1,11 @@
 package Clases;
 
+import Clases.Gestoras.GestionGenericaGimnasio;
+import Enums.eTipoMaquina;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Esta clase representa un Reporte con una descripcion(String), idMaquina(String) y el dniUsuario(String) donde se va a guardar un reporte de la maquina.
  *
@@ -16,6 +22,16 @@ public class Reporte {
         this.DNIusuario = DNIusuario;
     }
     public Reporte() {
+    }
+
+    public Reporte(JSONObject jsonObject) {
+        try {
+            setIdMaquina(jsonObject.getString("idm"));
+            setDNIusuario(jsonObject.getString("idu"));
+            setDescripcion(jsonObject.getString("desc"));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 
     public String getDescripcion() {
@@ -49,5 +65,18 @@ public class Reporte {
                 ", idMaquina='" + idMaquina + '\'' +
                 ", DNIusuario='" + DNIusuario + '\'' +
                 '}';
+    }
+    public JSONObject toJSON(){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("idm", getIdMaquina());
+            jsonObject.put("idu", getDNIusuario());
+            jsonObject.put("desc", getDescripcion());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 }

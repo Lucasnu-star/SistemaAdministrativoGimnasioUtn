@@ -2,8 +2,10 @@ package Clases.Menus;
 
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMiembros;
+import Clases.Gestoras.GestorJsonReporte;
 import Clases.Miembro;
 import Clases.Recepcionista;
+import Clases.Reporte;
 import Enums.eEspecialidad;
 import Enums.eTipoMembresia;
 import Excepciones.ListaVaciaExcepcion;
@@ -25,9 +27,11 @@ public class MenuMiembros implements iMenu {
 
     private GestionGenericaGimnasio<Miembro> listaMiembros;
 
+
     public MenuMiembros() {
         gestorJson = new GestorJsonMiembros();
         listaMiembros = new GestionGenericaGimnasio<>();
+
     }
 
     public GestionGenericaGimnasio<Miembro> getListaMiembros() {
@@ -37,6 +41,10 @@ public class MenuMiembros implements iMenu {
     public GestorJsonMiembros getGestorJson() {
         return gestorJson;
     }
+
+
+
+
 
     //Submenú de miembros
 

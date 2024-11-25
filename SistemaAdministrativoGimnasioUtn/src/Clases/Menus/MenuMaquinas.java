@@ -2,9 +2,11 @@ package Clases.Menus;
 
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMaquinas;
+import Clases.Gestoras.GestorJsonReporte;
 import Clases.Maquina;
 import Clases.PersonalMantenimiento;
 import Clases.Recepcionista;
+import Clases.Reporte;
 import Enums.eTipoMaquina;
 import Interfaces.iMenu;
 
@@ -17,9 +19,15 @@ public class MenuMaquinas implements iMenu {
 
     private GestionGenericaGimnasio<Maquina> maquinas;
 
+    private final GestorJsonReporte gestorRe;
+
+    private GestionGenericaGimnasio<Reporte> reportes;
+
     public MenuMaquinas() {
         gestorMaq = new GestorJsonMaquinas();
         maquinas = new GestionGenericaGimnasio<>();
+        gestorRe =new GestorJsonReporte();
+        reportes=new GestionGenericaGimnasio<>();
     }
 
     public GestorJsonMaquinas getGestorMaq() {
@@ -28,6 +36,12 @@ public class MenuMaquinas implements iMenu {
 
     public GestionGenericaGimnasio<Maquina> getMaquinas() {
         return maquinas;
+    }
+
+    public GestorJsonReporte getGestorRe(){return gestorRe;}
+
+    public GestionGenericaGimnasio<Reporte> getReporte() {
+        return reportes;
     }
 
     //Submenu maquinas
@@ -81,17 +95,25 @@ public class MenuMaquinas implements iMenu {
                     break;
                 case 4:
                     System.out.println("creando reporte maquina");
-                    Recepcionista.crearReporte();
-                    gestorMaq.grabar(maquinas);
+                    Reporte reporte=new Reporte();
+                    reporte=Recepcionista.crearReporte();
+                    Recepcionista.agregarDeLista(reportes,reporte.getDescripcion(),reporte);
+                    gestorRe.grabar(reportes);
+                    break;
+                case 5:
+                    reportes = gestorRe.leerListaGenericaReporte();
+                    System.out.println("mostrando reportes");
+                    Recepcionista.mostrarElementosLista(reportes);
+                    esperarTeclaParaContinuar();
                     break;
 
-                case 5:
+                case 6:
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
                     Recepcionista.maquinaFiltroPorNombre(maquinas,entrada);
                     break;
-                case 6:
+                case 7:
                     System.out.println("Filtrar por tipo de maquina...");
                     System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
 
@@ -119,7 +141,7 @@ public class MenuMaquinas implements iMenu {
                     }
                     Recepcionista.maquinaFiltroPorTipo(maquinas, tipo[opcion - 1]);
                     break;
-                case 7:
+                case 8:
                     System.out.println("Filtrando segun su estado...");
                     System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
                     System.out.println("1. Perfecto estado");
@@ -170,9 +192,10 @@ public class MenuMaquinas implements iMenu {
         sb.append("\n   2. Eliminar maquina ");
         sb.append("\n   3. Agregar maquina");
         sb.append("\n   4. Crear reporte maquina ");
-        sb.append("\n   5. Filtrar por nombre");
-        sb.append("\n   6. Filtrar por tipo de maquina");
-        sb.append("\n   7. Filtrar por estado de maquina");
+        sb.append("\n   5. Mostrando reportes ");
+        sb.append("\n   6. Filtrar por nombre");
+        sb.append("\n   7. Filtrar por tipo de maquina");
+        sb.append("\n   8. Filtrar por estado de maquina");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();
