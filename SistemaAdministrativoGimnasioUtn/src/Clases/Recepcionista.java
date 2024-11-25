@@ -42,7 +42,7 @@ public final class Recepcionista extends Empleado {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Recepcionista = "+super.toString());
+        final StringBuilder sb = new StringBuilder("Recepcionista = " + super.toString());
         sb.append("\nnombreUsuario= ").append(nombreUsuario);
         sb.append("\ncontraseña= ").append(contrasenia);
         return sb.toString();
@@ -118,6 +118,7 @@ public final class Recepcionista extends Empleado {
 
     /**
      * Este metodo sirve para simular que se paga la couta de un miembro en especifico
+     *
      * @param miembro;
      * @return String;
      */
@@ -150,8 +151,8 @@ public final class Recepcionista extends Empleado {
      * @param <T>;
      * @throws UsuarioNoEncontradoExcepcion;
      */
-    public static <T> String eliminarDeLista(GestionGenericaGimnasio<T> lista, String clave) throws UsuarioNoEncontradoExcepcion{
-        if (lista.eliminar(clave) == null){
+    public static <T> String eliminarDeLista(GestionGenericaGimnasio<T> lista, String clave) throws UsuarioNoEncontradoExcepcion {
+        if (lista.eliminar(clave) == null) {
             throw new UsuarioNoEncontradoExcepcion("No se ha encontrado el elemento a eliminar ");
         }
         return "Se ha eliminado el elemento correctamente ";
@@ -165,9 +166,9 @@ public final class Recepcionista extends Empleado {
      * @param <T>;
      * @return retorna el objeto que querramos consultar.
      */
-    public static <T> T consultar(GestionGenericaGimnasio<T> lista, String key) throws UsuarioNoEncontradoExcepcion{
+    public static <T> T consultar(GestionGenericaGimnasio<T> lista, String key) throws UsuarioNoEncontradoExcepcion {
         T t = lista.consultar(key);
-        if (t == null){
+        if (t == null) {
             throw new UsuarioNoEncontradoExcepcion("No se ha encontrado el elemento a buscar ");
         }
         return t;
@@ -249,8 +250,8 @@ public final class Recepcionista extends Empleado {
      * @param <T>;
      * @throws ListaVaciaExcepcion;
      */
-    public static <T> void mostrarElementosLista(GestionGenericaGimnasio<T> gestion) throws ListaVaciaExcepcion{
-        if (gestion.getGestionUsuario().isEmpty()){
+    public static <T> void mostrarElementosLista(GestionGenericaGimnasio<T> gestion) throws ListaVaciaExcepcion {
+        if (gestion.getGestionUsuario().isEmpty()) {
             throw new ListaVaciaExcepcion("La lista no tiene elementos ");
         }
         for (T elemento : gestion.getGestionUsuario().values()) {
@@ -275,8 +276,16 @@ public final class Recepcionista extends Empleado {
     //METODOS PARA FILTRAR LISTAS SEGUN NOMBRE O ID/DOCUMENTO
 
     public static <T extends Usuario> void filtroPorNombre(GestionGenericaGimnasio<T> gestion, String filtro) {
+        // Verificar que el filtro no sea null
+        if (gestion == null || filtro == null) {
+            System.out.println("Parámetros de entrada no válidos");
+            return;
+        }
+
+        // Iterar a través de los usuarios y mostrar aquellos cuyo nombre contiene el filtro (sin distinguir entre mayúsculas y minúsculas)
         for (T elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getNombre().contains(filtro)) {
+            if (elemento != null && elemento.getNombre() != null &&
+                    elemento.getNombre().toLowerCase().contains(filtro.toLowerCase())) {
                 System.out.println(elemento);
             }
         }
@@ -289,16 +298,18 @@ public final class Recepcionista extends Empleado {
             }
         }
     }
-    public static void miembroFiltroPorEstado(GestionGenericaGimnasio<Miembro> gestion,boolean filtro) {
+
+    public static void miembroFiltroPorEstado(GestionGenericaGimnasio<Miembro> gestion, boolean filtro) {
         for (Miembro elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.isEstadoMembresia()==filtro) {
+            if (elemento.isEstadoMembresia() == filtro) {
                 System.out.println(elemento);
             }
         }
     }
+
     public static void miembroFiltroPorTipo(GestionGenericaGimnasio<Miembro> gestion, eTipoMembresia filtro) {
         for (Miembro elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getMembresia().getTipomembresia()==filtro) {
+            if (elemento.getMembresia().getTipomembresia() == filtro) {
                 System.out.println(elemento);
             }
         }
@@ -306,7 +317,7 @@ public final class Recepcionista extends Empleado {
 
     public static void entrenadorFiltroPorTipo(GestionGenericaGimnasio<Entrenador> gestion, eEspecialidad filtro) {
         for (Entrenador elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getEspecialidad()==filtro) {
+            if (elemento.getEspecialidad() == filtro) {
                 System.out.println(elemento);
             }
         }
@@ -314,30 +325,38 @@ public final class Recepcionista extends Empleado {
 
 
     public static void maquinaFiltroPorNombre(GestionGenericaGimnasio<Maquina> gestion, String filtro) {
+        // Verificar que el filtro y gestion no sean null
+        if (gestion == null || filtro == null) {
+            System.out.println("Parámetros de entrada no válidos");
+            return;
+        }
+
+        // Iterar a través de las máquinas y mostrar aquellas cuyo nombre contiene el filtro (sin distinguir entre mayúsculas y minúsculas)
         for (Maquina elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getNombre().contains(filtro)) {
+            if (elemento != null && elemento.getNombre() != null &&
+                    elemento.getNombre().toLowerCase().contains(filtro.toLowerCase())) {
                 System.out.println(elemento);
             }
         }
     }
 
+
     public static void maquinaFiltroPorTipo(GestionGenericaGimnasio<Maquina> gestion, eTipoMaquina filtro) {
         for (Maquina elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getTipoMaquina()==filtro) {
+            if (elemento.getTipoMaquina() == filtro) {
                 System.out.println(elemento);
             }
         }
     }
-    public static void maquinaFiltroPorEstado(GestionGenericaGimnasio<Maquina> gestion,boolean filtro) {
+
+    public static void maquinaFiltroPorEstado(GestionGenericaGimnasio<Maquina> gestion, boolean filtro) {
         for (Maquina elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.isEstadoMaquina()==filtro) {
+            if (elemento.isEstadoMaquina() == filtro) {
                 System.out.println(elemento);
             }
         }
     }
 
 }
-
-
 
 
