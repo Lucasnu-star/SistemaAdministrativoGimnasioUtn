@@ -1,10 +1,12 @@
-{"ListaRecepcionistas": [{
-    "horario": "08:00 a 12:00",
-    "fechaNacimiento": "1990-05-15",
-    "apellido": "Pérez",
-    "salario": 5700,
-    "documento": "12345678",
-    "contrasenia": "123456789",
-    "nombreUsuario": "Carlos912",
-    "nombre": "Carlos"
-}]}
+{"ListaRecepcionistas": [
+    {
+        "horario": "08:00 a 12:00",
+        "fechaNacimiento": "1990-05-15",
+        "apellido": "Pérez",
+        "salario": 5700,
+        "documento": "12345678",
+        "contrasenia": "123456789",
+        "nombreUsuario": "Carlos912",
+        "nombre": "Carlos"
+    }
+]}

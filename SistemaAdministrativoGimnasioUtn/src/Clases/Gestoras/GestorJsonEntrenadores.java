@@ -168,7 +168,6 @@ public class GestorJsonEntrenadores {
         int opc = elegirHorario(entrada);
         entrenador.setHorario(horarios.get(opc));
 
-        System.out.println("Seleccione la especialidad:");
         entrenador.setEspecialidad(elegirEspecialidad(entrada));
 
         return entrenador;
