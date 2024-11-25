@@ -142,23 +142,28 @@ public class GestorJsonRecepcionistas {
 
         Scanner entrada = new Scanner(System.in);
 
-        String nombre = Validaciones.validarCadena("Ingrese el nombre del empleado de mantenimiento:", entrada);
+        String nombre = Validaciones.validarCadena("Ingrese el nombre del nuevo recepcionista:", entrada);
         recepcionista.setNombre(nombre);
 
-        String apellido = Validaciones.validarCadena("Ingrese el apellido del empleado de mantenimiento:", entrada);
+        String apellido = Validaciones.validarCadena("Ingrese el apellido:", entrada);
         recepcionista.setApellido(apellido);
 
-        String documento = Validaciones.validarDocumento("Ingrese el documento del empleado de mantenimiento (8 dígitos):", entrada);
+        String documento = Validaciones.validarDocumento("Ingrese el documento (8 dígitos):", entrada);
         recepcionista.setDocumento(documento);
 
         LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
         recepcionista.setFechaNacimiento(fechaNacimiento);
 
-        int salario = Validaciones.validarEntero("Ingrese el salario:", entrada);
-        recepcionista.setSalario(salario);
+        recepcionista.setSalario(5000);
 
         int opc = elegirHorario(entrada);
         recepcionista.setHorario(horarios.get(opc));
+
+        String nombreUsuario = Validaciones.noVacio("Ingrese un nombre de usuario:", entrada);
+        recepcionista.setNombreUsuario(nombreUsuario);
+
+        String contrasenia = Validaciones.noVacio("Ingrese una contraseña: ", entrada);
+        recepcionista.setContrasenia(contrasenia);
 
         return recepcionista;
     }

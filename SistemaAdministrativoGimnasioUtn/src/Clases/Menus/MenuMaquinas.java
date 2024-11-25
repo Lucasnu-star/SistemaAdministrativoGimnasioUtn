@@ -3,6 +3,7 @@ package Clases.Menus;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Gestoras.GestorJsonReporte;
+import Clases.Gestoras.Validaciones;
 import Clases.Maquina;
 import Clases.PersonalMantenimiento;
 import Clases.Recepcionista;
@@ -17,7 +18,7 @@ public class MenuMaquinas implements iMenu {
 
     private final GestorJsonMaquinas gestorMaq;
 
-    private GestionGenericaGimnasio<Maquina> maquinas;
+    private GestionGenericaGimnasio<Maquina> listaMaquinas;
 
     private final GestorJsonReporte gestorRe;
 
@@ -25,17 +26,17 @@ public class MenuMaquinas implements iMenu {
 
     public MenuMaquinas() {
         gestorMaq = new GestorJsonMaquinas();
-        maquinas = new GestionGenericaGimnasio<>();
-        gestorRe =new GestorJsonReporte();
-        reportes=new GestionGenericaGimnasio<>();
+        listaMaquinas = new GestionGenericaGimnasio<>();
+        gestorRe = new GestorJsonReporte();
+        reportes= new GestionGenericaGimnasio<>();
     }
 
     public GestorJsonMaquinas getGestorMaq() {
         return gestorMaq;
     }
 
-    public GestionGenericaGimnasio<Maquina> getMaquinas() {
-        return maquinas;
+    public GestionGenericaGimnasio<Maquina> getListaMaquinas() {
+        return listaMaquinas;
     }
 
     public GestorJsonReporte getGestorRe(){return gestorRe;}
@@ -61,7 +62,9 @@ public class MenuMaquinas implements iMenu {
 
         do {
 
-            maquinas = gestorMaq.leerListaGenericaMaquina();
+            listaMaquinas = gestorMaq.leerListaGenericaMaquina();
+
+            Validaciones.limpiarConsola();
 
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
@@ -69,29 +72,31 @@ public class MenuMaquinas implements iMenu {
             opcion = scanner.nextInt();
             scanner.nextLine();
 
+            Validaciones.limpiarConsola();
+
             switch (opcion) {
                 case 1:
                     System.out.println("Mostrando Maquinas...");
                     // Mostrar las máquinas
-                    Recepcionista.mostrarElementosLista(maquinas);
+                    Recepcionista.mostrarElementosLista(listaMaquinas);
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 2:
                     System.out.println("Eliminando Maquina...");
                     System.out.println("Ingrese el tipo de maquina que desea eliminar:");
                             entrada = scanner.nextLine();
-                    Recepcionista.eliminarDeLista(maquinas,entrada);
+                    Recepcionista.eliminarDeLista(listaMaquinas,entrada);
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 3:
                     System.out.println("Agregando Maquina");
                     maq= gestorMaq.crearMaquina();
-                    Recepcionista.agregarDeLista(maquinas,maq.getId(),maq);
-                    gestorMaq.grabar(maquinas);
+                    Recepcionista.agregarDeLista(listaMaquinas,maq.getId(),maq);
+                    gestorMaq.grabar(listaMaquinas);
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 4:
                     System.out.println("creando reporte maquina");
@@ -104,14 +109,14 @@ public class MenuMaquinas implements iMenu {
                     reportes = gestorRe.leerListaGenericaReporte();
                     System.out.println("mostrando reportes");
                     Recepcionista.mostrarElementosLista(reportes);
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
 
                 case 6:
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.maquinaFiltroPorNombre(maquinas,entrada);
+                    Recepcionista.maquinaFiltroPorNombre(listaMaquinas,entrada);
                     break;
                 case 7:
                     System.out.println("Filtrar por tipo de maquina...");
@@ -139,7 +144,7 @@ public class MenuMaquinas implements iMenu {
                             System.out.println("Entrada no válida. Por favor, ingrese un número.");
                         }
                     }
-                    Recepcionista.maquinaFiltroPorTipo(maquinas, tipo[opcion - 1]);
+                    Recepcionista.maquinaFiltroPorTipo(listaMaquinas, tipo[opcion - 1]);
                     break;
                 case 8:
                     System.out.println("Filtrando segun su estado...");
@@ -166,7 +171,7 @@ public class MenuMaquinas implements iMenu {
                     } else {
                         valor = false;
                     }
-                    Recepcionista.maquinaFiltroPorEstado(maquinas,valor);
+                    Recepcionista.maquinaFiltroPorEstado(listaMaquinas,valor);
                     break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
@@ -201,24 +206,4 @@ public class MenuMaquinas implements iMenu {
         return sb.toString();
     }
 
-
-    @Override
-    public void limpiarConsola() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-
-    @Override
-    public void esperarTeclaParaContinuar(){
-        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
-        try {
-            System.in.read(); // Espera una entrada
-            System.in.read(); // Limpia el salto de línea residual
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
 }

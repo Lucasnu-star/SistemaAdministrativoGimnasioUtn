@@ -1,6 +1,7 @@
 package Clases;
 
 import Clases.Gestoras.GestionGenericaGimnasio;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -143,13 +144,27 @@ public final class Gimnasio {
     }
 
     //ToString
+
+
     @Override
     public String toString() {
-        return "Gimnasio " +
-                "  nombreGimnasio='" + nombreGimnasio + '\'' +
-                ", direccionGimnasio='" + direccionGimnasio + '\'' +
-                ", capacidadGimnasio=" + capacidadGimnasio +
-                ", especialidadesGimnasio=" + especialidadesGimnasio;
+        final StringBuilder sb = new StringBuilder("Gimnasio ");
+        sb.append("nombreGimnasio='").append(nombreGimnasio).append('\'');
+        sb.append(", direccionGimnasio='").append(direccionGimnasio).append('\'');
+        sb.append(", capacidadGimnasio=").append(capacidadGimnasio);
+        sb.append("\nEspecialidadesGimnasio=");
+        for (Especialidad especialidad : especialidadesGimnasio){
+            sb.append(especialidad);
+        }
+        return sb.toString();
+    }
+
+    public void agregarEspecialidad(Especialidad especialidad){
+        especialidadesGimnasio.add(especialidad);
+    }
+
+    public void eliminarEspecialidad(Especialidad especialidad){
+        especialidadesGimnasio.remove(especialidad);
     }
 
     public Gimnasio (JSONObject jsonObjectGimnasio){
@@ -157,6 +172,23 @@ public final class Gimnasio {
             setNombreGimnasio(jsonObjectGimnasio.getString("nombre"));
             setDireccionGimnasio(jsonObjectGimnasio.getString("direccion"));
             setCapacidadGimnasio(jsonObjectGimnasio.getInt("capacidad"));
+
+            JSONArray jsonArray = jsonObjectGimnasio.getJSONArray("especialidades");
+
+            especialidadesGimnasio = new ArrayList<>();
+
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Especialidad especialidad = new Especialidad(jsonObject); // Constructor robusto que maneje excepciones
+                        especialidadesGimnasio.add(especialidad);
+                    } catch (JSONException e) {
+                        System.err.println("Error al procesar un miembro asignado en el índice " + i + ": " + e.getMessage());
+                    }
+                }
+            }
+
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -169,6 +201,14 @@ public final class Gimnasio {
             jsonObject.put("nombre", getNombreGimnasio());
             jsonObject.put("direccion", getDireccionGimnasio());
             jsonObject.put("capacidad", getCapacidadGimnasio());
+
+            JSONArray especialidadesJson = new JSONArray();
+            for (Especialidad especialidad : especialidadesGimnasio){
+                especialidadesJson.put(especialidad.toJSON());
+            }
+
+            jsonObject.put("especialidades", especialidadesJson);
+
         }catch (JSONException e){
             e.printStackTrace();
         }

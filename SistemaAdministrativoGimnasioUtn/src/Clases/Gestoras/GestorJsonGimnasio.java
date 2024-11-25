@@ -1,5 +1,6 @@
 package Clases.Gestoras;
 
+import Clases.Especialidad;
 import Clases.Gimnasio;
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
 import org.json.JSONException;
@@ -29,6 +30,7 @@ public class GestorJsonGimnasio {
         OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, gimnasio.toJSON());
         return "Se ha escrito el archivo correctamente ";
     }
+
 
     /**
      * Este metodo sirve para leer un gimnasio
@@ -91,6 +93,7 @@ public class GestorJsonGimnasio {
                     salir = true;
                     break;
 
+
                 default:
                     System.out.println("Opción no válida. Intente de nuevo.");
                     break;
@@ -99,4 +102,5 @@ public class GestorJsonGimnasio {
 
 
     }
+
 }

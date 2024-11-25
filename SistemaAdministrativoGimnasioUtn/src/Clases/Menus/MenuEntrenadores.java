@@ -4,6 +4,7 @@ import Clases.Entrenador;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonEntrenadores;
 import Clases.Gestoras.GestorJsonMiembros;
+import Clases.Gestoras.Validaciones;
 import Clases.Miembro;
 import Clases.Recepcionista;
 import Enums.eEspecialidad;
@@ -71,7 +72,7 @@ public class MenuEntrenadores implements iMenu {
             // cada vez que termina la funcion, se limpia
             entrenador = new Entrenador();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
@@ -79,7 +80,7 @@ public class MenuEntrenadores implements iMenu {
             opcion = scanner.nextInt();
             scanner.nextLine();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
             switch (opcion) {
                 case 1:
@@ -91,7 +92,7 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 2:
                     System.out.println("Consultar entrenador...");
@@ -105,7 +106,7 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 3:
                     System.out.println("Agregar entrenador...");
@@ -114,7 +115,7 @@ public class MenuEntrenadores implements iMenu {
                     Recepcionista.agregarDeLista(lista, entrenador.getDocumento(), entrenador);
                     gestorJson.grabar(lista);
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 4:
                     System.out.println("Modificar entrenador...");
@@ -130,7 +131,7 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 5:
                     System.out.println("Eliminar entrenador...");
@@ -144,7 +145,7 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
 
                 case 6:
@@ -183,7 +184,7 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
 
                 case 7:
@@ -218,7 +219,7 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
 
                 case 8:
@@ -242,7 +243,7 @@ public class MenuEntrenadores implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
 
                 case 9:
@@ -263,7 +264,7 @@ public class MenuEntrenadores implements iMenu {
                     }
 
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
 
                     break;
 
@@ -274,7 +275,7 @@ public class MenuEntrenadores implements iMenu {
 
                     Recepcionista.calcularSalario(lista, entrada);
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 11:
                     System.out.println("Filtrar por nombre...");
@@ -354,25 +355,6 @@ public class MenuEntrenadores implements iMenu {
     }
 
 
-    @Override
-    public void limpiarConsola() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-
-    // Método para pausar y esperar que el usuario presione una tecla
-    public void esperarTeclaParaContinuar(){
-        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
-        try {
-            System.in.read(); // Espera una entrada
-            System.in.read(); // Limpia el salto de línea residual
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
 }
 
 

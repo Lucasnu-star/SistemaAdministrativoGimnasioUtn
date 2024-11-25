@@ -1,1 +1,19 @@
-{"direccion":"Av. Dorrego 281","nombre":"GimnasioUTN","capacidad":50}
+{
+    "especialidades": [
+        {
+            "descripcion": "Entrenamiento funcional",
+            "especialidad": "FUNCIONAL"
+        },
+        {
+            "descripcion": "Entrenamiento de musculación",
+            "especialidad": "MUSCULACICION"
+        },
+        {
+            "descripcion": "Entrenamiento de boxeo",
+            "especialidad": "BOXEO"
+        }
+    ],
+    "direccion": "Av. Dorrego 281",
+    "nombre": "GimnasioUTN",
+    "capacidad": 50
+}

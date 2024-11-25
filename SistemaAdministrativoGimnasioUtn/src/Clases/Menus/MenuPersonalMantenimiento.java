@@ -3,11 +3,11 @@ package Clases.Menus;
 import Clases.*;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonPersonalMantenimiento;
+import Clases.Gestoras.Validaciones;
 import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -20,19 +20,19 @@ import java.util.Scanner;
 public class MenuPersonalMantenimiento implements iMenu {
     private final GestorJsonPersonalMantenimiento gestorJson;
 
-    private GestionGenericaGimnasio<PersonalMantenimiento> personalM;
+    private GestionGenericaGimnasio<PersonalMantenimiento> listaPersonalM;
 
     public MenuPersonalMantenimiento() {
         gestorJson = new GestorJsonPersonalMantenimiento();
-        personalM = new GestionGenericaGimnasio<>();
+        listaPersonalM = new GestionGenericaGimnasio<>();
     }
 
     public GestorJsonPersonalMantenimiento getGestorJson() {
         return gestorJson;
     }
 
-    public GestionGenericaGimnasio<PersonalMantenimiento> getPersonalM() {
-        return personalM;
+    public GestionGenericaGimnasio<PersonalMantenimiento> getListaPersonalM() {
+        return listaPersonalM;
     }
 
     @Override
@@ -48,9 +48,9 @@ public class MenuPersonalMantenimiento implements iMenu {
         // por si se necesita un empleado de mantenimiento
         PersonalMantenimiento empleadoM = null;
         do {
-            personalM = gestorJson.leerListaGenericaPersonalM();
+            listaPersonalM = gestorJson.leerListaGenericaPersonalM();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
@@ -58,21 +58,21 @@ public class MenuPersonalMantenimiento implements iMenu {
             opcion = scanner.nextInt();
             scanner.nextLine();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
             switch (opcion) {
                 case 1:
                     System.out.println("Mostrar personal: ");
 
                     try {
-                        Recepcionista.mostrarElementosLista(personalM);
+                        Recepcionista.mostrarElementosLista(listaPersonalM);
 
                     }catch (ListaVaciaExcepcion e){
                         System.out.println(e.getMessage());
                     }
 
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 2:
                     System.out.println("Consultar empleado...");
@@ -80,23 +80,23 @@ public class MenuPersonalMantenimiento implements iMenu {
                     entrada = scanner.nextLine();
 
                     try {
-                        empleadoM = Recepcionista.consultar(personalM, entrada);
+                        empleadoM = Recepcionista.consultar(listaPersonalM, entrada);
                         System.out.println(empleadoM);
 
                     }catch (UsuarioNoEncontradoExcepcion e){
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 3:
                     System.out.println("Agregar emplado...");
                     empleadoM = gestorJson.crearEmpleadoMantenimiento();
-                    Recepcionista.agregarDeLista(personalM, empleadoM.getDocumento(), empleadoM);
+                    Recepcionista.agregarDeLista(listaPersonalM, empleadoM.getDocumento(), empleadoM);
 
-                    gestorJson.grabar(personalM);
+                    gestorJson.grabar(listaPersonalM);
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 4:
                     System.out.println("Modificar empleado...");
@@ -104,17 +104,17 @@ public class MenuPersonalMantenimiento implements iMenu {
                     entrada = scanner.nextLine();
 
                     try {
-                        empleadoM = Recepcionista.consultar(personalM, entrada);
+                        empleadoM = Recepcionista.consultar(listaPersonalM, entrada);
 
                         gestorJson.modificarEmpladoM(empleadoM);
 
-                        gestorJson.grabar(personalM);
+                        gestorJson.grabar(listaPersonalM);
 
                     }catch (UsuarioNoEncontradoExcepcion e){
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 5:
                     System.out.println("Eliminar empleado...");
@@ -122,26 +122,26 @@ public class MenuPersonalMantenimiento implements iMenu {
                     entrada = scanner.nextLine();
 
                     try {
-                        Recepcionista.eliminarDeLista(personalM, entrada);
+                        Recepcionista.eliminarDeLista(listaPersonalM, entrada);
 
-                        gestorJson.grabar(personalM);
+                        gestorJson.grabar(listaPersonalM);
                     }catch (UsuarioNoEncontradoExcepcion e){
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 6:
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.mantenimientoFiltroPorNombre(personalM,entrada);
+                    Recepcionista.mantenimientoFiltroPorNombre(listaPersonalM,entrada);
                     break;
                 case 7:
                     System.out.println("Filtrar por documento...");
                     System.out.println("Ingrese el documento por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.mantenimientoFiltroPorDocumento(personalM,entrada);
+                    Recepcionista.mantenimientoFiltroPorDocumento(listaPersonalM,entrada);
                     break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
@@ -174,23 +174,5 @@ public class MenuPersonalMantenimiento implements iMenu {
     }
 
 
-    @Override
-    public void limpiarConsola() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-    @Override
-    public void esperarTeclaParaContinuar(){
-        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
-        try {
-            System.in.read(); // Espera una entrada
-            System.in.read(); // Limpia el salto de línea residual
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
 }
 

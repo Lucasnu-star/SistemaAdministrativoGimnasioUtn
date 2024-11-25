@@ -9,7 +9,6 @@ public class Main {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         menuPrincipal.IniciadoDeSesion();
 
-
     }
 }
 

@@ -2,6 +2,7 @@ package Clases.Menus;
 
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonMiembros;
+import Clases.Gestoras.Validaciones;
 import Clases.Miembro;
 import Clases.Recepcionista;
 import Enums.eTipoMembresia;
@@ -63,7 +64,7 @@ public class MenuMiembros implements iMenu {
             // cada vez que termina la funcion, se limpia
             miembro = new Miembro();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
@@ -71,7 +72,7 @@ public class MenuMiembros implements iMenu {
             opcion = scanner.nextInt();
             scanner.nextLine();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
 
             switch (opcion) {
@@ -84,7 +85,7 @@ public class MenuMiembros implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 2:
                     System.out.println("Consultar miembro...");
@@ -99,7 +100,7 @@ public class MenuMiembros implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 3:
                     System.out.println("Agregar miembro...");
@@ -108,7 +109,7 @@ public class MenuMiembros implements iMenu {
 
                     gestorJson.grabar(listaMiembros);
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 4:
                     System.out.println("Modificar miembro...");
@@ -125,7 +126,7 @@ public class MenuMiembros implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 5:
                     System.out.println("Eliminar miembro...");
@@ -141,7 +142,7 @@ public class MenuMiembros implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 6:
                     System.out.println("Pagar couta...");
@@ -159,7 +160,7 @@ public class MenuMiembros implements iMenu {
                         System.out.println(e.getMessage());
                     }
 
-                    esperarTeclaParaContinuar();
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 7:
                     System.out.println("Filtrar por nombre...");
@@ -261,24 +262,6 @@ public class MenuMiembros implements iMenu {
     }
 
 
-    @Override
-    public void limpiarConsola() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-    @Override
-    public void esperarTeclaParaContinuar(){
-        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
-        try {
-            System.in.read(); // Espera una entrada
-            System.in.read(); // Limpia el salto de línea residual
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
 }
 
 

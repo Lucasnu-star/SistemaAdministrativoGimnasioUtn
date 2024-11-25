@@ -2,11 +2,11 @@ package Clases.Menus;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Clases.Gestoras.GestorJsonGimnasio;
 import Clases.Gestoras.GestorJsonRecepcionistas;
+import Clases.Gestoras.Validaciones;
 import Clases.Gimnasio;
 import Clases.Recepcionista;
 import Interfaces.iMenu;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -21,7 +21,7 @@ public class MenuPrincipal implements iMenu{
 
     private final GestorJsonRecepcionistas gestorJson;
 
-    private GestionGenericaGimnasio<Recepcionista> lista;
+    private GestionGenericaGimnasio<Recepcionista> listaRecepcionistas;
 
     private final GestorJsonGimnasio gestorGimnasio;
 
@@ -31,7 +31,7 @@ public class MenuPrincipal implements iMenu{
     public MenuPrincipal() {
         this.recepcionista = new Recepcionista();
         this.gestorJson = new GestorJsonRecepcionistas();
-        this.lista = new GestionGenericaGimnasio<>();
+        this.listaRecepcionistas = new GestionGenericaGimnasio<>();
         this.gestorGimnasio = new GestorJsonGimnasio();
         this.gimnasio = new Gimnasio();
     }
@@ -57,7 +57,7 @@ public class MenuPrincipal implements iMenu{
      * verifica si existen, y abre el menu si los datos ingresados son correctos
      */
     public void IniciadoDeSesion() {
-        lista = gestorJson.leerListaGenericaRecepcionistas();
+        listaRecepcionistas = gestorJson.leerListaGenericaRecepcionistas();
         Scanner scanner = new Scanner(System.in);
 
         boolean iniciadoExitoso = false;
@@ -70,9 +70,9 @@ public class MenuPrincipal implements iMenu{
             System.out.println("Contraseña: ");
             String contrasenia = scanner.nextLine();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
-            for (Recepcionista r : lista.getGestionUsuario().values()) {
+            for (Recepcionista r : listaRecepcionistas.getGestionUsuario().values()) {
                 if (r.getNombreUsuario().equals(nombreUsuario) &&
                         r.getContrasenia().equals(contrasenia)) {
                         recepcionista = r;
@@ -98,7 +98,7 @@ public class MenuPrincipal implements iMenu{
         System.out.println("Iniciaste sesión...");
 
         do {
-            lista = gestorJson.leerListaGenericaRecepcionistas();
+            listaRecepcionistas = gestorJson.leerListaGenericaRecepcionistas();
             gimnasio = gestorGimnasio.leer();
 
             // Muestra las opciones
@@ -106,66 +106,73 @@ public class MenuPrincipal implements iMenu{
 
             opcion = scanner.nextInt();
 
-            limpiarConsola();
+            Validaciones.limpiarConsola();
 
             switch (opcion) {
                 case 1:
                     // Llama al menu entrenadores
                     MenuEntrenadores entr = new MenuEntrenadores();
                     entr.mostrarMenu();
-                    limpiarConsola();
+                    Validaciones.limpiarConsola();
                     break;
                 case 2:
                     // Llamar miembros
                     MenuMiembros miem = new MenuMiembros();
                     miem.mostrarMenu();
-                    limpiarConsola();
+                    Validaciones.limpiarConsola();
                     break;
                 case 3:
                     // Llamar personal de mantenimiento
                     MenuPersonalMantenimiento pers = new MenuPersonalMantenimiento();
                     pers.mostrarMenu();
-                    limpiarConsola();
+                    Validaciones.limpiarConsola();
                     break;
                 case 4:
                     //Carga los datos del gimnasio desde el archivo y los muestra
                     MenuMaquinas maq = new MenuMaquinas();
                     maq.mostrarMenu();
-                    limpiarConsola();
+                    Validaciones.limpiarConsola();
                     break;
 
                 case 5:
                     System.out.println("Perfil: \n"+recepcionista);
+                    Validaciones.esperarTeclaParaContinuar();
+                    Validaciones.limpiarConsola();
                     break;
                 case 6:
                     System.out.println("Modificar perfil ");
                     gestorJson.modificarRecepcionista(recepcionista);
 
-                    gestorJson.grabar(lista);
+                    gestorJson.grabar(listaRecepcionistas);
+                    Validaciones.limpiarConsola();
+
                     break;
                 case 7:
                     System.out.println("Datos del gimnasio ");
                     System.out.println(gimnasio);
+                    Validaciones.esperarTeclaParaContinuar();
+                    Validaciones.limpiarConsola();
                     break;
                 case 8:
                     System.out.println("Modificar datos del gimnasio ");
                     gestorGimnasio.modificarDatos(gimnasio);
 
                     gestorGimnasio.grabar(gimnasio);
+                    Validaciones.limpiarConsola();
                     break;
                 case 9:
                     System.out.println("Agregar recepcionista ");
                     Recepcionista recepcionistaNuevo = gestorJson.crearRecepcionista();
-                    Recepcionista.agregarDeLista(lista, recepcionistaNuevo.getDocumento(), recepcionistaNuevo);
+                    Recepcionista.agregarDeLista(listaRecepcionistas, recepcionistaNuevo.getDocumento(), recepcionistaNuevo);
 
-                    gestorJson.grabar(lista);
+                    gestorJson.grabar(listaRecepcionistas);
+                    Validaciones.limpiarConsola();
                     break;
                 case 0:
                     System.out.println("¡Nos vemos! cerrando programa...");
                     break;
                 default:
                     System.out.println("Opción no válida, por favor intente nuevamente.");
-                    esperarTeclaParaContinuar();
             }
         } while (opcion != 0); // Se cierra el programa cuando se ingrese 0
     }
@@ -189,23 +196,6 @@ public class MenuPrincipal implements iMenu{
         return sb.toString();
     }
 
-    @Override
-    public void limpiarConsola() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
 
-    @Override
-    public void esperarTeclaParaContinuar(){
-        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
-        try {
-            System.in.read(); // Espera una entrada
-            System.in.read(); // Limpia el salto de línea residual
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
 }
 

@@ -163,8 +163,7 @@ public class GestorJsonEntrenadores {
         LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
         entrenador.setFechaNacimiento(fechaNacimiento);
 
-        int salario = Validaciones.validarEntero("Ingrese el salario:", entrada);
-        entrenador.setSalario(salario);
+        entrenador.setSalario(5000);
 
         int opc = elegirHorario(entrada);
         entrenador.setHorario(horarios.get(opc));

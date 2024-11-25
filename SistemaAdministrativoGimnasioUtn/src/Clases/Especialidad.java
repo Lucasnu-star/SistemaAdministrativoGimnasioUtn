@@ -1,6 +1,7 @@
 package Clases;
 import Clases.Gestoras.GestionGenericaGimnasio;
 import Enums.eEspecialidad;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -56,12 +57,14 @@ public final class Especialidad {
     }
 
     // ToString
+
+
     @Override
     public String toString() {
-        return "Especialidad { " +
-                "descripcion='" + descripcion + '\'' +
-                ", especialidad=" + especialidad +
-                ", listaEntrenadores="   ;
+        final StringBuilder sb = new StringBuilder("\nEspecialidad ");
+        sb.append(especialidad);
+        sb.append(", descripcion = ").append(descripcion);
+        return sb.toString();
     }
 
     /**
@@ -82,22 +85,32 @@ public final class Especialidad {
     }
 
 
-    /**
-     * Metodo que pasa este objeto de un Json a un objeto devuelta
-     * @param jsonObject
-     * @return
-     */
-
-    //Ver si se sigue usando o se va a usar
-    public static Especialidad fromJSONObject(JSONObject jsonObject) {
-
-        String descripcion = jsonObject.getString("descripcion");
-        // Convertir el String de especialidad en el enum eEspecialidad
-        eEspecialidad especialidad = eEspecialidad.valueOf(jsonObject.getString("especialidad"));
-
-        return new Especialidad(descripcion, especialidad);
+    public JSONObject toJSON (){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("especialidad", getEspecialidad());
+            jsonObject.put("descripcion", getDescripcion());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
+
+    /**
+     * Metodo que pasa este objeto de un Json a un objeto devuelta
+     */
+    //Ver si se sigue usando o se va a usar
+    public Especialidad (JSONObject jsonObject){
+        try {
+            String especialidad = jsonObject.getString("especialidad");
+            setEspecialidad(eEspecialidad.valueOf(especialidad));
+            setDescripcion(jsonObject.getString("descripcion"));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
 
 }
 

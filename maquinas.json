@@ -1,1 +1,5 @@
-{"ListaMaquinas":[{"tipoMaquina":"ESPALDA","estadoMaquina":true,"nombre":"dorsalera"}]}
+{"ListaMaquinas": [{
+    "tipoMaquina": "ESPALDA",
+    "estadoMaquina": true,
+    "nombre": "dorsalera"
+}]}

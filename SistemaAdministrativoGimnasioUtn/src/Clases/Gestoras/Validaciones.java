@@ -1,5 +1,6 @@
 package Clases.Gestoras;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -67,6 +68,23 @@ public class Validaciones {
             }
             System.out.println("Entrada invalida. Tiene que tener caracteres ");
         }while (true);
+    }
+
+    public static void limpiarConsola() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+
+    public static void esperarTeclaParaContinuar(){
+        System.out.println("\nPresione cualquier numero o simbolo para continuar...");
+        try {
+            System.in.read(); // Espera una entrada
+            System.in.read(); // Limpia el salto de línea residual
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
 }

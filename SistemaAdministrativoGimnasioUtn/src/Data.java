@@ -34,6 +34,10 @@ public class Data {
         Especialidad especialidadMusculacion = new Especialidad("Entrenamiento de musculación", eEspecialidad.MUSCULACICION);
         Especialidad especialidadBoxeo = new Especialidad("Entrenamiento de boxeo", eEspecialidad.BOXEO);
 
+        gimnasio.agregarEspecialidad(especialidadFuncional);
+        gimnasio.agregarEspecialidad(especialidadMusculacion);
+        gimnasio.agregarEspecialidad(especialidadBoxeo);
+
         //Creacion instancias Tipos de membresia
         Membresia membresiaBasica = new Membresia("Membresía básica con acceso limitado", eTipoMembresia.MEMBRESIA_BASICA, 1500);
         Membresia membresiaPremium = new Membresia("Membresía Premium con acceso completo", eTipoMembresia.MEMBRESIA_PREMIUM, 3000);
@@ -76,7 +80,6 @@ public class Data {
         gimnasio.getGestionMiembros().agregar(miembro2.getDocumento(), miembro2);
 
         // cargo las membresias aca porque no se donde ponerlas
-
         ArrayList<Membresia> membresias = new ArrayList<>();
         membresias.add(membresiaBasica);
         membresias.add(membresiaPremium);

@@ -156,8 +156,7 @@ public class GestorJsonPersonalMantenimiento  {
         LocalDate fechaNacimiento = Validaciones.validarFecha("Ingrese la fecha de nacimiento (YYYY-MM-DD):", entrada);
         empleadoM.setFechaNacimiento(fechaNacimiento);
 
-        int salario = Validaciones.validarEntero("Ingrese el salario:", entrada);
-        empleadoM.setSalario(salario);
+        empleadoM.setSalario(3000);
 
         int opc = elegirHorario(entrada);
         empleadoM.setHorario(horarios.get(opc));

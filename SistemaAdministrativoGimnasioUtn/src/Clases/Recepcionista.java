@@ -10,7 +10,6 @@ import Enums.eTipoMembresia;
 import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iReportarMaquina;
-import Excepciones.MembresiaExpiradaExcepcion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -117,30 +116,11 @@ public final class Recepcionista extends Empleado {
 
     //Metodos
 
-
     /**
-     * Esta metodo verifica la membresia por miembro, se le pasa por parametro un Miembro
-     * Contiene una excepcion personalizada y otra excepcion llamada IllegalArgumentException que verifica que el miembro no puede ser Null.
-     *
-     * @param miembros;
-     * @param Dni;
-     * @throws MembresiaExpiradaExcepcion;
+     * Este metodo sirve para simular que se paga la couta de un miembro en especifico
+     * @param miembro;
+     * @return String;
      */
-
-    //Ver este metodo
-    public void verificarMembresia(GestionGenericaGimnasio<Miembro> miembros, String Dni) throws MembresiaExpiradaExcepcion {
-        Miembro miembro = miembros.getGestionUsuario().get(Dni);
-        if (miembro == null) {
-            throw new IllegalArgumentException("El miembro no puede ser nulo.");
-        }
-        if (miembro.isEstadoMembresia()) {
-            System.out.println("La membresia del miembro esta activa");
-        } else {
-            throw new MembresiaExpiradaExcepcion("La membresia esta expirada");
-        }
-
-    }
-
     public static String pagarCouta(Miembro miembro) {
         if (miembro.isEstadoMembresia()) {
             return "La couta ya ha sido pagada " + miembro.getFechaUltimoPago();

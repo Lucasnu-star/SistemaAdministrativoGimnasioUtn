@@ -201,29 +201,27 @@ public final class Entrenador extends Empleado {
 
             JSONArray jsonArray = jsonEntrenador.getJSONArray("certificados");
 
-            // convierto el jsonArray a arraylist
-            ArrayList<String> certificados = new ArrayList<>();
-            for (int i = 0 ; i < jsonArray.length() ; i++){
-                certificados.add(jsonArray.getString(i));
-            }
-
-            // convierto la arraylista a hashset
+            // Convertir directamente el JSONArray al HashSet
             HashSet<String> certificaciones = new HashSet<>();
-            for (String certificado : certificados){
-                certificaciones.add(certificado);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                certificaciones.add(jsonArray.getString(i));
             }
-
             setCertificados(certificaciones);
+
 
             // convierto el jsonArray a Arraylist
             miembrosAsignados = new ArrayList<>();
             JSONArray jsonArray1 = jsonEntrenador.getJSONArray("miembrosAsignados");
 
             if (jsonArray1 != null) {
-                for (int i = 0 ; i < jsonArray1.length() ; i++){
-                    JSONObject jsonObject = jsonArray1.getJSONObject(i);
-                    Miembro miembro = new Miembro(jsonObject);
-                    miembrosAsignados.add(miembro);
+                for (int i = 0; i < jsonArray1.length(); i++) {
+                    try {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(i);
+                        Miembro miembro = new Miembro(jsonObject); // Asegúrate de que el constructor maneje excepciones.
+                        miembrosAsignados.add(miembro);
+                    } catch (JSONException e) {
+                        System.err.println("Error al convertir un miembro asignado: " + e.getMessage());
+                    }
                 }
             }
 
@@ -256,20 +254,16 @@ public final class Entrenador extends Empleado {
 
             // convierto la lista a jsonArray
             JSONArray jsonArray = new JSONArray();
-            int i = 0;
             for (String certificado : certificados){
-                jsonArray.put(i, certificado);
-                i++;
+                jsonArray.put(certificado);
             }
 
             jsonObject.put("certificados", jsonArray);
 
-            // convierto los miembros a jsonObject
-            List<JSONObject> miembrosJson = new ArrayList<>();
+            JSONArray miembrosJson = new JSONArray();
             for (Miembro miembro : miembrosAsignados) {
-                miembrosJson.add(miembro.toJSON()); // Asumiendo que Miembro también tiene un método toJSON
+                miembrosJson.put(miembro.toJSON());
             }
-
             jsonObject.put("miembrosAsignados", miembrosJson);
 
         } catch (JSONException e) {

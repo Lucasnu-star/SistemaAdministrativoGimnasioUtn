@@ -24,7 +24,8 @@ public class OperacionesLecturaEscritura {
     public static void escribirArchivo(String nombreArchivo, JSONObject jsonObject) {
         try {
             FileWriter fileWriter = new FileWriter(nombreArchivo);
-            fileWriter.write(jsonObject.toString());
+            fileWriter.write(jsonObject.toString(4));
+            fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

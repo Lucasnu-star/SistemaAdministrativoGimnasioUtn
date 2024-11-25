@@ -1,1 +1,12 @@
-{"ListaMembresias":[{"descripcion":"Membresía básica con acceso limitado","tipoMembresia":"MEMBRESIA_BASICA","costoMensual":1500},{"descripcion":"Membresía Premium con acceso completo","tipoMembresia":"MEMBRESIA_PREMIUM","costoMensual":3000}]}
+{"ListaMembresias": [
+    {
+        "descripcion": "Membresía básica con acceso limitado",
+        "tipoMembresia": "MEMBRESIA_BASICA",
+        "costoMensual": 1500
+    },
+    {
+        "descripcion": "Membresía Premium con acceso completo",
+        "tipoMembresia": "MEMBRESIA_PREMIUM",
+        "costoMensual": 3000
+    }
+]}
