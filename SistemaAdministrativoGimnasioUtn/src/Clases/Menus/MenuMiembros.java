@@ -10,7 +10,6 @@ import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -166,13 +165,13 @@ public class MenuMiembros implements iMenu {
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.miembroFiltroPorNombre(listaMiembros,entrada);
+                    Recepcionista.filtroPorNombre(listaMiembros,entrada);
                     break;
                 case 8:
                     System.out.println("Filtrar por documento...");
                     System.out.println("Ingrese el documento por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.miembroFiltroPorDocumento(listaMiembros,entrada);
+                    Recepcionista.filtroPorDocumento(listaMiembros,entrada);
                     break;
                 case 9:
                     System.out.println("Filtrando segun estado de membresía...");

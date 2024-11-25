@@ -274,16 +274,16 @@ public final class Recepcionista extends Empleado {
 
     //METODOS PARA FILTRAR LISTAS SEGUN NOMBRE O ID/DOCUMENTO
 
-    public static void miembroFiltroPorNombre(GestionGenericaGimnasio<Miembro> gestion, String filtro) {
-        for (Miembro elemento : gestion.getGestionUsuario().values()) {
+    public static <T extends Usuario> void filtroPorNombre(GestionGenericaGimnasio<T> gestion, String filtro) {
+        for (T elemento : gestion.getGestionUsuario().values()) {
             if (elemento.getNombre().contains(filtro)) {
                 System.out.println(elemento);
             }
         }
     }
 
-    public static void miembroFiltroPorDocumento(GestionGenericaGimnasio<Miembro> gestion, String filtro) {
-        for (Miembro elemento : gestion.getGestionUsuario().values()) {
+    public static <T extends Usuario> void filtroPorDocumento(GestionGenericaGimnasio<T> gestion, String filtro) {
+        for (T elemento : gestion.getGestionUsuario().values()) {
             if (elemento.getDocumento().contains(filtro)) {
                 System.out.println(elemento);
             }
@@ -304,22 +304,6 @@ public final class Recepcionista extends Empleado {
         }
     }
 
-
-    public static void entrenadorFiltroPorNombre(GestionGenericaGimnasio<Entrenador> gestion, String filtro) {
-        for (Entrenador elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getNombre().contains(filtro)) {
-                System.out.println(elemento);
-            }
-        }
-    }
-
-    public static void entrenadorFiltroPorDocumento(GestionGenericaGimnasio<Entrenador> gestion, String filtro) {
-        for (Entrenador elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getDocumento().contains(filtro)) {
-                System.out.println(elemento);
-            }
-        }
-    }
     public static void entrenadorFiltroPorTipo(GestionGenericaGimnasio<Entrenador> gestion, eEspecialidad filtro) {
         for (Entrenador elemento : gestion.getGestionUsuario().values()) {
             if (elemento.getEspecialidad()==filtro) {
@@ -328,21 +312,6 @@ public final class Recepcionista extends Empleado {
         }
     }
 
-    public static void mantenimientoFiltroPorNombre(GestionGenericaGimnasio<PersonalMantenimiento> gestion, String filtro) {
-        for (PersonalMantenimiento elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getNombre().contains(filtro)) {
-                System.out.println(elemento);
-            }
-        }
-    }
-
-    public static void mantenimientoFiltroPorDocumento(GestionGenericaGimnasio<PersonalMantenimiento> gestion, String filtro) {
-        for (PersonalMantenimiento elemento : gestion.getGestionUsuario().values()) {
-            if (elemento.getDocumento().contains(filtro)) {
-                System.out.println(elemento);
-            }
-        }
-    }
 
     public static void maquinaFiltroPorNombre(GestionGenericaGimnasio<Maquina> gestion, String filtro) {
         for (Maquina elemento : gestion.getGestionUsuario().values()) {

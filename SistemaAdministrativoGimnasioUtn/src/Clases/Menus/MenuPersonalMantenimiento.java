@@ -135,13 +135,13 @@ public class MenuPersonalMantenimiento implements iMenu {
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.mantenimientoFiltroPorNombre(listaPersonalM,entrada);
+                    Recepcionista.filtroPorNombre(listaPersonalM,entrada);
                     break;
                 case 7:
                     System.out.println("Filtrar por documento...");
                     System.out.println("Ingrese el documento por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.mantenimientoFiltroPorDocumento(listaPersonalM,entrada);
+                    Recepcionista.filtroPorDocumento(listaPersonalM,entrada);
                     break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");

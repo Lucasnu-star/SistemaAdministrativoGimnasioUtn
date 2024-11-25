@@ -281,13 +281,13 @@ public class MenuEntrenadores implements iMenu {
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.entrenadorFiltroPorNombre(lista,entrada);
+                    Recepcionista.filtroPorNombre(lista,entrada);
                     break;
                 case 12:
                     System.out.println("Filtrar por documento...");
                     System.out.println("Ingrese el documento por el que desea filtrar...");
                     entrada=scanner.nextLine();
-                    Recepcionista.entrenadorFiltroPorDocumento(lista,entrada);
+                    Recepcionista.filtroPorDocumento(lista,entrada);
                     break;
                 case 13:
                     System.out.println("Filtrar por especialidad...");
