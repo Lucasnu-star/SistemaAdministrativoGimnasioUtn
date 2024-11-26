@@ -1,5 +1,15 @@
 {"ListaRecepcionistas": [
     {
+        "horario": "16:00 a 20:00",
+        "fechaNacimiento": "2000-07-22",
+        "apellido": "Martínez",
+        "salario": 3900,
+        "documento": "11223344",
+        "contrasenia": "2207",
+        "nombreUsuario": "LuisMartinez",
+        "nombre": "Luis"
+    },
+    {
         "horario": "08:00 a 12:00",
         "fechaNacimiento": "1990-05-15",
         "apellido": "Pérez",
@@ -8,5 +18,15 @@
         "contrasenia": "123456789",
         "nombreUsuario": "Carlos912",
         "nombre": "Carlos"
+    },
+    {
+        "horario": "12:00 a 16:00",
+        "fechaNacimiento": "1985-12-05",
+        "apellido": "González",
+        "salario": 4500,
+        "documento": "87654321",
+        "contrasenia": "1205",
+        "nombreUsuario": "AnaGonzalez9",
+        "nombre": "Ana"
     }
 ]}

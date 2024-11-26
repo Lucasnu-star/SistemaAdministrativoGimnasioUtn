@@ -1,12 +1,10 @@
 {"ListaReportes": [
     {
-        "idm": "444",
-        "idu": "123",
-        "desc": "La treadmill se descarrilo"
+        "idm": "14",
+        "desc": "se corto la polea"
     },
     {
-        "idm": "111",
-        "idu": "222",
-        "desc": "Se rompio la dorsalera"
+        "idm": "17",
+        "desc": "se rompio la cinta para correr"
     }
 ]}

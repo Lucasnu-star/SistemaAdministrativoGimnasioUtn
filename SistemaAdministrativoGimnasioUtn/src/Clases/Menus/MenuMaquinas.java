@@ -9,6 +9,8 @@ import Clases.PersonalMantenimiento;
 import Clases.Recepcionista;
 import Clases.Reporte;
 import Enums.eTipoMaquina;
+import Excepciones.ListaVaciaExcepcion;
+import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
 
 import java.io.IOException;
@@ -54,15 +56,15 @@ public class MenuMaquinas implements iMenu {
         int opcion;
 
         // por si se necesita un string
-
         String entrada;
 
         // por si se necesita una maquina
         Maquina maq = null;
 
         do {
-
             listaMaquinas = gestorMaq.leerListaGenericaMaquina();
+
+            maq = new Maquina();
 
             Validaciones.limpiarConsola();
 
@@ -77,42 +79,76 @@ public class MenuMaquinas implements iMenu {
             switch (opcion) {
                 case 1:
                     System.out.println("Mostrando Maquinas...");
-                    // Mostrar las máquinas
-                    Recepcionista.mostrarElementosLista(listaMaquinas);
+                    try {
+                        // Mostrar las máquinas
+                        Recepcionista.mostrarElementosLista(listaMaquinas);
+                    }catch (ListaVaciaExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 2:
                     System.out.println("Eliminando Maquina...");
-                    System.out.println("Ingrese el tipo de maquina que desea eliminar:");
-                            entrada = scanner.nextLine();
-                    Recepcionista.eliminarDeLista(listaMaquinas,entrada);
+
+                    try {
+                        System.out.println("Ingrese el id de la maquina que desea eliminar:");
+                        entrada = scanner.nextLine();
+                        Recepcionista.eliminarDeLista(listaMaquinas, entrada);
+                        gestorMaq.grabar(listaMaquinas);
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
 
                     Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 3:
                     System.out.println("Agregando Maquina");
-                    maq= gestorMaq.crearMaquina();
+                    maq = gestorMaq.crearMaquina(listaMaquinas.getGestionUsuario().size());
                     Recepcionista.agregarDeLista(listaMaquinas,maq.getId(),maq);
                     gestorMaq.grabar(listaMaquinas);
 
                     Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 4:
-                    System.out.println("creando reporte maquina");
+                    System.out.println("Creando reporte maquina");
                     Reporte reporte = new Reporte();
-                    reporte = Recepcionista.crearReporte();
+                    reporte = Recepcionista.crearReporte(listaMaquinas);
                     Recepcionista.agregarDeLista(reportes,reporte.getDescripcion(),reporte);
+
+                    gestorMaq.grabar(listaMaquinas);
                     gestorRe.grabar(reportes);
+
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 5:
                     reportes = gestorRe.leerListaGenericaReporte();
-                    System.out.println("mostrando reportes");
+                    System.out.println("Mostrando reportes");
                     Recepcionista.mostrarElementosLista(reportes);
+
                     Validaciones.esperarTeclaParaContinuar();
                     break;
 
                 case 6:
+                    System.out.println("Marcar maquina como disponible ");
+
+                    try {
+                        System.out.println("Ingrese el id de la maquina ");
+                        entrada = scanner.nextLine();
+                        maq = Recepcionista.consultar(listaMaquinas, entrada);
+                        System.out.println(gestorMaq.marcarDisponibleMaquina(listaMaquinas, maq));
+                        gestorMaq.grabar(listaMaquinas);
+
+                    }catch (UsuarioNoEncontradoExcepcion e){
+                        System.out.println(e.getMessage());
+                    }
+
+                    Validaciones.esperarTeclaParaContinuar();
+                    break;
+
+                case 7:
                     System.out.println("Filtrar por nombre...");
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
@@ -120,7 +156,7 @@ public class MenuMaquinas implements iMenu {
 
                     Validaciones.esperarTeclaParaContinuar();
                     break;
-                case 7:
+                case 8:
                     System.out.println("Filtrar por tipo de maquina...");
                     System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
 
@@ -150,7 +186,7 @@ public class MenuMaquinas implements iMenu {
 
                     Validaciones.esperarTeclaParaContinuar();
                     break;
-                case 8:
+                case 9:
                     System.out.println("Filtrando segun su estado...");
                     System.out.println("Ingrese la opcion deseada por la que desea filtrar...");
                     System.out.println("1. Perfecto estado");
@@ -204,9 +240,10 @@ public class MenuMaquinas implements iMenu {
         sb.append("\n   3. Agregar maquina");
         sb.append("\n   4. Crear reporte maquina ");
         sb.append("\n   5. Mostrando reportes ");
-        sb.append("\n   6. Filtrar por nombre");
-        sb.append("\n   7. Filtrar por tipo de maquina");
-        sb.append("\n   8. Filtrar por estado de maquina");
+        sb.append("\n   6. Marcar maquina como disponible ");
+        sb.append("\n   7. Filtrar por nombre");
+        sb.append("\n   8. Filtrar por tipo de maquina");
+        sb.append("\n   9. Filtrar por estado de maquina");
         sb.append("\n   0. Volver al Menú Principal");
         sb.append("\nIngrese una opción: ");
         return sb.toString();

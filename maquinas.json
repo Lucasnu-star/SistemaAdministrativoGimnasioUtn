@@ -1,5 +1,122 @@
-{"ListaMaquinas": [{
-    "tipoMaquina": "ESPALDA",
-    "estadoMaquina": true,
-    "nombre": "dorsalera"
-}]}
+{"ListaMaquinas": [
+    {
+        "tipoMaquina": "PECHO",
+        "estadoMaquina": true,
+        "id": "1",
+        "nombre": "press banca"
+    },
+    {
+        "tipoMaquina": "PIERNA",
+        "estadoMaquina": true,
+        "id": "10",
+        "nombre": "prensa inclinada"
+    },
+    {
+        "tipoMaquina": "PIERNA",
+        "estadoMaquina": true,
+        "id": "11",
+        "nombre": "máquina de abductores"
+    },
+    {
+        "tipoMaquina": "PIERNA",
+        "estadoMaquina": true,
+        "id": "12",
+        "nombre": "máquina de glúteos"
+    },
+    {
+        "tipoMaquina": "ESPALDA",
+        "estadoMaquina": true,
+        "id": "13",
+        "nombre": "remo sentado"
+    },
+    {
+        "tipoMaquina": "ESPALDA",
+        "estadoMaquina": true,
+        "id": "14",
+        "nombre": "remo horizontal"
+    },
+    {
+        "tipoMaquina": "ESPALDA",
+        "estadoMaquina": true,
+        "id": "15",
+        "nombre": "polea alta"
+    },
+    {
+        "tipoMaquina": "ESPALDA",
+        "estadoMaquina": true,
+        "id": "16",
+        "nombre": "dominadas asistidas"
+    },
+    {
+        "tipoMaquina": "CARDIO",
+        "estadoMaquina": true,
+        "id": "17",
+        "nombre": "cinta para correr"
+    },
+    {
+        "tipoMaquina": "CARDIO",
+        "estadoMaquina": true,
+        "id": "18",
+        "nombre": "bicicleta estática"
+    },
+    {
+        "tipoMaquina": "CARDIO",
+        "estadoMaquina": true,
+        "id": "19",
+        "nombre": "bicicleta elíptica"
+    },
+    {
+        "tipoMaquina": "PECHO",
+        "estadoMaquina": true,
+        "id": "2",
+        "nombre": "press inclinado"
+    },
+    {
+        "tipoMaquina": "CARDIO",
+        "estadoMaquina": false,
+        "id": "20",
+        "nombre": "escaladora"
+    },
+    {
+        "tipoMaquina": "PECHO",
+        "estadoMaquina": true,
+        "id": "3",
+        "nombre": "máquina de pectorales"
+    },
+    {
+        "tipoMaquina": "PECHO",
+        "estadoMaquina": true,
+        "id": "4",
+        "nombre": "press declinado"
+    },
+    {
+        "tipoMaquina": "BRAZO",
+        "estadoMaquina": true,
+        "id": "5",
+        "nombre": "máquina de bíceps"
+    },
+    {
+        "tipoMaquina": "BRAZO",
+        "estadoMaquina": true,
+        "id": "6",
+        "nombre": "máquina de tríceps"
+    },
+    {
+        "tipoMaquina": "BRAZO",
+        "estadoMaquina": true,
+        "id": "7",
+        "nombre": "cuerda para tríceps"
+    },
+    {
+        "tipoMaquina": "BRAZO",
+        "estadoMaquina": true,
+        "id": "8",
+        "nombre": "polea para bíceps"
+    },
+    {
+        "tipoMaquina": "PIERNA",
+        "estadoMaquina": true,
+        "id": "9",
+        "nombre": "extensiones de cuádriceps"
+    }
+]}

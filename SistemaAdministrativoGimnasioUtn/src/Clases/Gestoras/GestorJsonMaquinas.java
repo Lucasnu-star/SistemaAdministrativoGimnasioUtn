@@ -4,6 +4,7 @@ import Clases.Entrenador;
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
 import Clases.Maquina;
 import Clases.Miembro;
+import Clases.PersonalMantenimiento;
 import Enums.eEspecialidad;
 import Enums.eTipoMaquina;
 import org.json.JSONArray;
@@ -26,14 +27,12 @@ public class GestorJsonMaquinas {
         nombreArchivo = "maquinas.json";
     }
 
-    public Maquina crearMaquina() {
-        Maquina maquina = new Maquina();
+    public Maquina crearMaquina(int size) {
+        Maquina maquina = new Maquina(size);
         Scanner entrada = new Scanner(System.in);
         try {
             System.out.println("Ingrese el nombre de la maquina:");
             maquina.setNombre(entrada.nextLine());
-            System.out.println("Ingrese id de la maquina:");
-            maquina.setId(entrada.nextLine());
             System.out.println("Seleccione tipo de maquina:");
             eTipoMaquina tipo = seleccionarTipo();
             maquina.setTipoMaquina(tipo);
@@ -173,13 +172,21 @@ public class GestorJsonMaquinas {
 
             for (int i = 0 ; i < jsonArray.length() ; i++){
                 Maquina maquina = new Maquina(jsonArray.getJSONObject(i));
-                maquinas.agregar(maquina.getNombre(), maquina);
+                maquinas.agregar(maquina.getId(), maquina);
             }
 
         }catch (JSONException e){
             e.printStackTrace();
         }
         return maquinas;
+    }
+
+    public String marcarDisponibleMaquina(GestionGenericaGimnasio<Maquina> maquinas, Maquina maquina){
+        if (maquina.isEstadoMaquina()){
+            return "La maquina "+maquina.getNombre()+" ya se encuentra disponible ";
+        }
+        PersonalMantenimiento.arreglarMaquina(maquinas.gestionUsuario.get(maquina.getId()));
+        return "La maquina "+maquina.getNombre()+" esta nuevamente disponible ";
     }
 
 }

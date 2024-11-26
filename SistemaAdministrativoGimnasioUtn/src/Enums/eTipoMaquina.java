@@ -5,5 +5,6 @@ public enum eTipoMaquina {
     PECHO,
     BRAZO,
     PIERNA,
-    ESPALDA
+    ESPALDA,
+    CARDIO
 }

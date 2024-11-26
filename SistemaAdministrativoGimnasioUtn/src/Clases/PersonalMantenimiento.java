@@ -32,7 +32,7 @@ public final class PersonalMantenimiento extends Empleado {
 
     //Metodos,  Ver metodo de esta clase
 
-    public void arreglarMaquina(Maquina maquina) {
+    public static void arreglarMaquina(Maquina maquina) {
         if (maquina != null) {
             System.out.println("Reparando la máquina: " + maquina.getNombre());
             maquina.marcarComoDisponible();

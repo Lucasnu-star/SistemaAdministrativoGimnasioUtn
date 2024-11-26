@@ -19,11 +19,19 @@ public final class Maquina {
     private eTipoMaquina tipoMaquina;
     private boolean estadoMaquina; // True o False
 
+    private static int autoIncremental = 0;
+
     //Constructor
     public Maquina(String nombre, eTipoMaquina tipoMaquina, boolean estadoMaquina) {
+        this.id = String.valueOf(++autoIncremental);
         this.nombre = nombre;
         this.tipoMaquina = tipoMaquina;
         this.estadoMaquina = estadoMaquina;
+    }
+
+    // Constructor para continuar el autoincremental despues de cerrarse el programa
+    public Maquina(int size) {
+        this.id = String.valueOf(++size);
     }
 
     public Maquina() {
@@ -79,13 +87,14 @@ public final class Maquina {
         return Objects.hash(nombre, tipoMaquina, estadoMaquina);
     }
 
-    //ToString
     @Override
     public String toString() {
-        return "Maquina " +
-                "nombre=" + nombre + '\'' +
-                ", tipoMaquina=" + tipoMaquina +
-                ", estadoMaquina=" + estadoMaquina;
+        final StringBuilder sb = new StringBuilder("Maquina = ");
+        sb.append(" id='").append(id).append('\'');
+        sb.append(", nombre='").append(nombre).append('\'');
+        sb.append(", tipoMaquina=").append(tipoMaquina);
+        sb.append(", estadoMaquina=").append(estadoMaquina);
+        return sb.toString();
     }
 
     public void marcarComoDisponible(){
@@ -94,6 +103,7 @@ public final class Maquina {
 
     public Maquina (JSONObject jsonMaquina){
         try {
+            setId(jsonMaquina.getString("id"));
             setNombre(jsonMaquina.getString("nombre"));
             String tipo = jsonMaquina.getString("tipoMaquina");
             setTipoMaquina(eTipoMaquina.valueOf(tipo));

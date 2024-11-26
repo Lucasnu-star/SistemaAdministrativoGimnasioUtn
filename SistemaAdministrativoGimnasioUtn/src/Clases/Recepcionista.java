@@ -25,8 +25,6 @@ public final class Recepcionista extends Empleado {
     private String contrasenia;
 
     //Constructor
-
-
     public Recepcionista(String nombre, String apellido, String documento, LocalDate fechaNacimiento, int salario, String horario, String nombreUsuario, String contrasenia) {
         super(nombre, apellido, documento, fechaNacimiento, salario, horario);
         this.nombreUsuario = nombreUsuario;
@@ -37,8 +35,6 @@ public final class Recepcionista extends Empleado {
     }
 
     //ToString
-
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Recepcionista = " + super.toString());
@@ -179,8 +175,6 @@ public final class Recepcionista extends Empleado {
      * @param gestionEntrenadores;
      * @param dni;
      */
-
-
     public static void calcularSalario(GestionGenericaGimnasio<Entrenador> gestionEntrenadores, String dni) {
 
         Entrenador entrenador = new Entrenador();
@@ -219,16 +213,27 @@ public final class Recepcionista extends Empleado {
         }
     }
 
-
-    public static Reporte crearReporte() {
+    /**
+     * Este metodo crea un reporte a un maquina especifica, la cual se marcara como no disponible
+     * @param maquinas recibe la lista;
+     * @return El reporte que luego sera guardado
+     */
+    public static Reporte crearReporte(GestionGenericaGimnasio<Maquina> maquinas) {
         Reporte reporte = new Reporte();
         Scanner scaner = new Scanner(System.in);
-        System.out.println("ingrese descripcion del reporte");
-        reporte.setDescripcion(scaner.nextLine());
         System.out.println("indica el id de la maquina ");
-        reporte.setIdMaquina(scaner.nextLine());
-        System.out.println("ingrese dni del usuario");
-        reporte.setDNIusuario(scaner.nextLine());
+        String id = scaner.nextLine();
+        try {
+            Maquina maquina = Recepcionista.consultar(maquinas, id);
+            reporte.setIdMaquina(id);
+            maquina.setEstadoMaquina(false);
+            System.out.println("ingrese descripcion del reporte");
+            reporte.setDescripcion(scaner.nextLine());
+
+        }catch (UsuarioNoEncontradoExcepcion e){
+            System.out.println(e.getMessage());
+        }
+
         return reporte;
     }
 
