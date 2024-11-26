@@ -9,7 +9,6 @@ import Enums.eTipoMaquina;
 import Enums.eTipoMembresia;
 import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
-import Interfaces.iReportarMaquina;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -203,45 +202,6 @@ public final class Recepcionista extends Empleado {
         }
     }
 
-
-    /**
-     * Este metodo sirve para que el recepcionisa le puedo asignar un miembro a un entrenador en especifico, mediante el dni del entrenador, la lista y el miembro que se le quiere agregar.
-     *
-     * @param listaEntrenadores;
-     * @param miembro;
-     * @param dniEntrenador;
-     */
-    public void agregarMiembroAEntrenador(GestionGenericaGimnasio<Entrenador> listaEntrenadores, Miembro miembro, String dniEntrenador) {
-        Entrenador entrenador = listaEntrenadores.consultar(dniEntrenador);
-        if (entrenador != null) {
-            entrenador.asignarMiembro(miembro);
-            System.out.println("Miembro asignado al entrenador con DNI: " + dniEntrenador);
-        } else {
-            System.out.println("Entrenador no encontrado.");
-        }
-    }
-
-
-    /**
-     * Este metodo sirve para que el recepcionista reporte una maquina en especifico
-     *
-     * @param gestionMaquinas;
-     * @param desc;
-     * @param idMaquina;
-     * @param dni;
-     */
-
-    //Ver este metodo que esta raro
-    public void reportarMaquina(GestionGenericaGimnasio<? extends iReportarMaquina> gestionMaquinas, String desc, String idMaquina, String dni) {
-        iReportarMaquina maquina = gestionMaquinas.consultar(idMaquina);
-        if (maquina != null) {
-            Reporte reporte = new Reporte(desc, idMaquina, dni);
-            maquina.reportarMaquina();
-            System.out.println("Reporte generado para la máquina: " + idMaquina);
-        } else {
-            System.out.println("Máquina no encontrada.");
-        }
-    }
 
     /**
      * Este metodo sirve para que el recepcionista pueda mostrar los elementos de una lista en especifico pasado por parametro.

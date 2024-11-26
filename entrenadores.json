@@ -23,7 +23,7 @@
             },
             {
                 "fechaNacimiento": "1992-02-15",
-                "estadoMembresia": true,
+                "estadoMembresia": false,
                 "apellido": "Martinez",
                 "documento": "22222222",
                 "membresia": {

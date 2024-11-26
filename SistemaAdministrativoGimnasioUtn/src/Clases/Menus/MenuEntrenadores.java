@@ -69,6 +69,10 @@ public class MenuEntrenadores implements iMenu {
             lista = gestorJson.leerListaGenericaEntrenadores();
             listaMiembros = gestorJsonMiembros.leerListaGenericaMiembros();
 
+            // actualiza los datos de los miembros asignados a cada entrenador
+            gestorJson.actualizarDatosMiembros(listaMiembros, lista);
+            gestorJson.grabar(lista);
+
             // cada vez que termina la funcion, se limpia
             entrenador = new Entrenador();
 
@@ -282,12 +286,16 @@ public class MenuEntrenadores implements iMenu {
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
                     Recepcionista.filtroPorNombre(lista,entrada);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 12:
                     System.out.println("Filtrar por documento...");
                     System.out.println("Ingrese el documento por el que desea filtrar...");
                     entrada=scanner.nextLine();
                     Recepcionista.filtroPorDocumento(lista,entrada);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 13:
                     System.out.println("Filtrar por especialidad...");
@@ -315,6 +323,8 @@ public class MenuEntrenadores implements iMenu {
                         }
                     }
                     Recepcionista.entrenadorFiltroPorTipo(lista, tipo[opcion - 1]);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");

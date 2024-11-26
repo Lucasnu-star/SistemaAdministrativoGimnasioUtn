@@ -100,8 +100,8 @@ public class MenuMaquinas implements iMenu {
                     break;
                 case 4:
                     System.out.println("creando reporte maquina");
-                    Reporte reporte=new Reporte();
-                    reporte=Recepcionista.crearReporte();
+                    Reporte reporte = new Reporte();
+                    reporte = Recepcionista.crearReporte();
                     Recepcionista.agregarDeLista(reportes,reporte.getDescripcion(),reporte);
                     gestorRe.grabar(reportes);
                     break;
@@ -117,6 +117,8 @@ public class MenuMaquinas implements iMenu {
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
                     Recepcionista.maquinaFiltroPorNombre(listaMaquinas,entrada);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 7:
                     System.out.println("Filtrar por tipo de maquina...");
@@ -145,6 +147,8 @@ public class MenuMaquinas implements iMenu {
                         }
                     }
                     Recepcionista.maquinaFiltroPorTipo(listaMaquinas, tipo[opcion - 1]);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 8:
                     System.out.println("Filtrando segun su estado...");
@@ -172,6 +176,8 @@ public class MenuMaquinas implements iMenu {
                         valor = false;
                     }
                     Recepcionista.maquinaFiltroPorEstado(listaMaquinas,valor);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");

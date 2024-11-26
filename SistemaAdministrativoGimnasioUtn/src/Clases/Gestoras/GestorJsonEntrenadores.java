@@ -2,11 +2,13 @@ package Clases.Gestoras;
 
 import Clases.Entrenador;
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
+import Clases.Miembro;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -315,6 +317,28 @@ public class GestorJsonEntrenadores {
 
 
     }
+
+    public void actualizarDatosMiembros(GestionGenericaGimnasio<Miembro> listaMiembros, GestionGenericaGimnasio<Entrenador> listaEntrenadores) {
+        for (Entrenador entrenador : listaEntrenadores.getGestionUsuario().values()) {
+            // Obtiene la lista de miembros asignados
+            List<Miembro> miembrosAsignados = entrenador.getMiembrosAsignados();
+
+            // Recorre la lista de miembros asignados
+            for (int i = 0; i < miembrosAsignados.size(); i++) {
+                Miembro miembroAsignado = miembrosAsignados.get(i);
+
+                // Busca el miembro actualizado en la lista miembros
+                for (Miembro miembroActualizado : listaMiembros.getGestionUsuario().values()) {
+                    if (miembroAsignado.getDocumento().equals(miembroActualizado.getDocumento())) {
+                        // Reemplaza el miembro desactualizado con el actualizado
+                        miembrosAsignados.set(i, miembroActualizado);
+                        break; // Sale del bucle porque ya se encontro el miembro
+                    }
+                }
+            }
+        }
+    }
+
 
 
 }

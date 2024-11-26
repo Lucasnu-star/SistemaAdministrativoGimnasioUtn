@@ -140,7 +140,7 @@ public final class Entrenador extends Empleado {
         } else {
             System.out.println("Lista de miembros asignados al entrenador " + getNombre() + ":");
             for (Miembro miembro : miembrosAsignados) {
-                System.out.println("- Nombre: " + miembro.getNombre() + ", Estado Membresía: "
+                System.out.println("- Nombre: " + miembro.getNombre() + ", Dni: " + miembro.getDocumento()+ ", Estado Membresía: "
                         + miembro.isEstadoMembresia());
             }
         }

@@ -166,12 +166,16 @@ public class MenuMiembros implements iMenu {
                     System.out.println("Ingrese el nombre por el que desea filtrar...");
                     entrada=scanner.nextLine();
                     Recepcionista.filtroPorNombre(listaMiembros,entrada);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 8:
                     System.out.println("Filtrar por documento...");
                     System.out.println("Ingrese el documento por el que desea filtrar...");
                     entrada=scanner.nextLine();
                     Recepcionista.filtroPorDocumento(listaMiembros,entrada);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 9:
                     System.out.println("Filtrando segun estado de membresía...");
@@ -199,6 +203,8 @@ public class MenuMiembros implements iMenu {
                         valor = false;
                     }
                     Recepcionista.miembroFiltroPorEstado(listaMiembros,valor);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 10:
                     System.out.println("Filtrando segun tipo de membresia...");
@@ -226,6 +232,8 @@ public class MenuMiembros implements iMenu {
                         }
                     }
                     Recepcionista.miembroFiltroPorTipo(listaMiembros, tipo[opcion - 1]);
+
+                    Validaciones.esperarTeclaParaContinuar();
                     break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
