@@ -5,7 +5,6 @@ import Clases.Gestoras.GestorJsonMaquinas;
 import Clases.Gestoras.GestorJsonReporte;
 import Clases.Gestoras.Validaciones;
 import Clases.Maquina;
-import Clases.PersonalMantenimiento;
 import Clases.Recepcionista;
 import Clases.Reporte;
 import Enums.eTipoMaquina;
@@ -13,9 +12,16 @@ import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
 
-import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Clase para mostrar el menu de las maquinas.
+ * Te muestra las distintas cosas que podes hacer para gestionar una maquina.
+ * Tiene sus gestores y listas para gestionar los datos que necesita.
+ *
+ *  @version 1
+ */
 public class MenuMaquinas implements iMenu {
 
     private final GestorJsonMaquinas gestorMaq;
@@ -51,9 +57,9 @@ public class MenuMaquinas implements iMenu {
     @Override
     public void mostrarMenu() {
 
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        int opcion;
+        int opcion = -1;
 
         // por si se necesita un string
         String entrada;
@@ -71,8 +77,14 @@ public class MenuMaquinas implements iMenu {
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
 
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                opcion = scanner.nextInt(); // Podría lanzar InputMismatchException
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
+                scanner.nextLine(); // Limpia el buffer del Scanner
+                continue; // Vuelve a mostrar el menú sin avanzar
+            }
 
             Validaciones.limpiarConsola();
 

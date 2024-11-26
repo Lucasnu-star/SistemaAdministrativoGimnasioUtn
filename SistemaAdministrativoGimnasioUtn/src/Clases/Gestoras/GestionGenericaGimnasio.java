@@ -1,11 +1,11 @@
 package Clases.Gestoras;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 /**
- * Clase GestionGimnasio, esta clase tiene el trabajo de gestionar el gimnasio
+ * Clase GestionGimnasio, esta clase tiene el trabajo de gestionar el gimnasio.
+ * Tiene un TreeMap que garantiza con su key que todos los datos seran unicos y ordenados.
+ * Acepta cualquier tipo de dato.
  *
  * @version 1
  */
@@ -43,27 +43,10 @@ public class GestionGenericaGimnasio<T>  {
     }
 
     /**
-     * Metodo para consultar los elementos de un tipo especifico
-     * @param clase;
-     * @return List<T>
-     */
-    public List<T> consultarPorClase(Class<T> clase) {
-        List<T> result = new ArrayList<>();
-        for (T obj : gestionUsuario.values()) {
-            if (clase.isInstance(obj)) {
-                result.add(obj);
-            }
-        }
-        return result;
-    }
-
-
-    /**
      * Metodo para mostrar elementos de la lista, por parametro se le pasa una clave(String)
      * @param clave;
      * @return T;
      */
-
     public T consultar (String clave){
         return gestionUsuario.get(clave);
     }

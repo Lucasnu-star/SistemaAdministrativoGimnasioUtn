@@ -23,15 +23,13 @@ public final class PersonalMantenimiento extends Empleado {
     public PersonalMantenimiento() {
     }
 
-    //ToString
     @Override
     public String toString() {
-        return "PersonalMantenimiento = " + super.toString();
+        final StringBuilder sb = new StringBuilder("\n Empleado de Mantenimiento = "+super.toString());
+        return sb.toString();
     }
 
-
     //Metodos,  Ver metodo de esta clase
-
     public static void arreglarMaquina(Maquina maquina) {
         if (maquina != null) {
             System.out.println("Reparando la máquina: " + maquina.getNombre());
@@ -43,7 +41,7 @@ public final class PersonalMantenimiento extends Empleado {
 
     /**
      * Convertir de un Archivo JSON a un objeto PersonalMantenimiento
-     * @param jsonPersonalM
+     * @param jsonPersonalM;
      */
     public PersonalMantenimiento(JSONObject jsonPersonalM) {
         try{
@@ -65,7 +63,7 @@ public final class PersonalMantenimiento extends Empleado {
 
     /**
      * Metodo para convertir de un objeto a un Archivo JSON
-     * @return
+     * @return jsonObject;
      */
     public JSONObject toJSON(){
         JSONObject jsonObject = null;

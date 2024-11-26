@@ -18,8 +18,8 @@ public class OperacionesLecturaEscritura {
 
     /**
      * Metodo para escribir un archivo
-     * @param nombreArchivo
-     * @param jsonObject
+     * @param nombreArchivo;
+     * @param jsonObject que se va a escribir;
      */
     public static void escribirArchivo(String nombreArchivo, JSONObject jsonObject) {
         try {
@@ -34,8 +34,8 @@ public class OperacionesLecturaEscritura {
 
     /**
      * Metodo para leer un archivo
-     * @param nombreArchivo
-     * @return
+     * @param nombreArchivo;
+     * @return JSONTokener;
      */
     public static JSONTokener leerArchivo(String nombreArchivo) {
         JSONTokener jsonTokener = null;

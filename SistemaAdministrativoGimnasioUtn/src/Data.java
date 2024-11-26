@@ -28,9 +28,9 @@ public class Data {
 
 
         //Creacion instancias Recepcionistas
-        Recepcionista recepcionista1 = new Recepcionista("Carlos", "Pérez", "12345678", LocalDate.of(1990, 5, 15), 5700, "08:00 a 12:00", "Carlos912", "123456789");
-        Recepcionista recepcionista2 = new Recepcionista("Ana", "González", "87654321", LocalDate.of(1985, 12, 5), 4500, "12:00 a 16:00", "AnaGonzalez9", "1205");
-        Recepcionista recepcionista3 = new Recepcionista("Luis", "Martínez", "11223344", LocalDate.of(2000, 7, 22), 3900, "16:00 a 20:00", "LuisMartinez", "2207");
+        Recepcionista recepcionista1 = new Recepcionista("Carlos", "Pérez", "32435456", LocalDate.of(1990, 5, 15), 5700, "08:00 a 12:00", "Carlos912", "123456789");
+        Recepcionista recepcionista2 = new Recepcionista("Ana", "González", "30452389", LocalDate.of(1985, 12, 5), 4500, "12:00 a 16:00", "AnaGonzalez9", "1205");
+        Recepcionista recepcionista3 = new Recepcionista("Luis", "Martínez", "40235326", LocalDate.of(2000, 7, 22), 3900, "16:00 a 20:00", "LuisMartinez10", "2207");
 
         // cargo los recepcionistas
         gimnasio.getGestionRecepcionistas().agregar(recepcionista1.getDocumento(), recepcionista1);
@@ -143,15 +143,15 @@ public class Data {
 
         // Máquinas de espalda
         Maquina maquina13 = new Maquina("remo sentado", eTipoMaquina.ESPALDA, true);
-        Maquina maquina14 = new Maquina("remo horizontal", eTipoMaquina.ESPALDA, true);
+        Maquina maquina14 = new Maquina("remo horizontal", eTipoMaquina.ESPALDA, false);
         Maquina maquina15 = new Maquina("polea alta", eTipoMaquina.ESPALDA, true);
         Maquina maquina16 = new Maquina("dominadas asistidas", eTipoMaquina.ESPALDA, true);
 
         // Máquinas de cardio
-        Maquina maquina17 = new Maquina("cinta para correr", eTipoMaquina.CARDIO, true);
+        Maquina maquina17 = new Maquina("cinta para correr", eTipoMaquina.CARDIO, false);
         Maquina maquina18 = new Maquina("bicicleta estática", eTipoMaquina.CARDIO, true);
         Maquina maquina19 = new Maquina("bicicleta elíptica", eTipoMaquina.CARDIO, true);
-        Maquina maquina20 = new Maquina("escaladora", eTipoMaquina.CARDIO, false);
+        Maquina maquina20 = new Maquina("escaladora", eTipoMaquina.CARDIO, true);
 
         //cargo Maquinas
         gimnasio.getGestionMaquinas().agregar(maquina1.getId(), maquina1);
@@ -181,8 +181,8 @@ public class Data {
 
 
         //Creacion instancias Personal de Mantenimiento
-        PersonalMantenimiento mantenimiento1 = new PersonalMantenimiento("Juan", "Gómez", "100112233", LocalDate.of(1980, 3, 14), 2500, "08:00 - 16:00");
-        PersonalMantenimiento mantenimiento2 = new PersonalMantenimiento("Laura", "Martínez", "223344556", LocalDate.of(1985, 7, 22), 2700, "10:00 - 18:00");
+        PersonalMantenimiento mantenimiento1 = new PersonalMantenimiento("Juan", "Gómez", "27324689", LocalDate.of(1980, 3, 14), 2500, "08:00 - 16:00");
+        PersonalMantenimiento mantenimiento2 = new PersonalMantenimiento("Laura", "Martínez", "30564278", LocalDate.of(1985, 7, 22), 2700, "10:00 - 18:00");
 
         // cargo el personal de mantenimiento
         gimnasio.getGestionPersonalMantenimiento().agregar(mantenimiento1.getDocumento(), mantenimiento1);

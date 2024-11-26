@@ -15,9 +15,7 @@ import java.util.Scanner;
 import Enums.eEspecialidad;
 
 /**
- * Clase Gestora de entrenadores: en esta clase la idea principal era que sea gestora del json, pero
- * le fui agregando metodos de gestios de datos: crear, modificar.
- * asi que o se deja como gestora general, o pasamos los otros metodos (no json) a recepcionista
+ * Clase Gestora de entrenadores: gestiona el json de los entrenadores y sus datos
  *
  * @version 1
  */
@@ -26,7 +24,7 @@ public class GestorJsonEntrenadores {
     // importante para cada gestor
     private static String nombreArchivo;
 
-    //tiene los horarios disponibles, habria que ver un mejor lugar para tenerlo y crealo
+    //tiene los horarios disponibles
     private static ArrayList<String> horarios;
 
 
@@ -39,7 +37,6 @@ public class GestorJsonEntrenadores {
     /**
      * Metodo para cargar Horarios
      */
-    //Ver donde puede ir, poner en data opcion
     public void cargarHorarios(){
         horarios.add("Lunes a sabado: 9-17");
         horarios.add("Lunes a sabado: 10-18");
@@ -53,20 +50,16 @@ public class GestorJsonEntrenadores {
      * @param entrenadores;
      * @return String;
      */
-
-    //Probar hacerlo generico
     public String grabar(GestionGenericaGimnasio<Entrenador> entrenadores){
         OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, entrenadoresToJsonObject(entrenadores));
         return "Se ha escrito el archivo correctamente ";
     }
 
     /**
-     * Este metodo mete el JsonArray dentro de un JsonObject
+     * Este metodo mete una lista dentro de un JsonObject
      * @param entrenadores;
      * @return jsonObject;
      */
-
-    //Probar hacerlo generico
     public JSONObject entrenadoresToJsonObject(GestionGenericaGimnasio<Entrenador> entrenadores){
         JSONObject jsonObject = null;
         try {
@@ -84,7 +77,6 @@ public class GestorJsonEntrenadores {
      * @param entrenadores;
      * @return JsonArray;
      */
-    //Probar hacerlo generico
     public JSONArray TojsonArray(GestionGenericaGimnasio<Entrenador> entrenadores){
         JSONArray jsonArray = null;
         try {
@@ -102,9 +94,8 @@ public class GestorJsonEntrenadores {
 
     /**
      * Este metodo sirve para leer la lista de entrenadores
-     * @return GestionGenericaGimnasio<Entrenador>;
+     * @return lista de entrenadores;
      */
-    //Probar hacerlo generico
     public GestionGenericaGimnasio<Entrenador> leerListaGenericaEntrenadores(){
         JSONTokener jsonTokener = OperacionesLecturaEscritura.leerArchivo(nombreArchivo);
         GestionGenericaGimnasio<Entrenador> entrenadores = null;
@@ -122,9 +113,8 @@ public class GestorJsonEntrenadores {
     /**
      * Este metodo convierte el JsonObject en una lista
      * @param jsonObject;
-     * @return GestionGenericaGimnasio<Entrenador>;
+     * @return lista de entrenadores;
      */
-    //Probar hacerlo generico
     public GestionGenericaGimnasio<Entrenador> JsonObjectToEntrenadores(JSONObject jsonObject){
         GestionGenericaGimnasio<Entrenador> entrenadores = new GestionGenericaGimnasio<>();
 
@@ -146,9 +136,8 @@ public class GestorJsonEntrenadores {
 
     /**
      * Este metodo sirve para crear un entrenador
-     * @return un ojecto Entrenador
+     * @return un entrenador;
      */
-    //Ver para moverlo a recepcionista
     public Entrenador crearEntrenador() {
         Entrenador entrenador = new Entrenador();
         Scanner entrada = new Scanner(System.in);
@@ -214,7 +203,6 @@ public class GestorJsonEntrenadores {
      * Este metodo sirve para mostrar y elegir una especialidad
      * @return una especialidad
      */
-    // Intentar modularizarlo
     public eEspecialidad elegirEspecialidad(Scanner entrada) {
 
         // Mostrar las especialidades disponibles
@@ -252,7 +240,6 @@ public class GestorJsonEntrenadores {
      * Este metodo sirve para modificar un entrenador.
      * @param entrenador;
      */
-    //Ver para moverlo a recepcionista
     public void modificarEntrenador(Entrenador entrenador) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -315,9 +302,14 @@ public class GestorJsonEntrenadores {
             }
         }
 
-
     }
 
+    /**
+     * Este metodo sirve para actualizar los datos de los miembros asignados a cada entrenador.
+     * Si un miembro tuvo alguna modificaciones, se actualizara en la lista del entrenador
+     * @param listaMiembros que tienen las modificaciones;
+     * @param listaEntrenadores que tienen los miembros sin modificar;
+     */
     public void actualizarDatosMiembros(GestionGenericaGimnasio<Miembro> listaMiembros, GestionGenericaGimnasio<Entrenador> listaEntrenadores) {
         for (Entrenador entrenador : listaEntrenadores.getGestionUsuario().values()) {
             // Obtiene la lista de miembros asignados
@@ -338,7 +330,6 @@ public class GestorJsonEntrenadores {
             }
         }
     }
-
 
 
 }

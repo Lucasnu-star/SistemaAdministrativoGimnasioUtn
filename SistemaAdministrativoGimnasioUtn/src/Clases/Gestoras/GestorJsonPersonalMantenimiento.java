@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Clase para gestionar el json del personal de mantenimiento, pero puede convertirse en una clase gestora general
+ * Clase para gestionar el json del personal de mantenimiento y sus datos
  *
  *  @version 1
  */
@@ -20,20 +20,18 @@ import java.util.Scanner;
 public class GestorJsonPersonalMantenimiento  {
     private static String nombreArchivo;
 
-    //tiene los horarios disponibles, habria que ver un mejor lugar para tenerlo y crealo
+    //tiene los horarios disponibles
     private static ArrayList<String> horarios;
 
     public GestorJsonPersonalMantenimiento() {
         nombreArchivo = "personalMantenimiento.json";
         horarios = new ArrayList<>();
         cargarHorarios();
-
     }
 
     /**
      * Metodo para cargar Horarios
      */
-    //Ver donde puede ir, poner en data opcion
     public void cargarHorarios() {
         horarios.add("Lunes a viernes: 7-13");
         horarios.add("Lunes a viernes: 13-19");
@@ -53,12 +51,11 @@ public class GestorJsonPersonalMantenimiento  {
 
 
     /**
-     * Este metodo sirve para meter un JsonArray dentro de un JsonObject
+     * Este metodo sirve para meter una lista dentro de un JsonObject
      *
      * @param personalM;
      * @return JSONObject;
      */
-
     public JSONObject personalMToJsonObject(GestionGenericaGimnasio<PersonalMantenimiento> personalM) {
         JSONObject jsonObject = null;
         try {
@@ -94,7 +91,7 @@ public class GestorJsonPersonalMantenimiento  {
 
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura donde se le pasa por parametro el nombre del archivo
-     * y una lista, para meter la lista pasada por parametro en el Archivo.
+     * y retorna un JsonTokener que se convertira en una lista
      *
      * @return una lista de Personal de Mantenimiento
      */
@@ -118,7 +115,6 @@ public class GestorJsonPersonalMantenimiento  {
      * @param jsonObject;
      * @return una lista de Personal de Mantenimiento
      */
-
     public GestionGenericaGimnasio<PersonalMantenimiento> JsonObjectToPersonalM(JSONObject jsonObject) {
         GestionGenericaGimnasio<PersonalMantenimiento> personalM = new GestionGenericaGimnasio<>();
 
@@ -138,7 +134,10 @@ public class GestorJsonPersonalMantenimiento  {
     }
 
 
-    //Ver para moverlo a recepcionista
+    /**
+     * Este metodo sirve para crear un empleado de mantenimiento
+     * @return un empleado de mantenimiento
+     */
     public PersonalMantenimiento crearEmpleadoMantenimiento() {
         PersonalMantenimiento empleadoM = new PersonalMantenimiento();
 
@@ -164,6 +163,11 @@ public class GestorJsonPersonalMantenimiento  {
         return empleadoM;
     }
 
+    /**
+     * Este metodo sirve para elegir un horario para el empleado de mantenimiento
+     * @param scanner;
+     * @return la opcion elegida;
+     */
     public int elegirHorario (Scanner scanner) {
         System.out.println("Seleccione un horario:");
         for (int i = 0; i < horarios.size(); i++) {
@@ -193,9 +197,8 @@ public class GestorJsonPersonalMantenimiento  {
 
     /**
      * Este metodo sirve para modificar un entrenador.
-     * @param empleadoM;
+     * @param empleadoM a modificar;
      */
-    //Ver para moverlo a recepcionista
     public void modificarEmpladoM(PersonalMantenimiento empleadoM) {
         Scanner scanner = new Scanner(System.in);
         int opcion;

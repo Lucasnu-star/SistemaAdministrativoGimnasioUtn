@@ -8,12 +8,13 @@ import Excepciones.ListaVaciaExcepcion;
 import Excepciones.UsuarioNoEncontradoExcepcion;
 import Interfaces.iMenu;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Clase para mostrar el menu de entrenadores
- * te muestra las distintas cosas que podes hacer para gestionar a un empleado de mantenimiento
- *
+ * Clase para mostrar el menu de entrenadores.
+ * Te muestra las distintas cosas que podes hacer para gestionar a un empleado de mantenimiento
+ * Tiene sus gestores y listas para gestionar los datos que necesita.
  *  @version 1
  */
 
@@ -40,13 +41,14 @@ public class MenuPersonalMantenimiento implements iMenu {
 
         Scanner scanner=new Scanner(System.in);
 
-        int opcion;
+        int opcion = -1;
 
         // por si se necesita un string
         String entrada;
 
         // por si se necesita un empleado de mantenimiento
         PersonalMantenimiento empleadoM = null;
+
         do {
             listaPersonalM = gestorJson.leerListaGenericaPersonalM();
 
@@ -55,8 +57,14 @@ public class MenuPersonalMantenimiento implements iMenu {
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
 
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                opcion = scanner.nextInt(); // Podría lanzar InputMismatchException
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
+                scanner.nextLine(); // Limpia el buffer del Scanner
+                continue; // Vuelve a mostrar el menú sin avanzar
+            }
 
             Validaciones.limpiarConsola();
 

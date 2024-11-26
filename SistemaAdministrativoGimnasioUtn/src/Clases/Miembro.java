@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.time.LocalDate;
 import java.util.Objects;
 /**
- *  Clase Miembro, esta clase representa un Miembro, extiende de Usuario por lo tanto hereda sus atributos, ademas tiene atributos propios como membresia (Membresia),
+ *  Clase Miembro, esta clase representa un Miembro del gimnasio, extiende de Usuario por lo tanto hereda sus atributos, ademas tiene atributos propios como membresia (Membresia),
  *  estadoMembresia(boolean) y fechaInscripcion(LocalDate)
  *
  *  @version 1
@@ -72,7 +72,6 @@ public final class Miembro extends Usuario{
 
     //Equals && HashCode
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,7 +98,7 @@ public final class Miembro extends Usuario{
 
     /**
      * Metodo para convertir de un Archivo Json a un objeto Miembro
-     * @param jsonMiembro
+     * @param jsonMiembro;
      */
     public Miembro(JSONObject jsonMiembro) {
         try{
@@ -124,7 +123,7 @@ public final class Miembro extends Usuario{
 
     /**
      * Metodo para convertir de un Objeto Mimebro a un Archivo Json
-     * @return
+     * @return jsonObject;
      */
     public JSONObject toJSON(){
         JSONObject jsonObject = null;

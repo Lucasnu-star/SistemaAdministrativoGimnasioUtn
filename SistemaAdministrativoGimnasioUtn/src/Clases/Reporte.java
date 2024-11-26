@@ -55,10 +55,9 @@ public class Reporte {
 
     @Override
     public String toString() {
-        return "Reporte{" +
+        return "Reporte = " +
                 "descripcion='" + descripcion + '\'' +
-                ", idMaquina='" + idMaquina + '\'' +
-                '}';
+                ", idMaquina='" + idMaquina + '\'';
     }
 
     /**

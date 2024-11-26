@@ -13,7 +13,6 @@ import java.util.Objects;
 public final class Maquina {
 
     //Atributos
-
     private String id;
     private String nombre;
     private eTipoMaquina tipoMaquina;
@@ -101,6 +100,10 @@ public final class Maquina {
         setEstadoMaquina(true);
     }
 
+    /**
+     * Metodo para convertir de un archivo Json en un objeto Maquina
+     * @param jsonMaquina;
+     */
     public Maquina (JSONObject jsonMaquina){
         try {
             setId(jsonMaquina.getString("id"));
@@ -113,6 +116,10 @@ public final class Maquina {
         }
     }
 
+    /**
+     * Metodo para convertir maquina en un archivo JSON
+     * @return jsonObject;
+     */
     public JSONObject toJSON(){
         JSONObject jsonObject = null;
         try {

@@ -23,7 +23,7 @@ public final class Gimnasio {
     private String nombreGimnasio;
     private String direccionGimnasio;
     private int capacidadGimnasio;
-    
+
     private GestionGenericaGimnasio<Entrenador> gestionEntrenadores;
     private GestionGenericaGimnasio<Miembro> gestionMiembros;
     private GestionGenericaGimnasio<PersonalMantenimiento> gestionPersonalMantenimiento;
@@ -31,7 +31,6 @@ public final class Gimnasio {
     private GestionGenericaGimnasio<Maquina> gestionMaquinas;
     private List<Especialidad> especialidadesGimnasio;
 
-    //Crear un lista de membresias en gimnasio
 
     //Constructores
     public Gimnasio(String nombreGimnasio, int capacidadGimnasio, String direccionGimnasio) {
@@ -144,15 +143,13 @@ public final class Gimnasio {
     }
 
     //ToString
-
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Gimnasio ");
-        sb.append("nombreGimnasio='").append(nombreGimnasio).append('\'');
-        sb.append(", direccionGimnasio='").append(direccionGimnasio).append('\'');
-        sb.append(", capacidadGimnasio=").append(capacidadGimnasio);
-        sb.append("\nEspecialidadesGimnasio=");
+        sb.append("nombre gimnasio='").append(nombreGimnasio).append('\'');
+        sb.append(", direccion gimnasio='").append(direccionGimnasio).append('\'');
+        sb.append(", capacidad gimnasio=").append(capacidadGimnasio);
+        sb.append("\nEspecialidadesGimnasio = ");
         for (Especialidad especialidad : especialidadesGimnasio){
             sb.append(especialidad);
         }
@@ -167,6 +164,10 @@ public final class Gimnasio {
         especialidadesGimnasio.remove(especialidad);
     }
 
+    /**
+     * Metodo para convertir de un archivo Json en un objeto Gimnasio, usa el nombre, direccion, capacidad, y especialidades
+     * @param jsonObjectGimnasio;
+     */
     public Gimnasio (JSONObject jsonObjectGimnasio){
         try {
             setNombreGimnasio(jsonObjectGimnasio.getString("nombre"));
@@ -194,6 +195,10 @@ public final class Gimnasio {
         }
     }
 
+    /**
+     * Metodo para convertir maquina en un archivo JSON, usa el nombre, direccion, capacidad, y especialidades
+     * @return jsonObject;
+     */
     public JSONObject toJSON(){
         JSONObject jsonObject = null;
         try {

@@ -1,6 +1,5 @@
 package Clases.Gestoras;
 
-import Clases.Especialidad;
 import Clases.Gimnasio;
 import Clases.ManejoArchivos.OperacionesLecturaEscritura;
 import org.json.JSONException;
@@ -21,8 +20,7 @@ public class GestorJsonGimnasio {
 
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
-     * y una lista, para meter la lista pasada por parametro en el Archivo.
-     *
+     * y una lista, para meter el gimnasio pasado por parametro en el Archivo.
      * @param gimnasio;
      * @return String;
      */
@@ -52,7 +50,7 @@ public class GestorJsonGimnasio {
     }
 
     /**
-     * Este metodo sirve para modificar un entrenador.
+     * Este metodo sirve para modificar los datos del gimnasio.
      * @param gimnasio;
      */
     public void modificarDatos(Gimnasio gimnasio) {
@@ -92,7 +90,6 @@ public class GestorJsonGimnasio {
                     // Salir
                     salir = true;
                     break;
-
 
                 default:
                     System.out.println("Opción no válida. Intente de nuevo.");

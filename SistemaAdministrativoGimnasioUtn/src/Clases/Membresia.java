@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Objects;
-import Enums.eTipoMembresia;
 
 /**
  * Clase Membresia, esta clase representa una membresia, donde contiene atributos propios, descripcion(String), eTIPOMEMBERSIA eTipoMembresia(Enum) y costoMensual(long)
@@ -79,9 +78,8 @@ public final class Membresia {
 
     /**
      * Metodo para convertir de un archivo Json en un objeto Membresia
-     * @param jsonMembresia
+     * @param jsonMembresia;
      */
-
     public Membresia(JSONObject jsonMembresia) {
         try{
             setDescripcion(jsonMembresia.getString("descripcion"));
@@ -96,7 +94,7 @@ public final class Membresia {
 
     /**
      * Metodo para convertir membresia en un archivo JSON
-     * @return
+     * @return jsonObject;
      */
     public JSONObject toJSON(){
         JSONObject jsonObject = null;

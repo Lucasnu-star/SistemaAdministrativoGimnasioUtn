@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Clase Gestora de recepcionista: gestiona los datos de recepcionistas para convertirlos en json
+ * Clase Gestora de recepcionista: gestiona los datos de recepcionistas para convertirlos
+ * en json y viceversa. Tambien tiene otros metodos para gestionar sus datos.
  *
  * @version 1
  */
@@ -21,7 +22,7 @@ public class GestorJsonRecepcionistas {
 
     private static String nombreArchivo;
 
-    //tiene los horarios disponibles, habria que ver un mejor lugar para tenerlo y crealo
+    //tiene los horarios disponibles
     private static ArrayList<String> horarios;
 
     public GestorJsonRecepcionistas() {
@@ -33,7 +34,6 @@ public class GestorJsonRecepcionistas {
     /**
      * Metodo para cargar Horarios
      */
-    //Ver donde puede ir, poner en data opcion
     public void cargarHorarios() {
         horarios.add("Lunes a viernes: 7-13");
         horarios.add("Lunes a viernes: 13-19");
@@ -42,23 +42,19 @@ public class GestorJsonRecepcionistas {
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
      * y una lista, para meter la lista pasada por parametro en el Archivo.
-     * @param recepcionistas
-     * @return
+     * @param recepcionistas;
+     * @return String;
      */
-
-    //Probar hacerlo generico
     public String grabar(GestionGenericaGimnasio<Recepcionista> recepcionistas){
         OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, RecepcionistasToJsonObject(recepcionistas));
         return "Se ha escrito el archivo correctamente ";
     }
 
     /**
-     * Este metodo mete el JsonArray dentro de un JsonObject
-     * @param recepcionistas
-     * @return
+     * Este metodo mete la lista dentro de un JsonObject
+     * @param recepcionistas;
+     * @return JsonObject;
      */
-
-    //Probar hacerlo generico
     public JSONObject RecepcionistasToJsonObject(GestionGenericaGimnasio<Recepcionista> recepcionistas){
         JSONObject jsonObject = null;
         try {
@@ -73,10 +69,9 @@ public class GestorJsonRecepcionistas {
 
     /**
      * Convierte la lista en un JsonArray
-     * @param recepcionistas
-     * @return
+     * @param recepcionistas;
+     * @return JsonArray;
      */
-    //Probar hacerlo generico
     public JSONArray TojsonArray(GestionGenericaGimnasio<Recepcionista> recepcionistas){
         JSONArray jsonArray = null;
         try {
@@ -94,9 +89,8 @@ public class GestorJsonRecepcionistas {
 
     /**
      * Este metodo sirve para leer la lista de recepcionistas
-     * @return
+     * @return lista de recepcionistas
      */
-    //Probar hacerlo generico
     public GestionGenericaGimnasio<Recepcionista> leerListaGenericaRecepcionistas(){
         JSONTokener jsonTokener = OperacionesLecturaEscritura.leerArchivo(nombreArchivo);
         GestionGenericaGimnasio<Recepcionista> recepcionistas = null;
@@ -113,8 +107,8 @@ public class GestorJsonRecepcionistas {
 
     /**
      * Este metodo convierte el JsonObject en una lista
-     * @param jsonObject
-     * @return
+     * @param jsonObject;
+     * @return lista de recepcionistas
      */
     //Probar hacerlo generico
     public GestionGenericaGimnasio<Recepcionista> JsonObjectToRecepcionistas(JSONObject jsonObject){
@@ -136,7 +130,10 @@ public class GestorJsonRecepcionistas {
     }
 
 
-    //Ver para moverlo a recepcionista
+    /**
+     * Este metodo sirve para crear un recepcionista
+     * @return Recepcionista;
+     */
     public Recepcionista crearRecepcionista() {
         Recepcionista recepcionista = new Recepcionista();
 
@@ -168,6 +165,11 @@ public class GestorJsonRecepcionistas {
         return recepcionista;
     }
 
+    /**
+     * Este metodo sirve para elegir un horario para el recepcionista
+     * @param scanner;
+     * @return la opcion elegida;
+     */
     public int elegirHorario (Scanner scanner) {
         System.out.println("Seleccione un horario:");
         for (int i = 0; i < horarios.size(); i++) {
@@ -195,8 +197,11 @@ public class GestorJsonRecepcionistas {
         return opcion - 1; // Devuelve el índice del horario seleccionado.
     }
 
-
-    //Ver para moverlo a recepcionista
+    /**
+     * Este metodo sirve para modificar un recepcionista
+     * @param recepcionista a modificar
+     *
+     */
     public void modificarRecepcionista(Recepcionista recepcionista) {
         Scanner scanner = new Scanner(System.in);
         int opcion;

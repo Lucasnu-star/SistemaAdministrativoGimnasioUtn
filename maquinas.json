@@ -31,7 +31,7 @@
     },
     {
         "tipoMaquina": "ESPALDA",
-        "estadoMaquina": true,
+        "estadoMaquina": false,
         "id": "14",
         "nombre": "remo horizontal"
     },
@@ -49,7 +49,7 @@
     },
     {
         "tipoMaquina": "CARDIO",
-        "estadoMaquina": true,
+        "estadoMaquina": false,
         "id": "17",
         "nombre": "cinta para correr"
     },
@@ -73,7 +73,7 @@
     },
     {
         "tipoMaquina": "CARDIO",
-        "estadoMaquina": false,
+        "estadoMaquina": true,
         "id": "20",
         "nombre": "escaladora"
     },

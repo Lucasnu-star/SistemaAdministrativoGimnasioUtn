@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- * Clase para gestionar el json de los miembros, pero puede convertirse en una clase gestora general
+ * Clase para gestionar el json de los miembros y sus datos.
  *
  *  @version 1
  */
@@ -38,11 +38,10 @@ public class GestorJsonMiembros {
     }
 
     /**
-     * Este metodo sirve para meter un JsonArray dentro de un JsonObject
+     * Este metodo sirve para meter una lista dentro de un JsonObject
      * @param miembros;
      * @return JSONObject;
      */
-
     public JSONObject miembrosToJsonObject(GestionGenericaGimnasio<Miembro> miembros){
         JSONObject jsonObject = null;
         try {
@@ -77,7 +76,7 @@ public class GestorJsonMiembros {
 
     /**
      * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura donde se le pasa por parametro el nombre del archivo
-     * y una lista, para meter la lista pasada por parametro en el Archivo.
+     * y retorna un JsonTokener que luego se convertira en una lista
      * @return una lista de miembros
      */
     public GestionGenericaGimnasio<Miembro> leerListaGenericaMiembros(){
@@ -99,7 +98,6 @@ public class GestorJsonMiembros {
      * @param jsonObject;
      * @return una lista de miembros
      */
-
     public GestionGenericaGimnasio<Miembro> JsonObjectToMiembros(JSONObject jsonObject){
         GestionGenericaGimnasio<Miembro> miembros = new GestionGenericaGimnasio<>();
 
@@ -122,10 +120,8 @@ public class GestorJsonMiembros {
      * Metodo para crear un miembro
      * @return Miembro;
      */
-    //Ver para moverlo a recepcionista
     public Miembro crearMiembro() {
         Miembro miembro = new Miembro();
-        Membresia membresia = new Membresia();  // Crear instancia de Membresia
         Scanner entrada = new Scanner(System.in);
 
         String nombre = Validaciones.validarCadena("Ingrese el nombre del miembro:", entrada);
@@ -144,6 +140,7 @@ public class GestorJsonMiembros {
 
         miembro.setFechaUltimoPago(LocalDate.now());
 
+        // lee las membresias disponibles
         GestorJsonMembresias gestorJsonMembresia = new GestorJsonMembresias();
         ArrayList<Membresia> membresias = gestorJsonMembresia.leerListaMembresia();
 
@@ -158,7 +155,6 @@ public class GestorJsonMiembros {
      * Este metodo sirve para modificar un miembro
      * @param miembro;
      */
-    //Ver para moverlo a recepcionista
     public void modificarMiembro(Miembro miembro) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -218,6 +214,12 @@ public class GestorJsonMiembros {
         }
     }
 
+    /**
+     * Este metodo sirve para elegir una membresia para el miembro
+     * @param entrada;
+     * @param membresias;
+     * @return la opcion elegida
+     */
     public int elegirMembresia(Scanner entrada, ArrayList<Membresia> membresias) {
         System.out.println("Seleccione una membresía:");
         for (int i = 0; i < membresias.size(); i++) {
@@ -260,8 +262,8 @@ public class GestorJsonMiembros {
     }
 
     /**
-     * Este metodo sirve para actualizar el estado de membresia de todos los miembros
-     * los comparara de acuerdo a la fecha del ultimo pago sumandole un mes con la fecha actual
+     * Este metodo sirve para actualizar el estado de membresia de todos los miembros.
+     * Los comparara de acuerdo a la fecha del ultimo pago sumandole un mes con la fecha actual
      * @param miembros;
      */
     public void actualizarMembresias(GestionGenericaGimnasio<Miembro> miembros){

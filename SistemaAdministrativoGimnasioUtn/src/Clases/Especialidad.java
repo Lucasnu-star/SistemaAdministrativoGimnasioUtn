@@ -1,14 +1,13 @@
 package Clases;
-import Clases.Gestoras.GestionGenericaGimnasio;
+
 import Enums.eEspecialidad;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
- * Esta clase representa una Especialidad, tiene una descripcion(String)  y una eEspecialidad especialidad(Enum)
+ * Esta clase representa una Especialidad del gimnasio, tiene una descripcion(String)  y una eEspecialidad especialidad(Enum)
  *
  * @version 1
  */
@@ -57,34 +56,32 @@ public final class Especialidad {
     }
 
     // ToString
-
-
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("\nEspecialidad ");
+        final StringBuilder sb = new StringBuilder("\nEspecialidad = ");
         sb.append(especialidad);
         sb.append(", descripcion = ").append(descripcion);
         return sb.toString();
     }
 
     /**
-     * Este metodo es para mostrar un entrenador por su especialidad, se le pasa por parametro la especialidad requerida y (Ver porque se le pasa eso, esta bien?)
-     * @param tipo
-     * @param gestionGym
+     * Metodo que pasa este objeto de un Json a un objeto devuelta
+     * @param jsonObject;
      */
-
-    public void mostrarEntrenadorPorEspecialidad(Especialidad tipo, GestionGenericaGimnasio gestionGym) {
-        System.out.println("Entrenadores de la especialidad: " + tipo);
-        List<Entrenador> todosEntrenadores = gestionGym.consultarPorClase(Entrenador.class);
-
-        for (Entrenador entrenador : todosEntrenadores) {
-            if (entrenador.getEspecialidad().equals(tipo.getEspecialidad())) {
-                System.out.println(entrenador);
-            }
+    public Especialidad (JSONObject jsonObject){
+        try {
+            String especialidad = jsonObject.getString("especialidad");
+            setEspecialidad(eEspecialidad.valueOf(especialidad));
+            setDescripcion(jsonObject.getString("descripcion"));
+        }catch (JSONException e){
+            e.printStackTrace();
         }
     }
 
-
+    /**
+     * Metodo para convertir una especialidad en un archivo JSON
+     * @return jsonObject;
+     */
     public JSONObject toJSON (){
         JSONObject jsonObject = null;
         try {
@@ -95,21 +92,6 @@ public final class Especialidad {
             e.printStackTrace();
         }
         return jsonObject;
-    }
-
-
-    /**
-     * Metodo que pasa este objeto de un Json a un objeto devuelta
-     */
-    //Ver si se sigue usando o se va a usar
-    public Especialidad (JSONObject jsonObject){
-        try {
-            String especialidad = jsonObject.getString("especialidad");
-            setEspecialidad(eEspecialidad.valueOf(especialidad));
-            setDescripcion(jsonObject.getString("descripcion"));
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
     }
 
 }

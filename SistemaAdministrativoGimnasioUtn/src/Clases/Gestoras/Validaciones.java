@@ -4,8 +4,18 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Esta clase solo tiene metodos staticos que sirven para que el usuario ingrese datos
+ * y se verifique si son validos
+ */
 public class Validaciones {
 
+    /**
+     * Valida cualquier palabra que se ingrese. Tiene que tener solo letras
+     * @param mensaje lo que imprime antes de ingresar los datos;
+     * @param entrada el scanner;
+     * @return la palabra que fue validada
+     */
     public static String validarCadena(String mensaje, Scanner entrada) {
         String cadena;
         do {
@@ -18,6 +28,12 @@ public class Validaciones {
         } while (true);
     }
 
+    /**
+     * Valida el documento ingresado. Tiene que tener 8 digitos
+     * @param mensaje lo que imprime antes de ingresar los datos;
+     * @param entrada el scanner;
+     * @return el documento que fue validado
+     */
     public static String validarDocumento(String mensaje, Scanner entrada) {
         String documento;
         do {
@@ -30,6 +46,12 @@ public class Validaciones {
         } while (true);
     }
 
+    /**
+     * Valida la fecha ingresada. Tiene que ser de formato YYYY-MM-DD
+      * @param mensaje lo que imprime antes de ingresar los datos;
+     * @param entrada el scanner;
+     * @return la fecha que fue validada
+     */
   public static LocalDate validarFecha(String mensaje, Scanner entrada) {
         do {
             try {
@@ -42,6 +64,12 @@ public class Validaciones {
         } while (true);
     }
 
+    /**
+     * Valida el numero entero que fue ingresado. Tiene que ser positivo
+     * @param mensaje lo que imprime antes de ingresar los datos;
+     * @param entrada el scanner;
+     * @return el numero entero que fue validado
+     */
     public static int validarEntero(String mensaje, Scanner entrada) {
         int numero;
         do {
@@ -58,6 +86,12 @@ public class Validaciones {
         } while (true);
     }
 
+    /**
+     * Valida cualquier string que se ingrese. No tiene que ser vacio. Acepta cualquier simbolo
+     * @param mensaje lo que imprime antes de ingresar los datos;
+     * @param entrada el scanner;
+     * @return el String que fue validado
+     */
     public static String noVacio(String mensaje, Scanner entrada){
         String palabra;
         do {
@@ -70,12 +104,19 @@ public class Validaciones {
         }while (true);
     }
 
+    /**
+     * Este metodo sirve para mover los datos que ya no se quieren mostrar en la consola
+     */
     public static void limpiarConsola() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
 
+    /**
+     * Este metodo sirve para esperar una confirmacion del usuario para continuar, antes de
+     * que la consola sea limpiada
+     */
     public static void esperarTeclaParaContinuar(){
         System.out.println("\nPresione cualquier numero o simbolo para continuar...");
         try {

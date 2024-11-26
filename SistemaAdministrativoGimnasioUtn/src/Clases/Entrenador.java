@@ -132,7 +132,8 @@ public final class Entrenador extends Empleado {
 
     /**
      * Este metodo sirve para consultar los miembros de un entrenador en especifico. Verifica si la lista de miembros del entrenador es null,
-     * si es null lanza un mensaje que no hay miembros en ese entrenador, por otro lado si es distinto a null osea que hay miembros, muestra los miembrois mediante un for each.
+     * si es null lanza un excepcion que no hay miembros en ese entrenador, por otro lado si es distinto a null osea que hay miembros, muestra los miembrois mediante un for each.
+     * @throws ListaVaciaExcepcion;
      */
     public void consultarMiembros() throws ListaVaciaExcepcion{
         if (miembrosAsignados == null || miembrosAsignados.isEmpty()) {
@@ -147,7 +148,7 @@ public final class Entrenador extends Empleado {
     }
 
     /**
-     * Este metodo sirve para agregar un certiciado a un entrandor en especifico, por parameotr le pasamos un certificado (Strign).
+     * Este metodo sirve para agregar un certiciado a un entrandor en especifico, por parametro le pasamos un certificado (String).
      * @param certificado;
      */
     public void agregarCertificado(String certificado) {
@@ -161,8 +162,9 @@ public final class Entrenador extends Empleado {
 
     /**
      * Este metodo sirve para eliminar un miembro de la lista especificada por entrenador, por parametro se le pasa un miembro y verifica por medio del constains si ese miembro
-     * esta, si esta lo remueve, si no lanza un mensaje diciendo que el miembro no fue encontrado.
+     * esta, si esta lo remueve, si no lanza una excepcion diciendo que el miembro no fue encontrado.
      * @param miembro;
+     * @throws UsuarioNoEncontradoExcepcion;
      */
     public String eliminarMiembro(Miembro miembro) throws UsuarioNoEncontradoExcepcion
     {
@@ -184,7 +186,6 @@ public final class Entrenador extends Empleado {
      * Convertir de un Archivo JSON a un objeto Entrenador
      * @param jsonEntrenador;
      */
-
     public Entrenador(JSONObject jsonEntrenador) {
         try{
             setNombre(jsonEntrenador.getString("nombre"));
@@ -235,7 +236,7 @@ public final class Entrenador extends Empleado {
 
 
     /**
-     * Metodo para convertir de un objeto a un Archivo JSON
+     * Metodo para convertir de un Entrenador a un Archivo JSON
      * @return jsonObject;
      */
     public JSONObject toJSON(){

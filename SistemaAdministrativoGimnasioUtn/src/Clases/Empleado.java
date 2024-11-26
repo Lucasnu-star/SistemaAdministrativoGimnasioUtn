@@ -1,7 +1,5 @@
 package Clases;
 
-import org.json.JSONObject;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -24,14 +22,16 @@ public abstract class Empleado  extends Usuario{
         this.salario = salario;
         this.horario = horario;
     }
+
     public Empleado() {
     }
 
-
     //Getters
+
     public int getSalario() {
         return salario;
     }
+
     public String getHorario() {
         return horario;
     }

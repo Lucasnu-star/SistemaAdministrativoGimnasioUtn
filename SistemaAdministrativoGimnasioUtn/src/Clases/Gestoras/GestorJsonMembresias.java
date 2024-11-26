@@ -12,9 +12,7 @@ import org.json.JSONTokener;
 import java.util.ArrayList;
 
 /**
- * Clase Gestora de membresia: en esta clase la idea principal era que sea gestora del json, pero
- * le fui agregando metodos de gestios de datos: crear, modificar.
- * asi que o se deja como gestora general, o pasamos los otros metodos (no json) a recepcionista
+ * Clase Gestora de membresia: gestiona el json de las membresias y sus datos
  *
  * @version 1
  */
@@ -26,12 +24,22 @@ public class GestorJsonMembresias {
         nombreArchivo = "membresias.json";
     }
 
+    /**
+     * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura.escribir donde se le pasa por parametro el nombre del archivo
+     * y una lista, para meter la lista pasada por parametro en el Archivo.
+     * @param membresias;
+     * @return String;
+     */
     public String grabar(ArrayList<Membresia> membresias){
         OperacionesLecturaEscritura.escribirArchivo(nombreArchivo, membresiasToJsonObject(membresias));
         return "Se ha escrito el archivo correctamente ";
     }
 
-    // mete el jsonArray dentro de un jsonObject
+    /**
+     * Este metodo sirve para meter una lista dentro de un JsonObject
+     * @param membresias;
+     * @return JSONObject;
+     */
     public JSONObject membresiasToJsonObject(ArrayList<Membresia> membresias){
         JSONObject jsonObject = null;
         try {
@@ -44,7 +52,11 @@ public class GestorJsonMembresias {
         return jsonObject;
     }
 
-    // convierte la lista en un jsonArray
+    /**
+     * Metodo que pasa de un Object a un JsonArray
+     * @param membresias;
+     * @return JSONArray;
+     */
     public JSONArray TojsonArray(ArrayList<Membresia> membresias){
         JSONArray jsonArray = null;
         try {
@@ -61,8 +73,9 @@ public class GestorJsonMembresias {
     }
 
     /**
-     * Metodo para leer la lista de membresias
-     * @return
+     * Este metodo utiliza un metodo de la clase OperacionesLecturaEscritura donde se le pasa por parametro el nombre del archivo
+     * y retorna un JsonTokener que luego se convertira en una lista
+     * @return una lista de membresias
      */
     public ArrayList<Membresia> leerListaMembresia(){
         JSONTokener jsonTokener = OperacionesLecturaEscritura.leerArchivo(nombreArchivo);
@@ -78,7 +91,11 @@ public class GestorJsonMembresias {
         return lista;
     }
 
-    // convierte el jsonObject a lista
+    /**
+     * Este metodo convierte el JsonObject en una lista
+     * @param jsonObject;
+     * @return una lista de membresias
+     */
     public ArrayList<Membresia> JsonObjectToMembresia(JSONObject jsonObject){
         ArrayList<Membresia> membresias = new ArrayList<>();
 

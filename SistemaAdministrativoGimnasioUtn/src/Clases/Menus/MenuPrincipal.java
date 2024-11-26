@@ -7,16 +7,19 @@ import Clases.Gimnasio;
 import Clases.Recepcionista;
 import Interfaces.iMenu;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 /**
- * Clase para acceder al menu principal
- * te presenta las distintas secciones
+ * Clase para acceder al menu principal.
+ * Te presenta las distintas secciones.
+ * Tiene sus gestores y listas para gestionar los datos que necesita.
  *
  *  @version 1
  */
 public class MenuPrincipal implements iMenu{
+
     private Recepcionista recepcionista;
 
     private final GestorJsonRecepcionistas gestorJson;
@@ -57,6 +60,7 @@ public class MenuPrincipal implements iMenu{
      * verifica si existen, y abre el menu si los datos ingresados son correctos
      */
     public void IniciadoDeSesion() {
+        // lee la lista recepcionistas
         listaRecepcionistas = gestorJson.leerListaGenericaRecepcionistas();
         Scanner scanner = new Scanner(System.in);
 
@@ -94,7 +98,7 @@ public class MenuPrincipal implements iMenu{
         // unico scanner
         Scanner scanner = new Scanner(System.in);
 
-        int opcion;
+        int opcion = -1;
         System.out.println("Iniciaste sesión...");
 
         do {
@@ -104,7 +108,14 @@ public class MenuPrincipal implements iMenu{
             // Muestra las opciones
             System.out.println(mostrarInterfaz());
 
-            opcion = scanner.nextInt();
+            try {
+                opcion = scanner.nextInt(); // Podría lanzar InputMismatchException
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
+                scanner.nextLine(); // Limpia el buffer del Scanner
+                continue; // Vuelve a mostrar el menú sin avanzar
+            }
 
             Validaciones.limpiarConsola();
 
@@ -114,30 +125,35 @@ public class MenuPrincipal implements iMenu{
                     MenuEntrenadores entr = new MenuEntrenadores();
                     entr.mostrarMenu();
                     Validaciones.limpiarConsola();
+
                     break;
                 case 2:
                     // Llamar miembros
                     MenuMiembros miem = new MenuMiembros();
                     miem.mostrarMenu();
                     Validaciones.limpiarConsola();
+
                     break;
                 case 3:
                     // Llamar personal de mantenimiento
                     MenuPersonalMantenimiento pers = new MenuPersonalMantenimiento();
                     pers.mostrarMenu();
                     Validaciones.limpiarConsola();
+
                     break;
                 case 4:
                     //Carga los datos del gimnasio desde el archivo y los muestra
                     MenuMaquinas maq = new MenuMaquinas();
                     maq.mostrarMenu();
                     Validaciones.limpiarConsola();
+
                     break;
 
                 case 5:
                     System.out.println("Perfil: \n"+recepcionista);
                     Validaciones.esperarTeclaParaContinuar();
                     Validaciones.limpiarConsola();
+
                     break;
                 case 6:
                     System.out.println("Modificar perfil ");
@@ -152,6 +168,7 @@ public class MenuPrincipal implements iMenu{
                     System.out.println(gimnasio);
                     Validaciones.esperarTeclaParaContinuar();
                     Validaciones.limpiarConsola();
+
                     break;
                 case 8:
                     System.out.println("Modificar datos del gimnasio ");
@@ -159,6 +176,7 @@ public class MenuPrincipal implements iMenu{
 
                     gestorGimnasio.grabar(gimnasio);
                     Validaciones.limpiarConsola();
+
                     break;
                 case 9:
                     System.out.println("Agregar recepcionista ");
@@ -167,6 +185,7 @@ public class MenuPrincipal implements iMenu{
 
                     gestorJson.grabar(listaRecepcionistas);
                     Validaciones.limpiarConsola();
+
                     break;
                 case 0:
                     System.out.println("¡Nos vemos! cerrando programa...");
